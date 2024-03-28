@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -32,6 +33,7 @@ module.exports = {
     new HtmlWebpackPlugin({ // html 파일을 자동으로 생성
       template: './public/index.html',
     }),
+    new Dotenv()
   ],
   devtool: 'inline-source-map', // devtool: 소스맵 생성 방식 설정
   devServer: { // devServer: 코드가 변경될 때 마다 자동으로 컴파일하는 옵션
