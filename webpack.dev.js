@@ -8,12 +8,5 @@ module.exports = merge(common, {
     historyApiFallback: true,
     port: 3000,
     hot: true,
-    proxy: [
-      {
-        context: ['/ttb/api'], // 클라이언트에서 /ttb/api로 시작하는 모든 요청을
-        target: 'http://www.aladin.co.kr', // 여기로 프록시해라
-        changeOrigin: true, // 헤더의 host 값을 대상 서버의 호스트로 변경하는 옵션 (defualt: false)
-      },
-    ],
   },
 });
