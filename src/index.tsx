@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 import './tailwind.css';
 
 const queryClient = new QueryClient();
@@ -13,10 +14,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
