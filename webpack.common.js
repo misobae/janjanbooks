@@ -26,7 +26,11 @@ module.exports = {
         test: /.css?$/,
         exclude: [],
         use: ['style-loader', 'css-loader', 'postcss-loader'],
-      }
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'file-loader'],
+      },
     ],
   },
   plugins: [ // 최종 output을 변경해주는 도구
