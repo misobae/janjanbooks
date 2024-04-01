@@ -9,4 +9,10 @@
 		font-weight: 400;
 		color: #000;
 	}
+
+	.layout {
+		width: 90%;
+		max-width: 1200px;
+		margin: 40px auto;
+	}
 }
