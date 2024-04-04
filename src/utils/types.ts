@@ -7,7 +7,7 @@ export interface IBooksData {
 }
 
 export interface IBookReview {
-  id: number;
+  id: string | undefined;
   cat: string;
   img: string;
   title: string;

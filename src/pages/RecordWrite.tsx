@@ -41,7 +41,7 @@ function RecordWrite() {
             className="text-blue-600 text-sm"
             onClick={() => {
               updateBookReviewState({
-                id: Date.now(),
+                id: bookData.isbn,
                 cat: cat,
                 img: bookData.thumbnail,
                 title: bookData.title,
