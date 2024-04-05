@@ -5,6 +5,7 @@ import { IBooksData } from "../utils/types";
 import { fetchData } from "../api/fetchBooksData";
 import HeaderSearch from "../components/layout/HeaderSearch";
 import BookList from "../components/BookList";
+import BtnBack from "../components/common/BtnBack";
 
 function Result() {
   const searchedWord = useRecoilValue(searchedWordState);
@@ -16,7 +17,9 @@ function Result() {
 
   return (
     <>
-      <HeaderSearch text="기록할 책이 있으세요?" />
+      <HeaderSearch text="기록할 책이 있으세요?">
+        <BtnBack />
+      </HeaderSearch>
       <div className="layout">
         {data && data.length > 0 ? (
           <p className="text-sm">
