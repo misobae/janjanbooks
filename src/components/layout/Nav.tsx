@@ -20,13 +20,13 @@ function Nav() {
           <span className="text-white text-sm text-center">홈</span>
         </div>
       </Link>
-      <Link to="/recordList">
+      <Link to="/record">
         <div className="flex flex-col items-center gap-1.5">
           <img className="w-5" src={imgBooks} alt="책 아이콘" />
           <span className="text-white text-sm text-center">서재</span>
         </div>
       </Link>
-      <Link to="/recordWrite">
+      <Link to="/search">
         <div className="flex flex-col items-center gap-1.5">
           <img className="w-5" src={imgRecord} alt="펜 아이콘" />
           <span className="text-white text-sm text-center">기록</span>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { bookDataState, bookReviewState } from "../state/atoms";
 
@@ -16,22 +16,20 @@ import IconDel from "../assets/images/icon_delete.svg"
 function RecordView() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('id');
-
   const bookData = useRecoilValue(bookDataState);
+  
+  const { id } = useParams(); 
   const [bookReviews, setBookReviews] = useRecoilState(bookReviewState);
   const data = bookReviews.find(review => String(review.id) === id);
   
   const deleteReview = () => {
     setBookReviews(reviews => reviews.filter(review => review.id !== id));
     alert('삭제되었습니다.');
-    navigate('/recordList');
+    navigate('/record');
   }
 
   const moveToUpdate = () => {
-    navigate(`/recordUpdate?id=${id}`);
+    navigate(`/record/update/${id}`);
 }
 
   const openModal = () => {

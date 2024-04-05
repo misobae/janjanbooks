@@ -3,13 +3,13 @@ import { useSetRecoilState } from "recoil";
 import { bookDataState } from "../state/atoms";
 import { IBooksData } from "../utils/types";
 
-function BookList({thumbnail, title, authors, publisher}: IBooksData) {
+function BookList({thumbnail, title, authors, publisher, isbn}: IBooksData) {
   const setBookData = useSetRecoilState(bookDataState);
   const navigate = useNavigate();
 
   const onBoxClicked = async () => {
-    await setBookData({ thumbnail, title, authors, publisher });
-    navigate(`/recordWrite?title=${title}`);
+    await setBookData({ thumbnail, title, authors, publisher, isbn });
+    navigate(`/record/write/${isbn}`);
   };
 
   return (

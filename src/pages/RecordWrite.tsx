@@ -16,7 +16,7 @@ function RecordWrite() {
 
   const navigate = useNavigate();
   const moveToViewPage = (data: IBookReview) => {
-    navigate(`/recordView?id=${data.id}`);
+    navigate(`/record/${data.id}`);
   }
   const updateBookReviewState = useRecoilCallback(
     ({ set }) =>

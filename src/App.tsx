@@ -4,8 +4,9 @@ import NotFound from "./pages/NotFound";
 import RecordView from "./pages/RecordView";
 import RecordList from "./pages/RecordList";
 import RecordWrite from "./pages/RecordWrite";
+import RecordUpdate from "./pages/RecordUpdate";
 import Statistics from "./pages/Statistics";
-import Result from "./pages/Result";
+import Search from "./pages/Search";
 
 function App() {
   const location = useLocation();
@@ -13,11 +14,12 @@ function App() {
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={ <Home /> } />
-      <Route path="/recordView" element={ <RecordView /> } />
-      <Route path="/recordList" element={ <RecordList /> } />
-      <Route path="/recordWrite" element={ <RecordWrite /> } />
+      <Route path="/record" element={ <RecordList /> } />
+      <Route path="/record/:id" element={ <RecordView /> } />
+      <Route path="/record/write/:id" element={ <RecordWrite /> } />
+      <Route path="/record/update/:id" element={ <RecordUpdate /> } />
       <Route path="/statistics" element={ <Statistics /> } />
-      <Route path="/result" element={ <Result /> } />
+      <Route path="/search" element={ <Search /> } />
       <Route path="/*" element={ <NotFound /> } />
     </Routes>
   );
