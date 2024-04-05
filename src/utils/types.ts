@@ -1,4 +1,5 @@
 export interface IBooksData {
+  id?: string;
   isbn?: string;
   thumbnail: string;
   title: string;
