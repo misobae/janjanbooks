@@ -1,8 +1,12 @@
 import IconEdit from "../../assets/images/icon_menu.svg"
 
-function BtnEdit() {
+interface BtnEditProps {
+  openModal: () => void;
+}
+
+function BtnEdit({ openModal }: BtnEditProps) {
   return (
-    <button>
+    <button onClick={openModal} className="px-5">
       <img src={IconEdit} />
     </button>
   )
