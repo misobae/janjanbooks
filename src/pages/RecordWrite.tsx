@@ -22,6 +22,7 @@ function RecordWrite() {
     ({ set }) =>
       (newReview: IBookReview) => {
         set(bookReviewState, (prevReviews) => [...prevReviews, newReview]);
+        alert('등록되었습니다.');
         moveToViewPage(newReview);
       }, [moveToViewPage]
   );
