@@ -24,3 +24,9 @@ export const bookReviewState = atom<IBookReview[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const selectedReviewState = atom<IBookReview[]>({
+  key: 'selectedReviewState',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
