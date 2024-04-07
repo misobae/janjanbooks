@@ -1,16 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { bookDataState } from "../state/atoms";
-import { IBooksData } from "../utils/types";
+interface BookListProps {
+  thumbnail: string;
+  title: string;
+  authors: string[];
+  publisher: string;
+  isbn?: string;
+  onBoxClicked: () => void;
+}
 
-function BookList({thumbnail, title, authors, publisher, isbn}: IBooksData) {
-  const setBookData = useSetRecoilState(bookDataState);
-  const navigate = useNavigate();
-
-  const onBoxClicked = async () => {
-    await setBookData({ thumbnail, title, authors, publisher, isbn });
-    navigate(`/record/write/${isbn}`);
-  };
+function BookList({thumbnail, title, authors, publisher, onBoxClicked}: BookListProps) {
 
   return (
     <div

@@ -1,6 +1,7 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { searchedWordState } from "../state/atoms";
+import { bookDataState, searchedWordState } from "../state/atoms";
 import { IBooksData } from "../utils/types";
 import { fetchData } from "../api/fetchBooksData";
 
@@ -10,12 +11,19 @@ import BtnBack from "../components/common/BtnBack";
 import SearchFrom from "../components/SearchForm";
 
 function Result() {
+  const setBookData = useSetRecoilState(bookDataState);
+  const navigate = useNavigate();
   const searchedWord = useRecoilValue(searchedWordState);
   const { data, isLoading } = useQuery({
     queryKey: ['searchData', searchedWord],
     queryFn: () => fetchData(searchedWord),
     enabled: !!searchedWord,
   });
+
+  const onBoxClicked = ({ thumbnail, title, authors, publisher, isbn }: IBooksData) => {
+    setBookData({ thumbnail, title, authors, publisher, isbn });
+    navigate(`/record/write/${isbn}`);
+  };
 
   return (
     <>
@@ -34,7 +42,7 @@ function Result() {
               data.map((item: IBooksData) => (
                 <div key={item.isbn}>
                   <BookList
-                    isbn={item.isbn}
+                    onBoxClicked={() => onBoxClicked(item)}
                     thumbnail={item.thumbnail}
                     title={item.title}
                     authors={item.authors}
