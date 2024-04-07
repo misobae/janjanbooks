@@ -2,6 +2,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { searchWordState, searchedWordState } from "../state/atoms";
 import imgSearch from "../assets/images/icon_search.svg";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SearchFrom() {
   const [searchWord, setSearchWord] = useRecoilState(searchWordState);
@@ -12,9 +13,11 @@ function SearchFrom() {
     inputRef.current?.focus();
   }, []);
 
+  const navigate = useNavigate();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    navigate(`/search`);
     setSearchedWord(searchWord);
     setSearchWord("");
   };

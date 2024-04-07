@@ -3,9 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { searchedWordState } from "../state/atoms";
 import { IBooksData } from "../utils/types";
 import { fetchData } from "../api/fetchBooksData";
-import HeaderSearch from "../components/layout/HeaderSearch";
+
+import Header from "../components/layout/Header";
 import BookList from "../components/BookList";
 import BtnBack from "../components/common/BtnBack";
+import SearchFrom from "../components/SearchForm";
 
 function Result() {
   const searchedWord = useRecoilValue(searchedWordState);
@@ -17,9 +19,7 @@ function Result() {
 
   return (
     <>
-      <HeaderSearch text="기록할 책이 있으세요?">
-        <BtnBack />
-      </HeaderSearch>
+      <Header text="기록할 책이 있으세요?" btnBack={<BtnBack />} searchForm={<SearchFrom />} />
       <div className="layout">
         {data && data.length > 0 ? (
           <p className="text-sm">
