@@ -36,7 +36,7 @@ function RecordWrite() {
         p-3 px-5
         bg-black
       ">
-        <BtnBack />
+        <BtnBack path="/search" />
         {bookData && (
           <button
             className="text-blue-600 text-sm"
