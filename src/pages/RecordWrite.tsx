@@ -9,7 +9,7 @@ import ProgressTracker from "../components/record/ProgressTracker";
 
 function RecordWrite() {
   const bookData = useRecoilValue(bookDataState);
-  const [cat, setCat] = useState<string>("");
+  const [cat, setCat] = useState<string>("read");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [review, setReview] = useState<string>("");
