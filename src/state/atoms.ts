@@ -30,3 +30,13 @@ export const selectedReviewState = atom<IBookReview[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const searchedReviewWordState = atom({
+  key: 'searchedReviewWordState',
+  default: '',
+});
+
+export const searchedReviewState = atom<IBookReview[]>({
+  key: 'searchedReviewState',
+  default: [],
+});

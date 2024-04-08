@@ -4,15 +4,15 @@ import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 import { bookDataState, bookReviewState, selectedReviewState } from "../state/atoms";
 import { IBookReview } from "../utils/types";
 
-import HeaderSearch from "../components/layout/HeaderSearch";
 import Header from "../components/layout/Header";
 import Nav from "../components/layout/Nav";
 import NoBook from "../components/NoBook";
+import SearchRecordForm from "../components/record/SearchRecordForm";
 import TabBtn from "../components/record/TabBtn";
 import SortBtn from "../components/record/SortBtn";
 
 function RecordList() {
-  const [activeTab, setActiveTab] = useState<string>("all"); 
+  const [activeTab, setActiveTab] = useState<string>("all");
   const bookReviews = useRecoilValue(bookReviewState);
   const [filteredReviews, setFilteredReviews] = useRecoilState(selectedReviewState);
 
@@ -24,7 +24,6 @@ function RecordList() {
     navigate(`/record/${id}`);
   }, [navigate]);
 
-
   useEffect(() => {
     // 페이지 리로드시 전체 리뷰로 세팅
     setFilteredReviews(bookReviews);
@@ -33,7 +32,7 @@ function RecordList() {
   return (
     <>
       {bookReviews.length > 0 ? (
-        <HeaderSearch text="서재" />
+        <Header text="서재" searchForm={<SearchRecordForm />} />
       ) : (
         <Header text={`서재에 기록된 책이 없어요.
         좋아하는 책을 기록해 보세요.
