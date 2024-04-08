@@ -1,18 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, To } from "react-router-dom";
 import IconBack from "../../assets/images/icon_arrow.svg"
 
 interface BtnBackProps {
-  path: string;
+  path: string | number;
 }
+
 function BtnBack({ path }: BtnBackProps) {
   const navigate = useNavigate();
 
-  function handleGoBack() {
-    navigate(path);
-  }
+  const handleMoveTo = () => {
+    if (typeof path === 'string') {
+      navigate(path as To);
+    } else {
+      navigate(path);
+    }
+  };
 
   return (
-    <button onClick={handleGoBack}>
+    <button onClick={handleMoveTo}>
       <img src={IconBack} />
     </button>
   )

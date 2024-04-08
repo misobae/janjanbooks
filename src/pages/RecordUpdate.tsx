@@ -62,7 +62,7 @@ function RecordUpdate() {
         p-3 px-5
         bg-black
       ">
-        <BtnBack path="-1" />
+        <BtnBack path={-1} />
         {data && (
           <button
             className="text-blue-600 text-sm"

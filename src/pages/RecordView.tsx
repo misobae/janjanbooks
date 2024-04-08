@@ -9,6 +9,7 @@ import BookInfoBox from "../components/record/BookInfoBox";
 import ProgressLabel from "../components/record/ProgressLabel";
 import ReadingPeriod from "../components/record/ReadingPeriod";
 import Modal from "../components/common/Modal";
+import BtnBack from "../components/common/BtnBack";
 
 import IconEdit from "../assets/images/icon_edit_gr.svg"
 import IconDel from "../assets/images/icon_delete.svg"
@@ -59,12 +60,13 @@ function RecordView() {
   return (
     <>
       <div className="
-        flex justify-end items-center
+        flex justify-between items-center
         fixed top-0 left-0 z-10
         w-full
         p-3 px-5 pr-0
         bg-black
       ">
+        <BtnBack path={-1} />
         <BtnEdit openModal={openModal} />
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
