@@ -110,8 +110,8 @@ function RecordView() {
         />
       </div>
 
-      <div className="px-6 py-8 mb-20 break-keep">
-        {data.review}
+      <div className="layout px-4 py-6 mb-40 bg-gray-100">
+        <p className="whitespace-pre-line text-sm">{data.review}</p>
       </div>
 
       <Nav />
