@@ -7,7 +7,7 @@ import { IBookReview } from "../utils/types";
 import Header from "../components/layout/Header";
 import Nav from "../components/layout/Nav";
 import NoBook from "../components/NoBook";
-import SearchRecordForm from "../components/record/SearchRecordForm";
+import RecordSearchBox from "../components/record/RecordSearchBox";
 import TabBtn from "../components/record/TabBtn";
 import SortBtn from "../components/record/SortBtn";
 
@@ -32,7 +32,7 @@ function RecordList() {
   return (
     <>
       {bookReviews.length > 0 ? (
-        <Header text="서재" searchForm={<SearchRecordForm />} />
+        <Header text="서재" searchForm={<RecordSearchBox />} />
       ) : (
         <Header text={`서재에 기록된 책이 없어요.
         좋아하는 책을 기록해 보세요.

@@ -5,7 +5,7 @@ import { bookReviewState, searchedReviewState, searchedReviewWordState } from ".
 
 import imgSearch from "../../assets/images/icon_search.svg";
 
-function SearchRecordForm() {
+function RecordSearchBox() {
   const location = useLocation();
   const bookReviews = useRecoilValue(bookReviewState);
   const setSearchedReviews = useSetRecoilState(searchedReviewState);
@@ -62,4 +62,4 @@ function SearchRecordForm() {
   )
 }
 
-export default SearchRecordForm;
+export default RecordSearchBox;

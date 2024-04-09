@@ -5,7 +5,7 @@ import { IBookReview } from "../utils/types";
 
 import Header from "../components/layout/Header";
 import BtnBack from "../components/common/BtnBack";
-import SearchRecordForm from "../components/record/SearchRecordForm";
+import RecordSearchBox from "../components/record/RecordSearchBox";
 import BookList from "../components/BookList";
 
 function RecordSearch() {
@@ -21,7 +21,7 @@ function RecordSearch() {
   
   return (
     <>
-      <Header text="서재 검색" btnBack={<BtnBack path="/record" />} searchForm={<SearchRecordForm />} />
+      <Header text="서재 검색" btnBack={<BtnBack path="/record" />} searchForm={<RecordSearchBox />} />
       <div className="layout">
         {searchedReviews && searchedReviews.length > 0 ? (
           <>
