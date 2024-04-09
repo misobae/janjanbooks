@@ -27,7 +27,7 @@ function Result() {
 
   return (
     <>
-      <Header text="기록할 책이 있으세요?" btnBack={<BtnBack path="/" />} searchForm={<SearchFrom />} />
+      <Header text="기록할 책이 있으세요?" btnBack={<BtnBack path={-1} />} searchForm={<SearchFrom />} />
       <div className="layout">
         {data && data.length > 0 ? (
           <p className="text-sm">
