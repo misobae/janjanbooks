@@ -1,11 +1,13 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { searchWordState, searchedWordState } from "../state/atoms";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { searchedWordState } from "../state/atoms";
+
 import imgSearch from "../assets/images/icon_search.svg";
-import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
 function SearchFrom() {
-  const [searchWord, setSearchWord] = useRecoilState(searchWordState);
+  const location = useLocation();
+  const [searchWord, setSearchWord] = useState('');
   const setSearchedWord = useSetRecoilState(searchedWordState);
   
   const inputRef = useRef<HTMLInputElement>(null);
@@ -14,10 +16,13 @@ function SearchFrom() {
   }, []);
 
   const navigate = useNavigate();
-
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate(`/search`);
+
+    if (location.pathname !== '/search') {
+      navigate(`/search`);
+    }
+    
     setSearchedWord(searchWord);
     setSearchWord("");
   };

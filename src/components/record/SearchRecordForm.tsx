@@ -1,39 +1,45 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { bookReviewState, searchedReviewState, searchedReviewWordState } from "../../state/atoms";
 
 import imgSearch from "../../assets/images/icon_search.svg";
-import useDebounce from "../../hooks/useDebounce";
 
 function SearchRecordForm() {
+  const location = useLocation();
   const bookReviews = useRecoilValue(bookReviewState);
-  const [searchedWord, setSearchedWord] = useRecoilState(searchedReviewWordState);
   const setSearchedReviews = useSetRecoilState(searchedReviewState);
+  const [searchWord, setSearchWord] = useState('');
+  const [searchedWord, setSearchedWord] = useRecoilState(searchedReviewWordState);
+  
   const navigate = useNavigate();
-  const debouncedSearchedWord = useDebounce(searchedWord, 500); 
-
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate('/record/search');
+
+    if (location.pathname !== '/record/search') {
+      navigate('/record/search');
+    }
+
+    setSearchedWord(searchWord);
+    setSearchWord("");
   };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchedWord(e.target.value);
+    setSearchWord(e.target.value);
   };
 
   useEffect(() => {
     const selectedReviews = bookReviews.filter((review) => {
       const authorMatch = review.authors.some((author) =>
-        author.toLowerCase().includes(debouncedSearchedWord.toLowerCase())
+        author.toLowerCase().includes(searchedWord.toLowerCase())
       );
       return (
-        review.title.toLowerCase().includes(debouncedSearchedWord.toLowerCase()) ||
+        review.title.toLowerCase().includes(searchedWord.toLowerCase()) ||
         authorMatch
       );
     });
     setSearchedReviews(selectedReviews);
-  }, [debouncedSearchedWord, bookReviews, setSearchedReviews]);
+  }, [searchedWord]);
 
   return (
     <form
@@ -43,7 +49,7 @@ function SearchRecordForm() {
       <input
         type="text"
         placeholder="기록한 책의 제목 또는 작가를 입력해 주세요."
-        value={searchedWord}
+        value={searchWord}
         onChange={handleInputChange}
         className="w-full pl-10 pr-4 py-2.5 rounded-3xl text-sm"
       />
