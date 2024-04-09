@@ -4,11 +4,6 @@ import { IBooksData, IBookReview } from "../utils/types";
 
 const { persistAtom } = recoilPersist();
 
-export const searchWordState = atom({
-  key: 'searchWordState',
-  default: '',
-});
-
 export const searchedWordState = atom({
   key: 'searchedWordState',
   default: '',
