@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+
+import NavItem from "./NavItem";
+
 import imgHome from "../../assets/images/icon_home.svg";
 import imgBooks from "../../assets/images/icon_books.svg";
 import imgRecord from "../../assets/images/icon_edit_wh.svg";
@@ -15,28 +18,32 @@ function Nav() {
       rounded-t-3xl
     ">
       <Link to="/">
-        <div className="flex flex-col items-center gap-1.5">
-          <img className="w-5" src={imgHome} alt="홈 아이콘" />
-          <span className="text-white text-sm text-center">홈</span>
-        </div>
+        <NavItem
+          menuTitle="홈"
+          path="/"
+          img={imgHome}
+        />
       </Link>
       <Link to="/record">
-        <div className="flex flex-col items-center gap-1.5">
-          <img className="w-5" src={imgBooks} alt="책 아이콘" />
-          <span className="text-white text-sm text-center">서재</span>
-        </div>
+        <NavItem
+          menuTitle="서재"
+          path="/record/*"
+          img={imgBooks}
+        />
       </Link>
       <Link to="/search">
-        <div className="flex flex-col items-center gap-1.5">
-          <img className="w-5" src={imgRecord} alt="펜 아이콘" />
-          <span className="text-white text-sm text-center">기록</span>
-        </div>
+        <NavItem
+          menuTitle="기록"
+          path="/search"
+          img={imgRecord}
+        />
       </Link>
       <Link to="/statistics">
-        <div className="flex flex-col items-center gap-1.5">
-          <img className="w-5" src={imgStat} alt="차트 아이콘" />
-          <span className="text-white text-sm text-center">통계</span>
-        </div>
+        <NavItem
+          menuTitle="통계"
+          path="/statistics"
+          img={imgStat}
+        />
       </Link>
     </nav>
   )
