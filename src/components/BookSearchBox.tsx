@@ -5,7 +5,7 @@ import { searchedWordState } from "../state/atoms";
 
 import imgSearch from "../assets/images/icon_search.svg";
 
-function SearchFrom() {
+function BookSearchBox() {
   const location = useLocation();
   const [searchWord, setSearchWord] = useState('');
   const setSearchedWord = useSetRecoilState(searchedWordState);
@@ -53,4 +53,4 @@ function SearchFrom() {
   )
 }
 
-export default SearchFrom;
+export default BookSearchBox;

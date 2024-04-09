@@ -8,7 +8,7 @@ import { fetchData } from "../api/fetchBooksData";
 import Header from "../components/layout/Header";
 import BookList from "../components/BookList";
 import BtnBack from "../components/common/BtnBack";
-import SearchFrom from "../components/SearchForm";
+import BookSearchBox from "../components/BookSearchBox";
 
 function Result() {
   const setBookData = useSetRecoilState(bookDataState);
@@ -27,7 +27,7 @@ function Result() {
 
   return (
     <>
-      <Header text="기록할 책이 있으세요?" btnBack={<BtnBack path={-1} />} searchForm={<SearchFrom />} />
+      <Header text="기록할 책이 있으세요?" btnBack={<BtnBack path={-1} />} searchForm={<BookSearchBox />} />
       <div className="layout">
         {data && data.length > 0 ? (
           <p className="text-sm">

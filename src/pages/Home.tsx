@@ -5,7 +5,7 @@ import Header from "../components/layout/Header";
 import Nav from "../components/layout/Nav";
 import NoBook from "../components/NoBook";
 import ReadStateList from "../components/home/ReadStateList";
-import SearchFrom from "../components/SearchForm";
+import BookSearchBox from "../components/BookSearchBox";
 
 function Home() {
   const bookReview = useRecoilValue(bookReviewState);
@@ -16,7 +16,7 @@ function Home() {
   return (
     <>
       {bookReview.length > 0 ? (
-        <Header text={`기록할 책이 있으세요?`} searchForm={<SearchFrom />} />
+        <Header text={`기록할 책이 있으세요?`} searchForm={<BookSearchBox />} />
       ) : (
         <Header text={`아직 기록된 책이 없어요.
           좋아하는 책을 검색해 보세요.
