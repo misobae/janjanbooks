@@ -4,6 +4,7 @@ import { useRecoilCallback, useRecoilValue } from "recoil";
 import { bookDataState, bookReviewState } from "../state/atoms";
 import { IBookReview } from "../utils/types";
 
+import Toast, { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
 import ProgressTracker from "../components/record/ProgressTracker";
 
@@ -17,15 +18,24 @@ function RecordWrite() {
   const navigate = useNavigate();
   const moveToViewPage = (data: IBookReview) => {
     navigate(`/record/${data.id}`);
-  }
+  };
+
   const updateBookReviewState = useRecoilCallback(
-    ({ set }) =>
-      (newReview: IBookReview) => {
-        set(bookReviewState, (prevReviews) => [...prevReviews, newReview]);
-        alert('등록되었습니다.');
-        moveToViewPage(newReview);
-      }, [moveToViewPage]
+    ({ set }) => (newReview: IBookReview) => {
+      set(bookReviewState, (prevReviews) => [...prevReviews, newReview]);
+      moveToViewPage(newReview);
+    }, [moveToViewPage]
   );
+
+  const handleSaveBtnClick = async (newReview: IBookReview) => {
+    try {
+      await updateBookReviewState(newReview);
+      notify({ type: "default", text: "새로운 기록이 저장되었습니다." });
+    } catch (error) {
+      console.error(error);
+      notify({ type: "error", text: "다시 시도해 주세요." });
+    }
+  };
 
   return (
     <>
@@ -41,7 +51,7 @@ function RecordWrite() {
           <button
             className="text-blue-600 text-sm"
             onClick={() => {
-              updateBookReviewState({
+              handleSaveBtnClick({
                 id: bookData.isbn,
                 cat: cat,
                 img: bookData.thumbnail,
@@ -68,6 +78,7 @@ function RecordWrite() {
         setEndDate={setEndDate} 
         setReview={setReview}
       />
+      <Toast />
     </>
   )
 };

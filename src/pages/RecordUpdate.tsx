@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 import { IBookReview } from "../utils/types";
 import { bookReviewState } from "../state/atoms";
 
+import Toast, { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
 import ProgressTracker from "../components/record/ProgressTracker";
-import { useNavigate, useParams } from "react-router-dom";
 
 function RecordUpdate() {
   const { id } = useParams(); 
@@ -18,40 +19,43 @@ function RecordUpdate() {
   const [review, setReview] = useState<string>(data?.review || "");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) {
+      setCat(data.cat);
+      setStartDate(data.startDate);
+      setEndDate(data.endDate);
+      setReview(data.review);
+    }
+  }, [data]);
+
   const moveToViewPage = (data: IBookReview) => {
     navigate(`/record/${data.id}`);
-  }
+  };
 
   const updateBookReviewState = useRecoilCallback(
-    ({ set }) =>
-      (newReview: IBookReview) => {
-        set(bookReviewState, (prevReviews) => {
-          const updatedReviews = prevReviews.map(review => {
-            if (review.id === newReview.id) { // 기존 리뷰와 새로운 리뷰의 id가 같은 경우에만 업데이트
-              return {
-                ...review,
-                cat: newReview.cat,
-                img: newReview.img,
-                title: newReview.title,
-                authors: newReview.authors,
-                publisher: newReview.publisher,
-                startDate: newReview.startDate,
-                endDate: newReview.endDate,
-                review: newReview.review
-              };
-            }
-
-            // 기존 리뷰와 새로운 리뷰의 id가 일치하지 않으면 기존 리뷰 유지
-            return review;
-          });
-  
-          alert('수정되었습니다.');
-          moveToViewPage(newReview);
-  
-          return updatedReviews;
-        });
-      }, [moveToViewPage]
+    ({ set }) => (newReview: IBookReview) => {
+      set(bookReviewState, (prevReviews) =>
+        prevReviews.map((review) =>
+          review.id === newReview.id
+            ? { ...review, ...newReview }
+            : review
+        )
+      );
+      moveToViewPage(newReview);
+    },
+    [moveToViewPage]
   );
+  
+  const handleSaveBtnClick = async (newReview: IBookReview) => {
+    try {
+      await updateBookReviewState(newReview);
+      notify({ type: "default", text: "기록이 수정되었습니다." });
+    } catch (error) {
+      console.error(error);
+      notify({ type: "error", text: "다시 시도해 주세요." });
+    }
+  };
 
   return (
     <>
@@ -67,7 +71,7 @@ function RecordUpdate() {
           <button
             className="text-blue-600 text-sm"
             onClick={() => {
-              updateBookReviewState({
+              handleSaveBtnClick({
                 id: data.id,
                 cat: cat,
                 img: data.img,
@@ -94,6 +98,7 @@ function RecordUpdate() {
         setEndDate={setEndDate} 
         setReview={setReview}
       />
+      <Toast />
     </>
   )
 }
