@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { bookDataState, bookReviewState } from "../state/atoms";
+import { useRecoilState } from "recoil";
+import { bookReviewState } from "../state/atoms";
 
 import BtnEdit from "../components/common/BtnEdit";
 import Nav from "../components/layout/Nav";
@@ -15,14 +15,13 @@ import IconEdit from "../assets/images/icon_edit_gr.svg"
 import IconDel from "../assets/images/icon_delete.svg"
 
 function RecordView() {
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const bookData = useRecoilValue(bookDataState);
   
   const { id } = useParams(); 
   const [bookReviews, setBookReviews] = useRecoilState(bookReviewState);
-  const data = bookReviews.find(review => String(review.id) === id);
+  const reviewData = bookReviews.find(review => String(review.id) === id);
   
+  const navigate = useNavigate();
   const deleteReview = () => {
     setBookReviews(reviews => reviews.filter(review => review.id !== id));
     alert('삭제되었습니다.');
@@ -31,7 +30,7 @@ function RecordView() {
 
   const moveToUpdate = () => {
     navigate(`/record/update/${id}`);
-}
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -54,9 +53,6 @@ function RecordView() {
     };
   }, [isModalOpen]);
 
-  if (!data) {
-    return <div>데이터가 없습니다.</div>;
-  }
   return (
     <>
       <div className="
@@ -69,6 +65,7 @@ function RecordView() {
         <BtnBack path={-1} />
         <BtnEdit openModal={openModal} />
       </div>
+
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div>
           <button
@@ -87,33 +84,37 @@ function RecordView() {
           </button>
         </div>
       </Modal>
-      <div className="rounded-br-[48px] py-10 pl-5 bg-black">
-        {bookData && (
+
+      {reviewData && (
+        <>
+        <div className="rounded-br-[48px] py-10 pl-5 bg-black">
           <BookInfoBox
-            thumbnail={bookData.thumbnail}
-            title={bookData.title}
-            authors={bookData.authors}
-            publisher={bookData.publisher}
+            thumbnail={reviewData.img}
+            title={reviewData.title}
+            authors={reviewData.authors}
+            publisher={reviewData.publisher}
           />
-        )}
-        <div className="flex justify-center">
-          <ProgressLabel
-            htmlFor={data.cat}
-            selectedOption={data.cat}
-            view={true}
+        
+          <div className="flex justify-center">
+            <ProgressLabel
+              htmlFor={reviewData.cat}
+              selectedOption={reviewData.cat}
+              view={true}
+            />
+          </div>
+          <ReadingPeriod
+            startDate={reviewData.startDate}
+            endDate={reviewData.endDate}
+            readonly={true}
           />
         </div>
-        <ReadingPeriod
-          startDate={data.startDate}
-          endDate={data.endDate}
-          readonly={true}
-        />
-      </div>
 
-      <div className="layout px-4 py-6 mb-40 bg-gray-100">
-        <p className="whitespace-pre-line text-sm">{data.review}</p>
-      </div>
-
+        <div className="layout px-4 py-6 mb-40 bg-gray-100">
+          <p className="whitespace-pre-line text-sm">{reviewData.review}</p>
+        </div>
+        </>
+      )}
+    
       <Nav />
     </>
   )
