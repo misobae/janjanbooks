@@ -24,10 +24,10 @@ function Nav() {
           img={imgHome}
         />
       </Link>
-      <Link to="/record">
+      <Link to="/list">
         <NavItem
           menuTitle="서재"
-          path="/record/*"
+          path="/list/*"
           img={imgBooks}
         />
       </Link>

@@ -32,7 +32,7 @@ function RecordView() {
     try {
       deleteReview();
       notify({ type: "default", text: "기록이 삭제되었습니다." });
-      navigate('/record');
+      navigate('/list');
     } catch (error) {
       console.error(error);
       notify({ type: "error", text: "다시 시도해 주세요." });

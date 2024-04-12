@@ -21,7 +21,7 @@ function RecordSearch() {
   
   return (
     <>
-      <Header text="서재 검색" btnBack={<BtnBack path="/record" />} searchForm={<RecordSearchBox />} />
+      <Header text="서재 검색" btnBack={<BtnBack path="/list" />} searchForm={<RecordSearchBox />} />
       <div className="layout">
         {searchedReviews && searchedReviews.length > 0 ? (
           <>

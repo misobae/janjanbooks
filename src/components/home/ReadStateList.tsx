@@ -10,9 +10,10 @@ import Slider from "react-slick";
 interface ReadStateListProps {
   title: string;
   category: IBookReview[];
+  path: string;
 }
 
-function ReadStateList({ title, category }: ReadStateListProps) {
+function ReadStateList({ title, category, path }: ReadStateListProps) {
   const navigate = useNavigate();
   const onBoxClicked = useRecoilCallback(({ set }) => async (data: IBookReview) => {
     const { img, title, authors, publisher, id } = data;
@@ -32,7 +33,7 @@ function ReadStateList({ title, category }: ReadStateListProps) {
     <div className="mb-20 min-h-[100px]">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold">{title}</h2>
-        <Link to={`/record`} className="text-sm">더 보기</Link>
+        <Link to={`/list/${path}`} className="text-sm">더 보기</Link>
       </div>
       {category.length > 0 ? (
         <Slider {...settings}>
