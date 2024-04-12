@@ -16,6 +16,19 @@ import BookCountByDate from "../components/statistics/BookCountByDate";
 function Statistics() {
   const bookReviews = useRecoilValue(bookReviewState);
   const readReviews = bookReviews.filter(review => review.cat === "read");
+
+  if (readReviews.length === 0) {
+    return (
+      <>
+        <Header text="[읽은 책]에 작성된 기록이 없어요.
+        다 읽은 책을 기록해 보세요." />
+        <NoBook />
+
+        <Nav />
+      </>
+    );
+  }
+
   const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
   // 읽은 책 중에서 년도만 담은 배열
@@ -74,55 +87,46 @@ function Statistics() {
 
   return (
     <>
-      {bookReviews.length > 0 ? (
-        <>
-          <Header text={`이번 달에는
-            ${matchingCurrentDateReviews.length}권의 책을 읽었어요.
-          `} />
+      <Header text={`이번 달에는
+        ${matchingCurrentDateReviews.length}권의 책을 읽었어요.
+      `} />
 
-          <div className="layout mb-40">
-            <div className="flex justify-center items-center gap-3 mb-4">
-              <DateSelector
-                handleChange={handleYearChange}
-                value={selectedYear}
-                arr={uniqueStartYears}
-              />
-              <BookCountByDate num={matchingYearReviews.length} />
-            </div>
-            <ReadingStatsChartProps categories={months} data={reviewsCountByMonth} />
+      <div className="layout mb-40">
+        <div className="flex justify-center items-center gap-3 mb-4">
+          <DateSelector
+            handleChange={handleYearChange}
+            value={selectedYear}
+            arr={uniqueStartYears}
+          />
+          <BookCountByDate num={matchingYearReviews.length} />
+        </div>
+        <ReadingStatsChartProps categories={months} data={reviewsCountByMonth} />
 
-            <div className="flex justify-center items-center gap-3 mt-12 mb-4">
-              <DateSelector
-                handleChange={handleMonthChange}
-                value={selectedMonth}
-                arr={months}
+        <div className="flex justify-center items-center gap-3 mt-12 mb-4">
+          <DateSelector
+            handleChange={handleMonthChange}
+            value={selectedMonth}
+            arr={months}
+          />
+          <BookCountByDate num={matchingYearMonthReviews.length} />
+        </div>
+        {matchingYearMonthReviews.length > 0 ? (
+          matchingYearMonthReviews.map((item: IBookReview) => (
+            <div key={item.id}>
+              <BookList
+                onBoxClicked={() => onBoxClicked(item)}
+                thumbnail={item.img}
+                title={item.title}
+                authors={item.authors}
+                publisher={item.publisher}
               />
-              <BookCountByDate num={matchingYearMonthReviews.length} />
             </div>
-            {matchingYearMonthReviews.length > 0 ? (
-              matchingYearMonthReviews.map((item: IBookReview) => (
-                <div key={item.id}>
-                  <BookList
-                    onBoxClicked={() => onBoxClicked(item)}
-                    thumbnail={item.img}
-                    title={item.title}
-                    authors={item.authors}
-                    publisher={item.publisher}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="bg-slate-200 text-center p-6">작성된 리뷰가 없습니다.</div>
-            )}
-          </div>
-        </>
-      ) : (
-        <>
-          <Header text="서재에 기록된 책이 없어요.
-          좋아하는 책을 기록해 보세요." />
-          <NoBook />
-        </>
-      )}
+          ))
+        ) : (
+          <div className="bg-slate-200 text-center p-6">작성된 리뷰가 없습니다.</div>
+        )}
+      </div>
+
       <Nav />
     </>
   )
