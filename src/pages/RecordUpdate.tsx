@@ -1,61 +1,57 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { IBookReview } from "../utils/types";
 import { bookReviewState } from "../state/atoms";
 
-import Toast, { notify } from "../components/common/Toast";
+import { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
 import ProgressTracker from "../components/record/ProgressTracker";
 
 function RecordUpdate() {
   const { id } = useParams(); 
-  const bookReviews = useRecoilValue(bookReviewState);
-  const data = bookReviews.find(review => String(review.id) === id);
+  const [bookReviews, setBookReviews] = useRecoilState(bookReviewState);
+  const matchedReview = bookReviews.find(review => String(review.id) === id);
 
-  const [cat, setCat] = useState<string>(data?.cat || "");
-  const [startDate, setStartDate] = useState<string>(data?.startDate || "");
-  const [endDate, setEndDate] = useState<string>(data?.endDate || "");
-  const [review, setReview] = useState<string>(data?.review || "");
+  const [cat, setCat] = useState<string>(matchedReview?.cat || "");
+  const [startDate, setStartDate] = useState<string>(matchedReview?.startDate || "");
+  const [endDate, setEndDate] = useState<string>(matchedReview?.endDate || "");
+  const [review, setReview] = useState<string>(matchedReview?.review || "");
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (data) {
-      setCat(data.cat);
-      setStartDate(data.startDate);
-      setEndDate(data.endDate);
-      setReview(data.review);
-    }
-  }, [data]);
-
-  const moveToViewPage = (data: IBookReview) => {
-    navigate(`/record/${data.id}`);
+  const moveToViewPage = (matchedReview: IBookReview) => {
+    navigate(`/record/${matchedReview.id}`);
   };
 
-  const updateBookReviewState = useRecoilCallback(
-    ({ set }) => (newReview: IBookReview) => {
-      set(bookReviewState, (prevReviews) =>
-        prevReviews.map((review) =>
-          review.id === newReview.id
-            ? { ...review, ...newReview }
-            : review
-        )
-      );
-      moveToViewPage(newReview);
-    },
-    [moveToViewPage]
-  );
+  const updateBookReviewState = (newReview: IBookReview) => {
+    setBookReviews((prevReviews) =>
+      prevReviews.map((review) =>
+        review.id === newReview.id
+          ? { ...review, ...newReview }
+          : review
+      )
+    )
+  };
   
-  const handleSaveBtnClick = async (newReview: IBookReview) => {
+  const handleSaveBtnClick = (newReview: IBookReview) => {
     try {
-      await updateBookReviewState(newReview);
+      updateBookReviewState(newReview);
       notify({ type: "default", text: "기록이 수정되었습니다." });
+      moveToViewPage(newReview);
     } catch (error) {
       console.error(error);
       notify({ type: "error", text: "다시 시도해 주세요." });
     }
   };
+
+  useEffect(() => {
+    if (matchedReview) {
+      setCat(matchedReview.cat);
+      setStartDate(matchedReview.startDate);
+      setEndDate(matchedReview.endDate);
+      setReview(matchedReview.review);
+    }
+  }, [matchedReview]);
 
   return (
     <>
@@ -67,17 +63,17 @@ function RecordUpdate() {
         bg-black
       ">
         <BtnBack path={-1} />
-        {data && (
+        {matchedReview && (
           <button
             className="text-blue-600 text-sm"
             onClick={() => {
               handleSaveBtnClick({
-                id: data.id,
+                id: matchedReview.id,
                 cat: cat,
-                img: data.img,
-                title: data.title,
-                authors: data.authors,
-                publisher: data.publisher,
+                img: matchedReview.img,
+                title: matchedReview.title,
+                authors: matchedReview.authors,
+                publisher: matchedReview.publisher,
                 startDate: startDate,
                 endDate: endDate,
                 review: review,
@@ -98,7 +94,6 @@ function RecordUpdate() {
         setEndDate={setEndDate} 
         setReview={setReview}
       />
-      <Toast />
     </>
   )
 }
