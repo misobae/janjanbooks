@@ -3,11 +3,13 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import RecordView from "./pages/RecordView";
 import RecordList from "./pages/RecordList";
+import RecordListCat from "./pages/RecordListCat";
 import RecordWrite from "./pages/RecordWrite";
 import RecordUpdate from "./pages/RecordUpdate";
 import Statistics from "./pages/Statistics";
 import Search from "./pages/Search";
 import RecordSearch from "./pages/RecordSearch";
+import RecordRedirect from "./utils/recordRedirect";
 import Toast from "./components/common/Toast";
 
 function App() {
@@ -18,7 +20,10 @@ function App() {
       <Toast />
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={ <Home /> } />
-        <Route path="/record" element={ <RecordList /> } />
+        <Route path="/list" element={<RecordRedirect />} />
+        <Route path="/list" element={<RecordList />} >
+          <Route path=":category" element={<RecordListCat />} />
+        </Route>
         <Route path="/record/:id" element={ <RecordView /> } />
         <Route path="/record/write/:id" element={ <RecordWrite /> } />
         <Route path="/record/update/:id" element={ <RecordUpdate /> } />

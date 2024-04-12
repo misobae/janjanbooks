@@ -1,32 +1,30 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookReviewState, selectedReviewState } from "../../state/atoms";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 interface TabBtnProps {
   cat: string;
   title: string;
-  activeTab: string;
-  setActiveTab: (cat: string) => void;
 }
 
-function TabBtn({ cat, title, activeTab, setActiveTab }: TabBtnProps) {
-  const bookReviews = useRecoilValue(bookReviewState);
-  const setFilteredReviews = useSetRecoilState(selectedReviewState);
+function TabBtn({ cat, title }: TabBtnProps) {
+  const navigate = useNavigate();
+  const { category } = useParams();
 
-  const tabCategory = (category: string) => {
-    setActiveTab(category);
-    if (category === 'all') {
-      setFilteredReviews(bookReviews); 
-    } else {
-      const selectedReviews = bookReviews.filter(review => review.cat === category);
-      setFilteredReviews(selectedReviews); 
-    }
+  const handleSelectCat = (category: string) => {
+    navigate(`/list/${category}`)
   };
+
+  useEffect(() => {
+    if (category === 'all') {
+      cat === 'all';
+    }
+  }, [])
 
   return (
     <button
-      onClick={() => tabCategory(cat)}
+      onClick={() => handleSelectCat(cat)}
       className={`
-        ${activeTab === cat && "text-blue-700 font-bold"}
+        ${category === cat && "text-blue-700 font-bold"}
         ${cat === "read" ? "" : "after:content-['|'] after:px-2 after:cursor-default after:text-black after:font-normal"}
       `}
     >
