@@ -1,5 +1,3 @@
-import { useRecoilValue } from "recoil";
-import { bookDataState } from "../../state/atoms";
 import { formatDate } from "../../utils/dateFormat";
 
 import ProgressLabel from "./ProgressLabel";
@@ -8,6 +6,10 @@ import BookInfoBox from "./BookInfoBox";
 import ReadingPeriod from "./ReadingPeriod";
 
 interface ProgressTrackerProps {
+  thumbnail: string;
+  title: string;
+  authors: string[];
+  publisher: string;
   cat: string;
   startDate: string;
   endDate: string;
@@ -19,10 +21,9 @@ interface ProgressTrackerProps {
 }
 
 function ProgressTracker({ 
-  cat, startDate, endDate, review,
+  thumbnail, title, authors, publisher, cat, startDate, endDate, review,
   setCat, setStartDate, setEndDate, setReview
 }: ProgressTrackerProps) {
-  const bookData = useRecoilValue(bookDataState);
 
   const today = new Date();
   const formattedToday = formatDate(today);
@@ -47,14 +48,12 @@ function ProgressTracker({
   return (
     <>
     <div className="rounded-br-[48px] py-10 pl-5 bg-black">
-      {bookData ? (
-        <BookInfoBox
-          thumbnail={bookData.thumbnail}
-          title={bookData.title}
-          authors={bookData.authors}
-          publisher={bookData.publisher}
-        />
-      ) : "Loading"}
+      <BookInfoBox
+        thumbnail={thumbnail}
+        title={title}
+        authors={authors}
+        publisher={publisher}
+      />
 
       <div className="flex justify-center gap-3 pr-5 mb-8">
         <ProgressInput 
