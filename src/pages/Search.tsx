@@ -1,18 +1,22 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { bookDataState, searchedWordState } from "../state/atoms";
+import { bookDataState, bookReviewState, searchedWordState } from "../state/atoms";
 import { IBooksData } from "../utils/types";
 import { fetchData } from "../api/fetchBooksData";
 
 import Header from "../components/layout/Header";
 import BookList from "../components/BookList";
-import BtnBack from "../components/common/BtnBack";
 import BookSearchBox from "../components/BookSearchBox";
+import BtnBack from "../components/common/BtnBack";
+import ConfirmModal from "../components/common/ConfirmModal";
 
 function Result() {
-  const setBookData = useSetRecoilState(bookDataState);
   const navigate = useNavigate();
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const bookReviews = useRecoilValue(bookReviewState);
+  const [bookData, setBookData] = useRecoilState(bookDataState);
   const searchedWord = useRecoilValue(searchedWordState);
   const { data, isLoading } = useQuery({
     queryKey: ['searchData', searchedWord],
@@ -20,9 +24,23 @@ function Result() {
     enabled: !!searchedWord,
   });
 
-  const onBoxClicked = ({ thumbnail, title, authors, publisher, isbn }: IBooksData) => {
-    setBookData({ thumbnail, title, authors, publisher, isbn });
-    navigate(`/record/write/${isbn}`);
+  const handleBookItemClick = (clickedItem: IBooksData) => {
+    setBookData(clickedItem);
+
+    const sameReview = bookReviews.filter(review => review.id === clickedItem.isbn);
+    if (sameReview.length > 0) {
+      setConfirmModalOpen(true);
+    } else {
+      navigate(`/record/write/${clickedItem.isbn}`);
+    }
+  };
+
+  const handleConfirm = () => {
+    navigate(`/record/update/${bookData?.isbn}`);
+  };
+  
+  const handleCancel = () => {
+    setConfirmModalOpen(false);
   };
 
   return (
@@ -42,7 +60,7 @@ function Result() {
               data.map((item: IBooksData) => (
                 <div key={item.isbn}>
                   <BookList
-                    onBoxClicked={() => onBoxClicked(item)}
+                    onBoxClicked={() => handleBookItemClick(item)}
                     thumbnail={item.thumbnail}
                     title={item.title}
                     authors={item.authors}
@@ -56,6 +74,14 @@ function Result() {
           </>
         )}
       </div>
+
+      <ConfirmModal
+        isOpen={confirmModalOpen}
+        text={`이미 작성된 리뷰가 있습니다.
+        리뷰를 수정할까요?`}
+        handleConfirm={handleConfirm}
+        handleCancel={handleCancel}
+      />
     </>
   )
 };
