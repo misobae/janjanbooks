@@ -51,18 +51,6 @@ function RecordView() {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const body = document.body;
-    if (isModalOpen) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = 'auto';
-    }
-
-    return () => {
-      body.style.overflow = 'auto';
-    };
-  }, [isModalOpen]);
 
   return (
     <>
@@ -79,24 +67,26 @@ function RecordView() {
           <BtnEdit openModal={openModal} />
         </div>
 
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <div>
-            <button
-              className="flex items-center gap-4 w-full px-10 py-5 border-b"
-              onClick={moveToUpdate}
-            >
-              <img className="w-6" src={IconEdit} alt="펜 아이콘" />
-              <span className="font-semibold text-gray-600">수정하기</span>
-            </button>
-            <button
-              className="flex items-center gap-4 w-full px-10 py-5"
-              onClick={handleDelBtnClick}
-            >
-              <img className="w-6" src={IconDel} alt="휴지통 아이콘" />
-              <span className="font-semibold text-gray-600">삭제하기</span>
-            </button>
-          </div>
-        </Modal>
+        {isModalOpen && (
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <div>
+              <button
+                className="flex items-center gap-4 w-full px-10 py-5 border-b"
+                onClick={moveToUpdate}
+              >
+                <img className="w-6" src={IconEdit} alt="펜 아이콘" />
+                <span className="font-semibold text-gray-600">수정하기</span>
+              </button>
+              <button
+                className="flex items-center gap-4 w-full px-10 py-5"
+                onClick={handleDelBtnClick}
+              >
+                <img className="w-6" src={IconDel} alt="휴지통 아이콘" />
+                <span className="font-semibold text-gray-600">삭제하기</span>
+              </button>
+            </div>
+          </Modal>
+        )}
 
         <div className="rounded-br-[48px] py-10 pl-5 bg-black">
           <BookInfoBox

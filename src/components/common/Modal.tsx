@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -5,15 +7,28 @@ interface ModalProps {
 }
 
 function Modal({ isOpen, onClose, children }: ModalProps) {
+
+  useEffect(() => {
+    const body = document.body;
+    if (isOpen) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+
+    return () => {
+      body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   return (
     <div
       onClick={onClose}
-      className={`
-        ${isOpen ? 'opacity-100 visible' : 'opacity-0 hidden'}
+      className="
         flex justify-center items-center
         fixed top-0 right-0 bottom-0 left-0 z-20
         bg-transparent backdrop-blur
-      `}
+      "
     >
       <div className="w-[350px] bg-white rounded-3xl shadow-xl">
         {children}
