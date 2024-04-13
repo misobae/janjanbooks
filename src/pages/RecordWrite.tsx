@@ -67,16 +67,22 @@ function RecordWrite() {
         )}
       </div>
 
-      <ProgressTracker
-        cat={cat} 
-        startDate={startDate} 
-        endDate={endDate} 
-        review={review} 
-        setCat={setCat} 
-        setStartDate={setStartDate} 
-        setEndDate={setEndDate} 
-        setReview={setReview}
-      />
+      {bookData && (
+        <ProgressTracker
+          thumbnail={bookData.thumbnail}
+          title={bookData.title}
+          authors={bookData.authors}
+          publisher={bookData.publisher}
+          cat={cat} 
+          startDate={startDate} 
+          endDate={endDate} 
+          review={review} 
+          setCat={setCat} 
+          setStartDate={setStartDate} 
+          setEndDate={setEndDate} 
+          setReview={setReview}
+        />
+      )}
     </>
   )
 };

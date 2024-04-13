@@ -83,17 +83,23 @@ function RecordUpdate() {
           </button>
         )}
       </div>
-
-      <ProgressTracker
-        cat={cat} 
-        startDate={startDate} 
-        endDate={endDate} 
-        review={review} 
-        setCat={setCat} 
-        setStartDate={setStartDate} 
-        setEndDate={setEndDate} 
-        setReview={setReview}
-      />
+      
+      {matchedReview && (
+        <ProgressTracker
+          thumbnail={matchedReview.img}
+          title={matchedReview.title}
+          authors={matchedReview.authors}
+          publisher={matchedReview.publisher}
+          cat={cat} 
+          startDate={startDate} 
+          endDate={endDate} 
+          review={review} 
+          setCat={setCat} 
+          setStartDate={setStartDate} 
+          setEndDate={setEndDate} 
+          setReview={setReview}
+        />
+      )}
     </>
   )
 }
