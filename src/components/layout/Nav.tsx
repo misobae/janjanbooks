@@ -24,7 +24,7 @@ function Nav() {
           img={imgHome}
         />
       </Link>
-      <Link to="/list">
+      <Link to="/list/all">
         <NavItem
           menuTitle="서재"
           path="/list/*"
