@@ -96,18 +96,23 @@ function RecordView() {
             publisher={matchedReview.publisher}
           />
         
-          <div className="flex justify-center">
-            <ProgressLabel
-              htmlFor={matchedReview.cat}
-              selectedOption={matchedReview.cat}
-              view={true}
-            />
+          <div className="md:flex md:items-center md:gap-5 w-[90%] max-w-[1200px] m-auto">
+            <div className="md:flex-initial md:w-1/2 mb-8 md:mb-0">
+              <h3 className="mb-2 text-white">독서 상태</h3>
+              <ProgressLabel
+                htmlFor={matchedReview.cat}
+                selectedOption={matchedReview.cat}
+                view={true}
+              />
+            </div>
+            <div className="md:flex-initial md:w-1/2">
+              <ReadingPeriod
+                startDate={matchedReview.startDate}
+                endDate={matchedReview.endDate}
+                readonly={true}
+              />
+            </div>
           </div>
-          <ReadingPeriod
-            startDate={matchedReview.startDate}
-            endDate={matchedReview.endDate}
-            readonly={true}
-          />
         </div>
 
         <div className="layout px-4 py-6 mb-40 bg-gray-100">

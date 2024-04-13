@@ -31,12 +31,12 @@ function RecordListCat() {
   return (
     <>
       {filteredReviews.length > 0 ? (
-        <div className="grid grid-cols-3 gap-x-4 gap-y-8 mb-24">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-4 gap-y-8 mb-24">
           {filteredReviews.map(review => (
             <div key={review.id} className="cursor-pointer" onClick={() => moveToViewPage(review)}>
-              <div className="relative w-full h-0 pt-[144%] overflow-hidden mb-2">
+              <div className="overflow-hidden relative w-full h-0 mb-2 pt-[144%] border">
                 <img
-                  className="absolute top-0 right-0 bottom-0 left-0 m-auto w-full"
+                  className="absolute top-0 right-0 bottom-0 left-0 w-full m-auto"
                   src={review.img}
                   alt={`${review.title} 북 커버`}
                 />

@@ -16,7 +16,7 @@ interface ReadingPeriodProps {
 function ReadingPeriod({ formattedToday, startDate, endDate, readonly, handleDateChange, setStartDate, setEndDate}: ReadingPeriodProps) {
   
   return (
-    <div className="pr-5">
+    <>
       <h3 className="mb-2 text-white">독서 기간</h3>
       <div className="
         flex justify-between
@@ -50,7 +50,7 @@ function ReadingPeriod({ formattedToday, startDate, endDate, readonly, handleDat
           onChange={readonly ? undefined : (e) => handleDateChange?.(e, setEndDate!)} 
         />
       </div>
-    </div>
+    </>
   )
 }
 

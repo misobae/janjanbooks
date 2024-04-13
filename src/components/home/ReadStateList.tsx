@@ -25,8 +25,22 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
   const settings = {
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1
+    slidesToShow: 8,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+    ]
   };
 
   return (
@@ -41,9 +55,9 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
             <div
               key={data.id}
               onClick={() => onBoxClicked(data)}
-              className="px-2 cursor-pointer"
+              className="px-1 lg:px-2 cursor-pointer"
             >
-              <img className="block w-full" src={data.img} alt={`${data.title} 북 커버`} />
+              <img className="block w-full border" src={data.img} alt={`${data.title} 북 커버`} />
             </div>
           ))}
         </Slider>

@@ -12,10 +12,9 @@ function ProgressLabel({ htmlFor, selectedOption, view }: ProgressLabelProps) {
   return (
     <label htmlFor={htmlFor} className={`
       flex flex-col items-center justify-center gap-1
-      w-1/3 max-w-48 h-[120px]
+      ${view ? "w-full cursor-pointer" : "w-1/3 max-w-48"} h-[120px] md:h-[98px]
       border rounded-xl
       ${selectedOption === htmlFor ? "bg-blue-600 border-blue-600 " : "bg-transparent border-white "}
-      ${view === false && "cursor-pointer"}
     `}>
       {htmlFor === "read" && <img className="w-[30px]" src={imgBook} alt="책 아이콘" />}
       {htmlFor === "reading" && <img className="w-[30px]" src={imgReading} alt="책 아이콘" />}
