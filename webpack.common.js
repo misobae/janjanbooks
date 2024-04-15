@@ -37,7 +37,9 @@ module.exports = {
     new HtmlWebpackPlugin({ // html 파일을 자동으로 생성
       template: './public/index.html',
     }),
-    new Dotenv()
+    new Dotenv({
+      systemvars: true // 모든 시스템 변수를 추가적으로 로드(외부 시스템 변수에 접근 허용)
+    }),
   ],
   devtool: 'inline-source-map', // devtool: 소스맵 생성 방식 설정
   devServer: { // devServer: 코드가 변경될 때 마다 자동으로 컴파일하는 옵션
