@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/ttb/:path*",
-      "destination": "http://www.aladin.co.kr:path*"
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
