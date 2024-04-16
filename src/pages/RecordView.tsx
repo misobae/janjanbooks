@@ -88,7 +88,7 @@ function RecordView() {
           </Modal>
         )}
 
-        <div className="rounded-br-[48px] py-10 pl-5 bg-black">
+        <div className="rounded-br-[48px] py-10 bg-black">
           <BookInfoBox
             thumbnail={matchedReview.img}
             title={matchedReview.title}

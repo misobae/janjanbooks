@@ -12,7 +12,7 @@ function ProgressLabel({ htmlFor, selectedOption, view }: ProgressLabelProps) {
   return (
     <label htmlFor={htmlFor} className={`
       flex flex-col items-center justify-center gap-1
-      ${view ? "w-full cursor-pointer" : "w-1/3 max-w-48"} h-[120px] md:h-[98px]
+      ${view ? "w-full" : "w-1/3 max-w-48 cursor-pointer"} h-[120px] md:h-[98px]
       border rounded-xl
       ${selectedOption === htmlFor ? "bg-blue-600 border-blue-600 " : "bg-transparent border-white "}
     `}>
