@@ -55,6 +55,8 @@
 ![통계](https://github.com/misobae/janjanbooks/assets/156400599/dcbd4397-7c3d-4496-99fb-1c0baa254616)
 
 
+## 트러블 슈팅
+<a href="https://velog.io/@baesmile/%EC%9E%94%EC%9E%94%EB%B6%81%EC%8A%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9B%84%EA%B8%B0#%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85" target="_blank" rel="noreferrer noopener">블로그에 작성했습니다.</a>
 
 ## 사용한 기술 및 라이브러리
 - 언어: TypeScript
