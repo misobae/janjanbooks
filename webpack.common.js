@@ -1,6 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -34,11 +35,28 @@ module.exports = {
     ],
   },
   plugins: [ // 최종 output을 변경해주는 도구
+    new Dotenv({
+      systemvars: true // 모든 시스템 변수를 추가적으로 로드(외부 시스템 변수에 접근 허용)
+    }),
     new HtmlWebpackPlugin({ // html 파일을 자동으로 생성
       template: './public/index.html',
     }),
-    new Dotenv({
-      systemvars: true // 모든 시스템 변수를 추가적으로 로드(외부 시스템 변수에 접근 허용)
+    new FaviconsWebpackPlugin({
+      logo: './src/assets/images/favicon.png',
+      mode: 'webapp',
+      devMode: 'webapp',
+      favicons: {
+        appName: '잔잔북스',
+        appDescription: '독서 기록을 편리하게, 잔잔북스',
+        developerName: 'misobae',
+        developerURL: null, // prevent retrieving from the nearest package.json
+        background: '#ddd',
+        theme_color: '#333',
+        icons: {
+          coast: false,
+          yandex: false
+        }
+      }
     }),
   ],
   devtool: 'inline-source-map', // devtool: 소스맵 생성 방식 설정
