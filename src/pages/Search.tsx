@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 import { bookDataState, bookReviewState, searchedWordState } from "../state/atoms";
 import { IBooksData } from "../utils/types";
 import { fetchData } from "../api/fetchBooksData";
@@ -11,6 +12,7 @@ import BookList from "../components/BookList";
 import BookSearchBox from "../components/BookSearchBox";
 import BtnBack from "../components/common/BtnBack";
 import ConfirmModal from "../components/common/ConfirmModal";
+import Spinner from "../components/common/Spinner";
 
 function Result() {
   const navigate = useNavigate();
@@ -18,11 +20,27 @@ function Result() {
   const bookReviews = useRecoilValue(bookReviewState);
   const [bookData, setBookData] = useRecoilState(bookDataState);
   const searchedWord = useRecoilValue(searchedWordState);
-  const { data, isLoading } = useQuery({
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading,} = useInfiniteQuery({
     queryKey: ['searchData', searchedWord],
-    queryFn: () => fetchData(searchedWord),
+    queryFn: ({ pageParam }) => fetchData(searchedWord, pageParam),
     enabled: !!searchedWord,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      return lastPage.meta.is_end ? undefined : nextPage;
+    },
+    initialPageParam: 1, 
   });
+  
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) { 
+      // inview(스크롤이 바닥에 있고) hasNextPage(fetch할 다음 페이지가 있다면)
+      
+      fetchNextPage();
+      // Next 페이지 요청
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   const handleBookItemClick = (clickedItem: IBooksData) => {
     setBookData(clickedItem);
@@ -47,30 +65,35 @@ function Result() {
     <>
       <Header text="기록할 책이 있으세요?" btnBack={<BtnBack path={-1} />} searchForm={<BookSearchBox />} />
       <div className="layout">
-        {data && data.length > 0 ? (
+        {data && data.pages[0].documents.length > 0 ? (
           <p className="text-sm">
             <strong className="font-bold">"{searchedWord}"</strong>의 검색 결과입니다.
           </p>
         ) : null }
+
         {isLoading ? (
-          <p>로딩중...</p>
+          <Spinner />
         ) : (
           <>
-            {data && data.length > 0 ? (
-              data.map((item: IBooksData) => (
-                <div key={item.isbn}>
-                  <BookList
-                    onBoxClicked={() => handleBookItemClick(item)}
-                    thumbnail={item.thumbnail}
-                    title={item.title}
-                    authors={item.authors}
-                    publisher={item.publisher}
-                  />
+            {data && data.pages[0].documents.length > 0 ? (
+              data.pages.map((page, index) => (
+                <div key={'page'+index}>
+                  {page.documents.map((book: IBooksData) => (
+                    <div key={book.isbn} ref={ref}>
+                      <BookList
+                        onBoxClicked={() => handleBookItemClick(book)}
+                        thumbnail={book.thumbnail}
+                        title={book.title}
+                        authors={book.authors}
+                        publisher={book.publisher}
+                      />
+                    </div>
+                  ))}
                 </div>
               ))
-            ) : searchedWord && (
-              <p className="text-sm">검색 결과가 없습니다.</p>
-            )}
+            ) : searchedWord &&  <p className="text-sm">검색 결과가 없습니다.</p> }
+
+            {isFetchingNextPage && <Spinner />}
           </>
         )}
       </div>
