@@ -78,8 +78,11 @@ function Result() {
             {data && data.pages[0].documents.length > 0 ? (
               data.pages.map((page, index) => (
                 <div key={'page'+index}>
-                  {page.documents.map((book: IBooksData) => (
-                    <div key={book.isbn} ref={ref}>
+                  {page.documents.map((book: IBooksData, index: number) => (
+                    <div
+                      key={book.isbn}
+                      ref={index === page.documents.length - 1 ? ref : null}
+                    >
                       <BookList
                         onBoxClicked={() => handleBookItemClick(book)}
                         thumbnail={book.thumbnail}
