@@ -1,13 +1,18 @@
+import NoBookCover from "../common/NoBookCover";
 import { IBooksData } from "../../utils/types";
 
 function BookInfoBox({thumbnail, title, authors, publisher}: IBooksData) {
   return (
     <div className="flex items-center w-[95%] md:w-[90%] max-w-[1200px] mb-10 ml-auto md:mx-auto">
-      <div className="relative w-[120px] mr-[-50px] bg-slate-300 shrink-0">
-        <img
-          className="block w-full"
-          src={thumbnail} alt={title+'북 커버'}
-        />
+      <div className="relative w-[120px] h-[170px] mr-[-50px] border shrink-0">
+        { thumbnail === "" ? (
+            <NoBookCover />
+            ) : (
+          <img
+            className="block w-full"
+            src={thumbnail} alt={title+'북 커버'}
+          />
+        )}
       </div>
       <div className=" h-[240px] rounded-b-[48px] p-12 pl-[4.5em] bg-white w-full">
         <div className="break-keep">

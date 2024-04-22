@@ -3,6 +3,8 @@ import { useRecoilCallback } from "recoil";
 import { bookDataState } from "../../state/atoms";
 import { IBookReview } from "../../utils/types";
 
+import NoBookCover from "../common/NoBookCover";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -55,9 +57,16 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
             <div
               key={data.id}
               onClick={() => onBoxClicked(data)}
-              className="px-1 lg:px-2 cursor-pointer"
+              className="h-full px-1 lg:px-2 cursor-pointer"
             >
-              <img className="block w-full border" src={data.img} alt={`${data.title} 북 커버`} />
+              { data.img === "" ? (
+                <NoBookCover />
+                ) : (
+                <img
+                  className="block w-full"
+                  src={data.img} alt={data.title+'북 커버'}
+                />
+              )}
             </div>
           ))}
         </Slider>

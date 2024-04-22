@@ -5,6 +5,7 @@ import { bookDataState, bookReviewState, selectedReviewState } from "../state/at
 import { IBookReview } from "../utils/types";
 
 import NoBook from "../components/NoBook";
+import NoBookCover from "../components/common/NoBookCover";
 
 function RecordListCat() {
   const navigate = useNavigate();
@@ -34,12 +35,15 @@ function RecordListCat() {
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-4 gap-y-8 mb-24">
           {filteredReviews.map(review => (
             <div key={review.id} className="cursor-pointer" onClick={() => moveToViewPage(review)}>
-              <div className="overflow-hidden relative w-full h-0 mb-2 pt-[144%] border">
-                <img
-                  className="absolute top-0 right-0 bottom-0 left-0 w-full m-auto"
-                  src={review.img}
-                  alt={`${review.title} 북 커버`}
-                />
+              <div className="mb-2 border">
+                { review.img === "" ? (
+                  <NoBookCover />
+                  ) : (
+                  <img
+                    className="block w-full"
+                    src={review.img} alt={review.title+'북 커버'}
+                  />
+                )}
               </div>
               <h4 className="text-sm font-semibold line-clamp-2">{review.title}</h4>
               <span className="text-xs">
