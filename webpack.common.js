@@ -12,6 +12,7 @@ module.exports = {
   output: {
     filename: 'bundle.js', // 번들링 결과 파일명
     path: path.resolve(__dirname, 'dist'), // 번들링 결과 파일 경로
+    publicPath: "/",
     clean: true, // 번들링 시 이전에 생성되어있던 번들링 파일을 지우고 번들링
   },
   module: {
