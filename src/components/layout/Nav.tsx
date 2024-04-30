@@ -12,10 +12,8 @@ function Nav() {
     <nav className="
       flex justify-center gap-x-10
       fixed bottom-0 left-0 right-0
-      w-6/12 min-w-80 max-w-md
-      mx-auto pt-4 pb-1
-      bg-black
-      rounded-t-3xl
+      w-72 mx-auto pt-3.5 pb-1
+      bg-black rounded-t-3xl
     ">
       <Link to="/">
         <NavItem
