@@ -35,6 +35,16 @@ function RecordUpdate() {
   
   const handleSaveBtnClick = (newReview: IBookReview) => {
     try {
+      // 유효성 검사
+      if (endDate && startDate && endDate < startDate) {
+        notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
+        return;
+      }
+      if ((cat === "read" || cat === "reading") && !startDate) {
+        notify({ type: "error", text: "시작일을 설정해 주세요." });
+        return;
+      }
+      
       updateBookReviewState(newReview);
       notify({ type: "default", text: "기록이 수정되었습니다." });
       moveToViewPage(newReview);
