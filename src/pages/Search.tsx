@@ -10,9 +10,9 @@ import { fetchData } from "../api/fetchBooksData";
 import Header from "../components/layout/Header";
 import BookList from "../components/BookList";
 import BookSearchBox from "../components/BookSearchBox";
-import BtnBack from "../components/common/BtnBack";
 import ConfirmModal from "../components/common/ConfirmModal";
 import Spinner from "../components/common/Spinner";
+import Nav from "../components/layout/Nav";
 
 function Result() {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ function Result() {
 
   return (
     <>
-      <Header text="기록할 책이 있으세요?" btnBack={<BtnBack path={-1} />} searchForm={<BookSearchBox />} />
+      <Header text="기록할 책이 있으세요?" searchForm={<BookSearchBox />} />
       <div className="layout">
         {data && data.pages[0].documents.length > 0 ? (
           <p className="text-sm">
@@ -108,6 +108,8 @@ function Result() {
         handleConfirm={handleConfirm}
         handleCancel={handleCancel}
       />
+
+      <Nav />
     </>
   )
 };
