@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 
 import Header from "../components/layout/Header";
-import Nav from "../components/layout/Nav";
 import RecordSearchBox from "../components/record/RecordSearchBox";
 import TabBtn from "../components/record/TabBtn";
 import SortBtn from "../components/record/SortBtn";
@@ -24,8 +23,6 @@ function RecordList() {
         </div>
         <Outlet />
       </div>
-
-      <Nav />
     </>
   )
 };

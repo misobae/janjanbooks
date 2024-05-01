@@ -6,7 +6,6 @@ import { bookDataState, bookReviewState } from "../state/atoms";
 
 import NoBook from "../components/NoBook";
 import Header from "../components/layout/Header";
-import Nav from "../components/layout/Nav";
 import BookList from "../components/BookList";
 import DateSelector from "../components/statistics/DateSelector";
 import ReadingStatsChartProps from "../components/statistics/ReadingStatsChart";
@@ -23,8 +22,6 @@ function Statistics() {
         <Header text="[읽은 책]에 작성된 기록이 없어요.
         다 읽은 책을 기록해 보세요." />
         <NoBook />
-
-        <Nav />
       </>
     );
   }
@@ -126,8 +123,6 @@ function Statistics() {
           <div className="bg-slate-200 text-center p-6">작성된 리뷰가 없습니다.</div>
         )}
       </div>
-
-      <Nav />
     </>
   )
 };

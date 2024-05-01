@@ -12,7 +12,6 @@ import BookList from "../components/BookList";
 import BookSearchBox from "../components/BookSearchBox";
 import ConfirmModal from "../components/common/ConfirmModal";
 import Spinner from "../components/common/Spinner";
-import Nav from "../components/layout/Nav";
 
 function Result() {
   const navigate = useNavigate();
@@ -108,8 +107,6 @@ function Result() {
         handleConfirm={handleConfirm}
         handleCancel={handleCancel}
       />
-
-      <Nav />
     </>
   )
 };

@@ -2,7 +2,6 @@ import { useRecoilValue } from "recoil";
 import { bookReviewState } from "../state/atoms";
 
 import Header from "../components/layout/Header";
-import Nav from "../components/layout/Nav";
 import NoBook from "../components/NoBook";
 import ReadStateList from "../components/home/ReadStateList";
 import BookSearchBox from "../components/BookSearchBox";
@@ -34,8 +33,6 @@ function Home() {
           <NoBook />
         )}
       </div>
-
-      <Nav />
     </>
   )
 };

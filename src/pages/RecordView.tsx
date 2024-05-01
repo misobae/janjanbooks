@@ -4,7 +4,6 @@ import { useRecoilState } from "recoil";
 import { bookReviewState } from "../state/atoms";
 
 import BtnEdit from "../components/common/BtnEdit";
-import Nav from "../components/layout/Nav";
 import BookInfoBox from "../components/record/BookInfoBox";
 import ProgressLabel from "../components/record/ProgressLabel";
 import ReadingPeriod from "../components/record/ReadingPeriod";
@@ -118,8 +117,6 @@ function RecordView() {
         <div className="layout px-4 py-6 mb-40 bg-gray-100">
           <p className="whitespace-pre-line text-sm">{matchedReview.review}</p>
         </div>
-        
-        <Nav />
       </>
     )}
     </>
