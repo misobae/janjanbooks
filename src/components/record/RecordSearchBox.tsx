@@ -16,8 +16,8 @@ function RecordSearchBox() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (location.pathname !== '/record/search') {
-      navigate('/record/search');
+    if (location.pathname !== '/list/search') {
+      navigate('/list/search');
     }
 
     setSearchedWord(searchWord);
