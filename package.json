@@ -41,6 +41,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "postcss-loader": "^8.1.1",
+    "robotstxt-webpack-plugin": "^8.0.0",
     "style-loader": "^3.3.4",
     "tailwindcss": "^3.4.1",
     "ts-loader": "^9.5.1",
