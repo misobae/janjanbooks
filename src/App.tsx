@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 import { Route, Routes, useLocation } from "react-router-dom";
+import getMetaData from "./utils/metaData";
 
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -15,12 +18,24 @@ import RecordRedirect from "./utils/recordRedirect";
 import Toast from "./components/common/Toast";
 import Nav from "./components/layout/Nav";
 
-
 function App() {
   const location = useLocation();
+  
+  const { title, keywords, description } = getMetaData(location.pathname);
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
 
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        <title>{title+' | 잔잔북스'}</title>
+        <meta name="title" content={title+' | 잔잔북스'} />
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords+'잔잔북스'} />
+      </Helmet>
+
       <Toast />
 
       <Routes location={location} key={location.pathname}>
@@ -43,7 +58,7 @@ function App() {
         !location.pathname.includes('/record/update') &&
         <Nav />
       }
-    </>
+    </HelmetProvider>
   );
 };
 
