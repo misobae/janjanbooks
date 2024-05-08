@@ -14,9 +14,17 @@ function RecordSearch() {
   const setBookData = useSetRecoilState(bookDataState);
   const navigate = useNavigate();
   
-  const onBoxClicked = ({ img, title, authors, publisher, id }: IBookReview) => {
+  const moveToViewPage = (review: IBookReview) => {
+    navigate(`/record/${review.id}`);
+  };
+  const updateBookDataState = (review: IBookReview) => {
+    const { img, title, authors, publisher, id } = review;
     setBookData({ thumbnail: img, title, authors, publisher, id });
-    navigate(`/record/${id}`);
+  };
+
+  const handleClickList = (review: IBookReview) => {
+    updateBookDataState(review);
+    moveToViewPage(review);
   };
   
   return (
@@ -33,7 +41,7 @@ function RecordSearch() {
             {searchedReviews.map((item: IBookReview) => (
               <div key={item.id}>
                 <BookList
-                  onBoxClicked={() => onBoxClicked(item)}
+                  onBoxClicked={() => handleClickList(item)}
                   thumbnail={item.img}
                   title={item.title}
                   authors={item.authors}
