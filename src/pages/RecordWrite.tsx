@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { bookDataState, bookReviewState } from "../state/atoms";
 import { IBookReview } from "../utils/types";
+import { DateValidationResult } from "../utils/constants";
+import validateDate from "../utils/validateDate";
 
 import { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
@@ -25,30 +27,22 @@ function RecordWrite() {
     setBookReviews((prevReviews) => [...prevReviews, newReview]);
   };
 
-  // 유효성 검사
-  const validateAndNotify = (review: IBookReview) => {
-    if ((review.cat === "read" || review.cat === "reading") && !review.startDate) {
-      notify({ type: "error", text: "시작일을 설정해 주세요." });
-      return false;
-    }
-    if (review.endDate && review.startDate && review.endDate < review.startDate) {
-      notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
-      return false;
-    }
-    return true;
-  };
+  const handleClickSaveBtn = (review: IBookReview) => {
+    const validationResult = validateDate(review); // 유효성 검사 결과 반환
 
-  const handleClickSaveBtn = (newReview: IBookReview) => {
-    try {
-      if (!validateAndNotify(newReview)) {
-        return;
+    if (validationResult === DateValidationResult.VALID) {
+      try {
+        updateReviewState(review);
+        notify({ type: "default", text: "새로운 기록이 저장되었습니다." });
+        moveToViewPage(review);
+      } catch (error) {
+        console.error(error);
+        notify({ type: "error", text: "다시 시도해 주세요." });
       }
-      updateReviewState(newReview);
-      notify({ type: "default", text: "새로운 기록이 저장되었습니다." });
-      moveToViewPage(newReview);
-    } catch (error) {
-      console.error(error);
-      notify({ type: "error", text: "다시 시도해 주세요." });
+    } else if (validationResult === DateValidationResult.NO_START_DATE) {
+      notify({ type: "error", text: "시작일을 설정해 주세요." });
+    } else if (validationResult === DateValidationResult.INVALID_DATE_RANGE) {
+      notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
     }
   };
 
