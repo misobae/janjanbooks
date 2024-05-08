@@ -19,11 +19,14 @@ function RecordUpdate() {
   const [review, setReview] = useState<string>(matchedReview?.review || "");
 
   const navigate = useNavigate();
+  
+  // view 페이지로 이동
   const moveToViewPage = (matchedReview: IBookReview) => {
     navigate(`/record/${matchedReview.id}`);
   };
 
-  const updateBookReviewState = (newReview: IBookReview) => {
+  // 리뷰 상태 업데이트
+  const updateReviewState = (newReview: IBookReview) => {
     setBookReviews((prevReviews) =>
       prevReviews.map((review) =>
         review.id === newReview.id
@@ -33,19 +36,26 @@ function RecordUpdate() {
     )
   };
   
-  const handleSaveBtnClick = (newReview: IBookReview) => {
+  // 유효성 검사
+  const validateAndNotify = (review: IBookReview) => {
+    if ((review.cat === "read" || review.cat === "reading") && !review.startDate) {
+      notify({ type: "error", text: "시작일을 설정해 주세요." });
+      return false;
+    }
+    if (review.endDate && review.startDate && review.endDate < review.startDate) {
+      notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
+      return false;
+    }
+    return true;
+  };
+
+  // 저장 버튼 클릭 시 실행
+  const handleClickSaveBtn = (newReview: IBookReview) => {
     try {
-      // 유효성 검사
-      if (endDate && startDate && endDate < startDate) {
-        notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
+      if (!validateAndNotify(newReview)) {
         return;
       }
-      if ((cat === "read" || cat === "reading") && !startDate) {
-        notify({ type: "error", text: "시작일을 설정해 주세요." });
-        return;
-      }
-      
-      updateBookReviewState(newReview);
+      updateReviewState(newReview);
       notify({ type: "default", text: "기록이 수정되었습니다." });
       moveToViewPage(newReview);
     } catch (error) {
@@ -77,7 +87,7 @@ function RecordUpdate() {
           <button
             className="text-blue-600 text-sm"
             onClick={() => {
-              handleSaveBtnClick({
+              handleClickSaveBtn({
                 id: matchedReview.id,
                 cat: cat,
                 img: matchedReview.img,
