@@ -15,10 +15,22 @@ function RecordListCat() {
   const selectedReviews = bookReviews.filter(review => review.cat === category);
   const setBookDataState = useSetRecoilState(bookDataState);
   
+  // view 페이지로 이동
   const moveToViewPage = (review: IBookReview) => {
+    const { id } = review;
+    navigate(`/record/${id}`);
+  };
+
+  // 책 정보 상태 업데이트
+  const updateBookDataState = (review: IBookReview) => {
     const { img, title, authors, publisher, id } = review;
     setBookDataState({ thumbnail: img, title, authors, publisher, id });
-    navigate(`/record/${id}`);
+  };
+
+  // 썸네일 클릭 함수
+  const handleClickThumb = (review: IBookReview) => {
+    updateBookDataState(review);
+    moveToViewPage(review);
   };
 
   useEffect(() => {
@@ -34,7 +46,11 @@ function RecordListCat() {
       {filteredReviews.length > 0 ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-4 gap-y-8 mb-24">
           {filteredReviews.map(review => (
-            <div key={review.id} className="cursor-pointer" onClick={() => moveToViewPage(review)}>
+            <div
+              key={review.id}
+              className="cursor-pointer"
+              onClick={() => handleClickThumb(review)}
+            >
               <div className="mb-2 border">
                 { review.img === "" ? (
                   <NoBookCover />
