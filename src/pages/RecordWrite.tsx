@@ -21,23 +21,29 @@ function RecordWrite() {
     navigate(`/record/${review.id}`);
   };
 
-  const updateBookReviewState = (newReview: IBookReview) => {
+  const updateReviewState = (newReview: IBookReview) => {
     setBookReviews((prevReviews) => [...prevReviews, newReview]);
   };
 
-  const handleSaveBtnClick = (newReview: IBookReview) => {
-    try {
-      // 유효성 검사
-      if (endDate && startDate && endDate < startDate) {
-        notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
-        return;
-      }
-      if ((cat === "read" || cat === "reading") && !startDate) {
-        notify({ type: "error", text: "시작일을 설정해 주세요." });
-        return;
-      }
+  // 유효성 검사
+  const validateAndNotify = (review: IBookReview) => {
+    if ((review.cat === "read" || review.cat === "reading") && !review.startDate) {
+      notify({ type: "error", text: "시작일을 설정해 주세요." });
+      return false;
+    }
+    if (review.endDate && review.startDate && review.endDate < review.startDate) {
+      notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
+      return false;
+    }
+    return true;
+  };
 
-      updateBookReviewState(newReview);
+  const handleClickSaveBtn = (newReview: IBookReview) => {
+    try {
+      if (!validateAndNotify(newReview)) {
+        return;
+      }
+      updateReviewState(newReview);
       notify({ type: "default", text: "새로운 기록이 저장되었습니다." });
       moveToViewPage(newReview);
     } catch (error) {
@@ -60,7 +66,7 @@ function RecordWrite() {
           <button
             className="text-blue-600 text-sm"
             onClick={() => {
-              handleSaveBtnClick({
+              handleClickSaveBtn({
                 id: bookData.isbn,
                 cat: cat,
                 img: bookData.thumbnail,
