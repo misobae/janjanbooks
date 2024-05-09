@@ -57,8 +57,12 @@ module.exports = {
         background: '#ddd',
         theme_color: '#333',
         icons: {
-          coast: false,
-          yandex: false
+          android: false,
+          appleIcon: false,
+          appleStartup: false,
+          favicons: true,
+          windows: false,
+          yandex: false,
         }
       }
     }),
