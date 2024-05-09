@@ -3,6 +3,8 @@ const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports = {
   mode: 'development',
@@ -61,6 +63,10 @@ module.exports = {
       }
     }),
     new RobotstxtPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      generateStatsFile: true,
+    })
   ],
   devtool: 'inline-source-map', // devtool: 소스맵 생성 방식 설정
   devServer: { // devServer: 코드가 변경될 때 마다 자동으로 컴파일하는 옵션
