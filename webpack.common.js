@@ -5,7 +5,6 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
@@ -13,7 +12,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'], // import 시 생략할 확장자
   },
   output: {
-    filename: 'bundle.js', // 번들링 결과 파일명
+    filename: '[name].bundle.js', // 번들링 결과 파일명
     path: path.resolve(__dirname, 'dist'), // 번들링 결과 파일 경로
     publicPath: "/",
     clean: true, // 번들링 시 이전에 생성되어있던 번들링 파일을 지우고 번들링
@@ -72,6 +71,17 @@ module.exports = {
       generateStatsFile: true,
     })
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   devtool: 'inline-source-map', // devtool: 소스맵 생성 방식 설정
   devServer: { // devServer: 코드가 변경될 때 마다 자동으로 컴파일하는 옵션
     static: './dist',
