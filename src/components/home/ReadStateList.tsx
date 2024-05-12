@@ -63,7 +63,8 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
                 <NoBookCover />
                 ) : (
                 <img
-                  className="block w-full"
+                  width="120" height="174"
+                  className="block w-full aspect-[120/174]"
                   src={data.img} alt={data.title+'북 커버'}
                 />
               )}
