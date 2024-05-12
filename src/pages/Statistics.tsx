@@ -8,7 +8,7 @@ import NoBook from "../components/NoBook";
 import Header from "../components/layout/Header";
 import BookList from "../components/BookList";
 import DateSelector from "../components/statistics/DateSelector";
-import ReadingStatsChartProps from "../components/statistics/ReadingStatsChart";
+import ReadingStatsChart from "../components/statistics/ReadingStatsChart";
 import BookCountByDate from "../components/statistics/BookCountByDate";
 
 
@@ -56,28 +56,39 @@ function Statistics() {
   const matchingYearMonthReviews = readReviews.filter(review => review.startDate.slice(0, 7) === `${selectedYear}-${selectedMonth}`);
 
   // 선택한 년도의 1월~12월 리뷰 배열
-  const reviewsCountByMonth: number[] = [];
-  for (let i = 1; i <= 12; i++) {
-    const month = i < 10 ? `0${i}` : `${i}`;
-    const filterCondition = `${selectedYear}-${month}`;
+  const getReviewsCountByMonth = (year: string, reviews: IBookReview[]): { x: string, y: number }[] => {
+    const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
+  
+    return monthsArray.map((month) => {
+      const filterCondition = `${year}-${month}`;
+      const matchingReviews = reviews.filter(review => review.startDate.startsWith(filterCondition));
+      const monthName = month.startsWith('0') ? month.substring(1) : month;
+  
+      return {
+        x: `${monthName}월`,
+        y: matchingReviews.length
+      };
+    });
+  };
+  
+  const reviewsCountByMonth = getReviewsCountByMonth(selectedYear, readReviews);
 
-    const matchingReviews = readReviews.filter(review => review.startDate.slice(0, 7) === filterCondition);
+  const dataForChart = [{
+    "id": "reviewsCountByMonth",
+    "color": "hsl(228, 79%, 47%)",
+    "data": reviewsCountByMonth
+  }];
 
-    reviewsCountByMonth.push(matchingReviews.length);
-  }
-
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedYear = e.target.value;
-    setSelectedYear(selectedYear);
-  }
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedMonth = e.target.value;
-    setSelectedMonth(selectedMonth);
-  }
+  const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedYear(e.target.value);
+  };
+  const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMonth(e.target.value);
+  };
 
   const navigate = useNavigate();
   const setBookData = useSetRecoilState(bookDataState);
-  const onBoxClicked = ({ img, title, authors, publisher, id }: IBookReview) => {
+  const handleClickItem = ({ img, title, authors, publisher, id }: IBookReview) => {
     setBookData({ thumbnail: img, title, authors, publisher, id });
     navigate(`/record/${id}`);
   };
@@ -91,19 +102,21 @@ function Statistics() {
       <div className="layout mb-40">
         <div className="flex justify-center items-center gap-3 mb-4">
           <DateSelector
-            handleChange={handleYearChange}
+            handleChange={handleChangeYear}
             value={selectedYear}
             arr={uniqueStartYears}
+            dateUnit="년"
           />
           <BookCountByDate num={matchingYearReviews.length} />
         </div>
-        <ReadingStatsChartProps categories={months} data={reviewsCountByMonth} />
+        <ReadingStatsChart data={dataForChart} />
 
         <div className="flex justify-center items-center gap-3 mt-12 mb-4">
           <DateSelector
-            handleChange={handleMonthChange}
+            handleChange={handleChangeMonth}
             value={selectedMonth}
             arr={months}
+            dateUnit="월"
           />
           <BookCountByDate num={matchingYearMonthReviews.length} />
         </div>
@@ -111,7 +124,7 @@ function Statistics() {
           matchingYearMonthReviews.map((item: IBookReview) => (
             <div key={item.id}>
               <BookList
-                onBoxClicked={() => onBoxClicked(item)}
+                onBoxClicked={() => handleClickItem(item)}
                 thumbnail={item.img}
                 title={item.title}
                 authors={item.authors}
