@@ -35,6 +35,10 @@ module.exports = {
         test: /\.svg$/,
         use: ['@svgr/webpack', 'file-loader'],
       },
+      {
+        test: /\.(woff|woff2)$/,
+        use: ['file-loader'],
+      },
     ],
   },
   plugins: [ // 최종 output을 변경해주는 도구
