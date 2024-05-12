@@ -1,70 +1,83 @@
-import ApexCharts from 'react-apexcharts'
-
-interface ReadingStatsChartProps {
-  categories: string[];
-  data: number[];
+import { ResponsiveLine } from '@nivo/line';
+interface ChartData {
+  x: string;
+  y: number;
 }
-function ReadingStatsChart({ categories, data }: ReadingStatsChartProps) {
+interface ChartDataSet {
+  id: string;
+  color: string;
+  data: ChartData[];
+}
+interface ReadingStatsChartProps {
+  data: ChartDataSet[];
+}
+
+function ReadingStatsChart({ data }: ReadingStatsChartProps ) {
   return (
-    <ApexCharts
-      type="line"
-      height={300}
-      options={{
-        chart: {
-          background: "transparent",
-          toolbar: { show: false },
-          zoom: {
-            enabled: false
+    <div className='h-[240px]'>
+      <ResponsiveLine
+        data={data}
+        layers={['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'points', 'slices', 'mesh', 'legends']}
+        margin={{ top: 32, right: 16, bottom: 32, left: 16 }}
+        xScale={{ type: 'point' }}
+        yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false
+        }}
+        curve="monotoneX"
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            tickSize: 5,
+            tickPadding: 10,
+            tickRotation: 0,
+            legend: '',
+            legendOffset: 0,
+            legendPosition: 'middle',
+            truncateTickAt: 0
+        }}
+        colors={['rgb(29 78 216)']}
+        theme={{
+          dots: {
+              text: {
+                  fill: '#ffffff',
+              },
           },
-          animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 500
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          style: {
-            fontSize: '12px',
-            fontWeight: 'bold',
-          },
-          background: {
-            enabled: true,
-            foreColor: '#fff',
-            borderRadius: 2,
-            padding: 4,
-            opacity: 0.9,
-            borderWidth: 1,
-            borderColor: '#fff'
-          },
-        },
-        colors: ["#1e40af"],
-        stroke: {
-          curve: "smooth",
-          width: 4
-        },
-        xaxis: {
-          categories: categories,
-        },
-        yaxis: {
-          show: false,
-        },
-        grid: {
-          yaxis: {
-            lines: {
-              show: false
-            }
-          }
-        },
-        tooltip: {
-          enabled: false,
-        }    
-      }}
-      series={[{
-        name: "read status",
-        data: data ?? [],
-      }]}
-    />  
+        }}
+        axisLeft={null}
+        enableGridX={false}
+        enableGridY={false}
+        lineWidth={3}
+        pointSize={20}
+        pointColor={{ from: 'color', modifiers: [] }}
+        pointBorderWidth={1}
+        pointBorderColor={{ theme: 'background' }}
+        enablePoints={true}
+        enablePointLabel={true}
+        pointLabel="y"
+        pointLabelYOffset={4}
+        areaOpacity={0}
+        areaBlendMode="normal"
+        crosshairType="x"
+        areaBaselineValue="0"
+        role="0"
+        enableArea={false}
+        enableCrosshair={false}
+        isInteractive={false}
+        useMesh={false}
+        debugMesh={false}
+        enableSlices={false}
+        debugSlices={false}
+        legends={[]}
+        fill={[]}
+        defs={[]}
+        tooltip={() => null} 
+        sliceTooltip={() => null} 
+    />
+    </div>
   )
 }
 
