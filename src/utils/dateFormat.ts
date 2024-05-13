@@ -11,4 +11,13 @@ export function formatDate(date: Date) {
     date.getDate().toString().padStart(2, '0');
 
   return formattedDate;
-}
+};
+
+export function getCurrentDateInfo() {
+  const today = new Date();
+  const currentYear = String(today.getFullYear());
+  const currentMonth = `${today.getMonth() + 1 < 10 ? '0' : ''}${today.getMonth() + 1}`;
+  const currentYearAndMonth = `${currentYear}-${currentMonth}`;
+
+  return { currentMonth, currentYearAndMonth };
+};
