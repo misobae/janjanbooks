@@ -33,12 +33,15 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack', 'file-loader'],
+        type: 'asset/inline'
       },
       {
         test: /\.(woff|woff2)$/,
-        use: ['file-loader'],
-      },
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[hash][ext]'
+        }
+      }
     ],
   },
   plugins: [ // 최종 output을 변경해주는 도구
