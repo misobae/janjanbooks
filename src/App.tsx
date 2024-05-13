@@ -10,9 +10,9 @@ import Home from "./pages/Home";
 import Header from "./components/layout/Header";
 import Nav from "./components/layout/Nav";
 import Toast from "./components/common/Toast";
-import BookSearchBox from "./components/BookSearchBox";
+import BookSearchBox from "./components/common/BookSearchBox";
 import RecordSearchBox from "./components/record/RecordSearchBox";
-import NoBook from "./components/NoBook";
+import NoBook from "./components/common/NoBook";
 import BtnBack from "./components/common/BtnBack";
 
 const NotFound = lazy(() => import('./pages/NotFound'));

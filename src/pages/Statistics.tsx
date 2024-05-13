@@ -5,7 +5,7 @@ import { IBookReview } from "../utils/types";
 import { getCurrentDateInfo } from "../utils/dateFormat";
 import { bookDataState, bookReviewState } from "../state/atoms";
 
-import BookList from "../components/BookList";
+import BookList from "../components/common/BookList";
 import DateSelector from "../components/statistics/DateSelector";
 import ReadingStatsChart from "../components/statistics/ReadingStatsChart";
 import BookCountByDate from "../components/statistics/BookCountByDate";

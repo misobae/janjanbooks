@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { bookDataState, bookReviewState, selectedReviewState } from "../state/atoms";
 import { IBookReview } from "../utils/types";
 
-import NoBook from "../components/NoBook";
+import NoBook from "../components/common/NoBook";
 import NoBookCover from "../components/common/NoBookCover";
 
 function RecordListCat() {

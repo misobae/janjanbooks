@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { bookDataState, searchedReviewState, searchedReviewWordState } from "../state/atoms";
 import { IBookReview } from "../utils/types";
 
-import BookList from "../components/BookList";
+import BookList from "../components/common/BookList";
 
 function RecordSearch() {
   const searchedWord = useRecoilValue(searchedReviewWordState);

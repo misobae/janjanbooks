@@ -7,7 +7,7 @@ import { bookDataState, bookReviewState, searchedWordState } from "../state/atom
 import { IBooksData } from "../utils/types";
 import { fetchData } from "../api/fetchBooksData";
 
-import BookList from "../components/BookList";
+import BookList from "../components/common/BookList";
 import ConfirmModal from "../components/common/ConfirmModal";
 import Spinner from "../components/common/Spinner";
 
