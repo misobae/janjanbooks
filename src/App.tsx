@@ -13,6 +13,7 @@ import Toast from "./components/common/Toast";
 import BookSearchBox from "./components/BookSearchBox";
 import RecordSearchBox from "./components/record/RecordSearchBox";
 import NoBook from "./components/NoBook";
+import BtnBack from "./components/common/BtnBack";
 
 const NotFound = lazy(() => import('./pages/NotFound'));
 const RecordView = lazy(() => import('./pages/RecordView'));
@@ -34,9 +35,9 @@ function App() {
   const { currentYearAndMonth } = getCurrentDateInfo();
   const matchingCurrentDateReviews = readReviews.filter(review => review.startDate.slice(0, 7) === currentYearAndMonth);
   
-
   const homePath = location.pathname === "/";
   const listPath = location.pathname.includes('/list');
+  const listSearchPath = location.pathname === "/list/search";
   const searchPath = location.pathname === "/search";
   const statPath = location.pathname === "/statistics";
 
@@ -63,10 +64,19 @@ function App() {
         />
       )}
       {listPath && (
-        <Header
-          text="서재"
-          searchForm={<RecordSearchBox />}
-        />
+        listSearchPath ? (
+          <Header
+            text="서재 검색"
+            btnBack={<BtnBack path="/list" />}
+            searchForm={<RecordSearchBox />}
+          />
+        ) : (
+          <Header
+            text="서재"
+            searchForm={<RecordSearchBox />}
+          />
+        )
+       
       )}
       {searchPath && (
         <Header
