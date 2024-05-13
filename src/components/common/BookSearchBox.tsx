@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { searchedWordState } from "../state/atoms";
+import { searchedWordState } from "../../state/atoms";
 
-import SearchForm from "./common/SearchForm";
+import SearchForm from "./SearchForm";
 
 function BookSearchBox() {
   const location = useLocation();
