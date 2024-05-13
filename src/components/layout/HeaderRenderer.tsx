@@ -6,7 +6,6 @@ import Header from './Header';
 import BookSearchBox from '../common/BookSearchBox';
 import RecordSearchBox from '../record/RecordSearchBox';
 import BtnBack from '../common/BtnBack';
-import NoBook from '../common/NoBook';
 
 interface HeaderRendererProp {
   pathname: string;
@@ -61,10 +60,7 @@ const HeaderRenderer = ({ pathname }: HeaderRendererProp) => {
     return readReviews.length > 0 ? (
       <Header text={`이번 달에는\n${matchingCurrentDateReviews.length}권의 책을 읽었어요.`} />
     ) : (
-      <>
-        <Header text="[읽은 책]에 작성된 기록이 없어요.\n다 읽은 책을 기록해 보세요." />
-        <NoBook />
-      </>
+      <Header text={`[읽은 책]에 작성된 기록이 없어요.\n다 읽은 책을 기록해 보세요.`} />
     );
   }
 

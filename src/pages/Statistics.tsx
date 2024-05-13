@@ -9,13 +9,14 @@ import BookList from "../components/common/BookList";
 import DateSelector from "../components/statistics/DateSelector";
 import ReadingStatsChart from "../components/statistics/ReadingStatsChart";
 import BookCountByDate from "../components/statistics/BookCountByDate";
+import NoBook from '../components/common/NoBook';
 
 
 function Statistics() {
   const bookReviews = useRecoilValue(bookReviewState);
   const readReviews = bookReviews.filter(review => review.cat === "read");
   if (readReviews.length === 0) {
-    return;
+    return <NoBook />;
   }
 
   // 읽은 책 중에서 년도만 담은 배열
