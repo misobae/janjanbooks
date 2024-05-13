@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { IBookReview } from "../utils/types";
+import { getCurrentDateInfo } from "../utils/dateFormat";
 import { bookDataState, bookReviewState } from "../state/atoms";
 
-import NoBook from "../components/NoBook";
-import Header from "../components/layout/Header";
 import BookList from "../components/BookList";
 import DateSelector from "../components/statistics/DateSelector";
 import ReadingStatsChart from "../components/statistics/ReadingStatsChart";
@@ -15,18 +14,9 @@ import BookCountByDate from "../components/statistics/BookCountByDate";
 function Statistics() {
   const bookReviews = useRecoilValue(bookReviewState);
   const readReviews = bookReviews.filter(review => review.cat === "read");
-
   if (readReviews.length === 0) {
-    return (
-      <>
-        <Header text="[읽은 책]에 작성된 기록이 없어요.
-        다 읽은 책을 기록해 보세요." />
-        <NoBook />
-      </>
-    );
+    return;
   }
-
-  const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
   // 읽은 책 중에서 년도만 담은 배열
   const startYears = readReviews.map(review => review.startDate.slice(0, 4));
@@ -39,12 +29,7 @@ function Statistics() {
     return current > max ? current : max;
   });
 
-  // 오늘과 년+월이 같은 리뷰  
-  const today = new Date();
-  const currentYear = String(today.getFullYear());
-  const currentMonth = `${today.getMonth() + 1 < 10 ? '0' : ''}${today.getMonth() + 1}`;
-  const currentYearAndMonth = `${currentYear}-${currentMonth}`;
-  const matchingCurrentDateReviews = readReviews.filter(review => review.startDate.slice(0, 7) === currentYearAndMonth);
+  const { currentMonth } = getCurrentDateInfo();
 
   const [selectedYear, setSelectedYear] = useState(recentYear);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
@@ -56,6 +41,7 @@ function Statistics() {
   const matchingYearMonthReviews = readReviews.filter(review => review.startDate.slice(0, 7) === `${selectedYear}-${selectedMonth}`);
 
   // 선택한 년도의 1월~12월 리뷰 배열
+  const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   const getReviewsCountByMonth = (year: string, reviews: IBookReview[]): { x: string, y: number }[] => {
     const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
   
@@ -94,49 +80,43 @@ function Statistics() {
   };
 
   return (
-    <>
-      <Header text={`이번 달에는
-        ${matchingCurrentDateReviews.length}권의 책을 읽었어요.
-      `} />
-
-      <div className="layout mb-40">
-        <div className="flex justify-center items-center gap-3 mb-4">
-          <DateSelector
-            handleChange={handleChangeYear}
-            value={selectedYear}
-            arr={uniqueStartYears}
-            dateUnit="년"
-          />
-          <BookCountByDate num={matchingYearReviews.length} />
-        </div>
-        <ReadingStatsChart data={dataForChart} />
-
-        <div className="flex justify-center items-center gap-3 mt-12 mb-4">
-          <DateSelector
-            handleChange={handleChangeMonth}
-            value={selectedMonth}
-            arr={months}
-            dateUnit="월"
-          />
-          <BookCountByDate num={matchingYearMonthReviews.length} />
-        </div>
-        {matchingYearMonthReviews.length > 0 ? (
-          matchingYearMonthReviews.map((item: IBookReview) => (
-            <div key={item.id}>
-              <BookList
-                onBoxClicked={() => handleClickItem(item)}
-                thumbnail={item.img}
-                title={item.title}
-                authors={item.authors}
-                publisher={item.publisher}
-              />
-            </div>
-          ))
-        ) : (
-          <div className="bg-slate-200 text-center p-6">작성된 리뷰가 없습니다.</div>
-        )}
+    <div className="layout mb-40">
+      <div className="flex justify-center items-center gap-3 mb-4">
+        <DateSelector
+          handleChange={handleChangeYear}
+          value={selectedYear}
+          arr={uniqueStartYears}
+          dateUnit="년"
+        />
+        <BookCountByDate num={matchingYearReviews.length} />
       </div>
-    </>
+      <ReadingStatsChart data={dataForChart} />
+
+      <div className="flex justify-center items-center gap-3 mt-12 mb-4">
+        <DateSelector
+          handleChange={handleChangeMonth}
+          value={selectedMonth}
+          arr={months}
+          dateUnit="월"
+        />
+        <BookCountByDate num={matchingYearMonthReviews.length} />
+      </div>
+      {matchingYearMonthReviews.length > 0 ? (
+        matchingYearMonthReviews.map((item: IBookReview) => (
+          <div key={item.id}>
+            <BookList
+              onBoxClicked={() => handleClickItem(item)}
+              thumbnail={item.img}
+              title={item.title}
+              authors={item.authors}
+              publisher={item.publisher}
+            />
+          </div>
+        ))
+      ) : (
+        <div className="bg-slate-200 text-center p-6">작성된 리뷰가 없습니다.</div>
+      )}
+    </div>
   )
 };
 
