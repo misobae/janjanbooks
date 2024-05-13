@@ -15,6 +15,10 @@ import RecordSearchBox from "./components/record/RecordSearchBox";
 import NoBook from "./components/common/NoBook";
 import BtnBack from "./components/common/BtnBack";
 
+import ListSkeleton from "./components/record/ListSkeleton";
+import RecordSkeleton from "./components/record/RecordSkeleton";
+import StatSkeleton from "./components/statistics/StatSkeleton";
+
 const NotFound = lazy(() => import('./pages/NotFound'));
 const RecordView = lazy(() => import('./pages/RecordView'));
 const RecordList = lazy(() => import('./pages/RecordList'));
@@ -106,12 +110,12 @@ function App() {
           </Suspense>
         } />
         <Route path="/list" element={
-          <Suspense>
+          <Suspense fallback={ <ListSkeleton /> }>
             <RecordList />
           </Suspense>
         }>
           <Route path=":category" element={
-            <Suspense>
+            <Suspense fallback={ <ListSkeleton /> }>
               <RecordListCat />
             </Suspense>
           } />
@@ -122,22 +126,22 @@ function App() {
           </Suspense>
         } />
         <Route path="/record/:id" element={ 
-          <Suspense>
+          <Suspense fallback={ <RecordSkeleton /> }>
             <RecordView />
           </Suspense>
         } />
         <Route path="/record/write/:id" element={ 
-          <Suspense>
+          <Suspense fallback={ <RecordSkeleton /> }>
             <RecordWrite />
           </Suspense>
         } />
         <Route path="/record/update/:id" element={
-          <Suspense>
+          <Suspense fallback={ <RecordSkeleton /> }>
             <RecordUpdate />
           </Suspense>
         } />
         <Route path="/statistics" element={
-          <Suspense>
+          <Suspense fallback={ <StatSkeleton /> }>
             <Statistics />
           </Suspense>
         } />
