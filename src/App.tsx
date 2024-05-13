@@ -1,49 +1,17 @@
-import { lazy, Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import { Route, Routes, useLocation } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useLocation } from "react-router-dom";
+import AppRoutes from "./routes";
 import getMetaData from "./utils/metaData";
-import { getCurrentDateInfo } from "./utils/dateFormat";
-import { bookReviewState } from "./state/atoms";
 
-import Home from "./pages/Home";
-import Header from "./components/layout/Header";
 import Nav from "./components/layout/Nav";
 import Toast from "./components/common/Toast";
-import BookSearchBox from "./components/common/BookSearchBox";
-import RecordSearchBox from "./components/record/RecordSearchBox";
-import NoBook from "./components/common/NoBook";
-import BtnBack from "./components/common/BtnBack";
+import HeaderRenderer from "./components/layout/HeaderRenderer";
 
-import ListSkeleton from "./components/record/ListSkeleton";
-import RecordSkeleton from "./components/record/RecordSkeleton";
-import StatSkeleton from "./components/statistics/StatSkeleton";
-
-const NotFound = lazy(() => import('./pages/NotFound'));
-const RecordView = lazy(() => import('./pages/RecordView'));
-const RecordList = lazy(() => import('./pages/RecordList'));
-const RecordRedirect = lazy(() => import('./utils/recordRedirect'));
-const RecordListCat = lazy(() => import('./pages/RecordListCat'));
-const RecordWrite = lazy(() => import('./pages/RecordWrite'));
-const RecordUpdate = lazy(() => import('./pages/RecordUpdate'));
-const Statistics = lazy(() => import('./pages/Statistics'));
-const Search = lazy(() => import('./pages/Search'));
-const RecordSearch = lazy(() => import('./pages/RecordSearch'));
 
 function App() {
-  const location = useLocation();
-  const { title, keywords, description } = getMetaData(location.pathname);
-
-  const bookReviews = useRecoilValue(bookReviewState);
-  const readReviews = bookReviews.filter(review => review.cat === "read");
-  const { currentYearAndMonth } = getCurrentDateInfo();
-  const matchingCurrentDateReviews = readReviews.filter(review => review.startDate.slice(0, 7) === currentYearAndMonth);
-  
-  const homePath = location.pathname === "/";
-  const listPath = location.pathname.includes('/list');
-  const listSearchPath = location.pathname === "/list/search";
-  const searchPath = location.pathname === "/search";
-  const statPath = location.pathname === "/statistics";
+  const { pathname } = useLocation();
+  const { title, keywords, description } = getMetaData(pathname);
 
   useEffect(() => {
     document.title = title;
@@ -60,102 +28,9 @@ function App() {
 
       <Toast />
 
-      {homePath && (
-        <Header
-          text={bookReviews.length > 0 ? "기록할 책이 있으세요?" : `아직 기록된 책이 없어요.
-          좋아하는 책을 검색해 보세요.`}
-          searchForm={bookReviews.length > 0 ? <BookSearchBox /> : null}
-        />
-      )}
-      {listPath && (
-        listSearchPath ? (
-          <Header
-            text="서재 검색"
-            btnBack={<BtnBack path="/list" />}
-            searchForm={<RecordSearchBox />}
-          />
-        ) : (
-          <Header
-            text="서재"
-            searchForm={<RecordSearchBox />}
-          />
-        )
-       
-      )}
-      {searchPath && (
-        <Header
-          text="기록할 책이 있으세요?"
-          searchForm={<BookSearchBox />}
-        />
-      )}
-      {statPath && (
-        readReviews.length > 0 ? (
-          <Header text={`이번 달에는
-            ${matchingCurrentDateReviews.length}권의 책을 읽었어요.
-          `} />
-        ) : (
-          <>
-            <Header text="[읽은 책]에 작성된 기록이 없어요.
-            다 읽은 책을 기록해 보세요." />
-            <NoBook />
-          </>
-        )
-      )}
+      <HeaderRenderer pathname={pathname} />
 
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={ <Home /> } />
-        <Route path="/list" element={
-          <Suspense>
-            <RecordRedirect />
-          </Suspense>
-        } />
-        <Route path="/list" element={
-          <Suspense fallback={ <ListSkeleton /> }>
-            <RecordList />
-          </Suspense>
-        }>
-          <Route path=":category" element={
-            <Suspense fallback={ <ListSkeleton /> }>
-              <RecordListCat />
-            </Suspense>
-          } />
-        </Route>
-        <Route path="/list/search" element={
-          <Suspense>
-            <RecordSearch />
-          </Suspense>
-        } />
-        <Route path="/record/:id" element={ 
-          <Suspense fallback={ <RecordSkeleton /> }>
-            <RecordView />
-          </Suspense>
-        } />
-        <Route path="/record/write/:id" element={ 
-          <Suspense fallback={ <RecordSkeleton /> }>
-            <RecordWrite />
-          </Suspense>
-        } />
-        <Route path="/record/update/:id" element={
-          <Suspense fallback={ <RecordSkeleton /> }>
-            <RecordUpdate />
-          </Suspense>
-        } />
-        <Route path="/statistics" element={
-          <Suspense fallback={ <StatSkeleton /> }>
-            <Statistics />
-          </Suspense>
-        } />
-        <Route path="/search" element={ 
-          <Suspense>
-            <Search />
-          </Suspense>
-        } />
-        <Route path="/*" element={
-          <Suspense>
-            <NotFound />
-          </Suspense>
-        } />
-      </Routes>
+      <AppRoutes />
 
       {
         !location.pathname.includes('/record/write') &&
