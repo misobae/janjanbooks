@@ -1,12 +1,12 @@
 import { IBookReview } from "./types";
 import { DateValidationResult } from "./constants";
 
-const validateDate = (review: IBookReview) => {
+const validateDate = ({ cat, startDate, endDate }: IBookReview) => {
   
-  if ((review.cat === "read" || review.cat === "reading") && !review.startDate) {
+  if ((cat === "read" || cat === "reading") && !startDate) {
     return DateValidationResult.NO_START_DATE;
   }
-  if (review.endDate && review.startDate && review.endDate < review.startDate) {
+  if (endDate && startDate && endDate < startDate) {
     return DateValidationResult.INVALID_DATE_RANGE;
   }
   return DateValidationResult.VALID;

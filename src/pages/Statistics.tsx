@@ -42,15 +42,13 @@ function Statistics() {
   const matchingYearMonthReviews = readReviews.filter(review => review.startDate.slice(0, 7) === `${selectedYear}-${selectedMonth}`);
 
   // 선택한 년도의 1월~12월 리뷰 배열
-  const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  const getReviewsCountByMonth = (year: string, reviews: IBookReview[]): { x: string, y: number }[] => {
-    const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
-  
+  const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
+  const getReviewsCountByMonth = (year: string, reviews: IBookReview[]) => {
     return monthsArray.map((month) => {
       const filterCondition = `${year}-${month}`;
       const matchingReviews = reviews.filter(review => review.startDate.startsWith(filterCondition));
       const monthName = month.startsWith('0') ? month.substring(1) : month;
-  
+
       return {
         x: `${monthName}월`,
         y: matchingReviews.length
@@ -97,7 +95,7 @@ function Statistics() {
         <DateSelector
           handleChange={handleChangeMonth}
           value={selectedMonth}
-          arr={months}
+          arr={monthsArray}
           dateUnit="월"
         />
         <BookCountByDate num={matchingYearMonthReviews.length} />
