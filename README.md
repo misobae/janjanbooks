@@ -1,58 +1,60 @@
 # 잔잔북스
-![project_janjanbooks_thumb](https://github.com/misobae/janjanbooks/assets/156400599/c24e6b10-8a0d-426a-9bac-682ba12adb4b)
+<div align="center">
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/ad647f41-1c06-45eb-b777-2df7f4186904">
+</div>
+
 
 ## 프로젝트 소개
-이 프로젝트는 독서 기록을 편리하게 관리하는 웹 어플리케이션입니다. 사용자는 책 정보와 함께 독서 상태, 기간, 독서록이나 독후감을 쉽게 기록할 수 있으며, 연도별과 월별 통계를 통해 독서 빈도를 시각적으로 확인할 수 있습니다.
+잔잔북스는 독서 기록을 편리하게 관리하는 웹 애플리케이션입니다. 원하는 책을 검색하여 책 정보와 함께 독서 상태, 기간, 리뷰를 기록할 수 있습니다. 독서 상태별로 구분된 서재 기능과 작성한 리뷰에 대한 검색 기능 등 꼭 필요한 기능을 갖추고 있습니다. 또한 독서 통계 페이지에서 자신의 독서 패턴을 파악할 수 있습니다.
 
 
 ## 기능 소개
 ### 도서 검색 기능
-카카오 API를 활용해 도서 검색 기능을 구현했습니다.
-
-![도서 검색](https://github.com/misobae/janjanbooks/assets/156400599/62e41917-f5ed-4279-8412-e7c0b915fba4)
-
+책 제목이나 작가명으로 기록하고 싶은 책을 검색할 수 있습니다.
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/03c545cc-22ea-460b-8b3c-d547192cf86a">
+</div>
 <br />
 
 ### 검색한 도서에 대한 상세 기록과 수정, 삭제 기능
-
+책 정보와 함께 독서 상태, 기간, 리뷰를 기록하고 수정 및 삭제할 수 있습니다.
 #### 기록
-검색한 책의 상세 정보와 사용자가 작성한 리뷰를 Recoil State에 저장하여 기록 기능을 구현했습니다. 사용자가 도서를 검색하고 선택하면, 해당 책의 정보와 사용자가 입력한 리뷰가 localStorage에 저장됩니다. 
-
-![독서+기록_out](https://github.com/misobae/janjanbooks/assets/156400599/fbcd2bff-a133-4ebe-9f0c-ab80708448bd)
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/7da77337-34ff-471c-a611-3645f5a54e8f">
+</div>
 
 #### 수정
-사용자가 리뷰를 수정하면, 해당 리뷰를 새로운 정보로 업데이트하는 기능을 구현했습니다. 사용자가 기존의 리뷰를 선택하고 수정하면, 기존 리뷰 목록에서 수정된 리뷰의 ID와 일치하는 항목을 찾아 업데이트합니다.
-
-![기록+수정_out](https://github.com/misobae/janjanbooks/assets/156400599/01ba9b77-1aa5-449a-a991-8562d580ba03)
-
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/9cdad056-43cb-4420-b9b6-24290ec14f5e">
+</div>
 
 #### 삭제
-사용자가 리뷰를 삭제하면, 해당 리뷰를 목록에서 제거하는 기능을 구현했습니다. 사용자가 삭제하려는 리뷰를 선택하면, 기존 리뷰 목록을 필터링하여 삭제할 리뷰의 ID와 일치하지 않는 항목만을 새로운 배열에 담아 전체 리뷰 목록을 업데이트합니다.
-
-![기록 삭제](https://github.com/misobae/janjanbooks/assets/156400599/5624f35a-385d-4595-8aa3-40f50e38be8b)
-
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/b57494d2-15ec-494c-97ee-d289831c3e9a">
+</div>
 <br />
 
 ### 저장한 독서 기록을 상태별로 나누어볼 수 있는 탭 기능
-사용자가 저장한 독서 기록을 상태별로 구분하여 편리하게 관리할 수 있는 탭 기능을 구현했습니다. 각 탭 버튼을 클릭하면 해당 카테고리로 라우팅 되고, 해당 카테고리에 속하는 독서 기록을 필터링하여 리스트에 출력합니다.
-
-![카테고리](https://github.com/misobae/janjanbooks/assets/156400599/7f322824-dfe2-4800-9e83-438becd54842)
-
-
+탭 기능을 사용하여 독서 기록을 상태별로 구분하여 편리하게 관리할 수 있습니다.
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/33e67026-da2c-4bd8-b1ab-33c2144cc35b">
+</div>
 <br />
 
+
 ### 저장한 독서 기록 내부 검색 기능
-사용자가 저장한 독서 기록 중에서 원하는 책을 빠르게 찾을 수 있도록 내부 검색 기능을 구현했습니다. 검색창에 기록한 책의 제목이나 정보를 검색하면, 저장된 기록 중에서 검색한 내용과 일치하는 기록을 찾아 리스트에 표시합니다.
-
-![내부 검색](https://github.com/misobae/janjanbooks/assets/156400599/5d6cf7ea-e828-40fa-8bdd-8aa060cca253)
-
-
+서재 내부에서 저장한 독서 기록을 검색하여 원하는 기록을 빠르게 찾을 수 있습니다.
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/4d902110-5681-479d-9b78-c45049cfc5ab">
+</div>
 <br />
 
 ### 연도별, 월별 독서 통계
-다 읽은 책은 통계 페이지에서 연도별, 월별로 독서 빈도를 시각적으로 확인할 수 있도록 구현했습니다.
-
-![통계](https://github.com/misobae/janjanbooks/assets/156400599/dcbd4397-7c3d-4496-99fb-1c0baa254616)
+연도별, 월별 독서 빈도를 통계 페이지에서 한눈에 파악할 수 있습니다.
+<div>
+  <img width="300" alt="image" src="https://github.com/misobae/janjanbooks/assets/156400599/0ee2436d-bf58-4446-a2c8-51b456116611">
+</div>
+<br />
 
 
 ## 트러블 슈팅
