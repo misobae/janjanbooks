@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { bookDataState, bookReviewState } from "../state/atoms";
 import { IBookReview } from "../utils/types";
-import { DateValidationResult } from "../utils/constants";
 import validateDate from "../utils/validateDate";
+import handleValidationResult from "../utils/reviewValidationHandler";
 
 import { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
@@ -26,24 +26,21 @@ function RecordWrite() {
   const updateReviewState = (newReview: IBookReview) => {
     setBookReviews((prevReviews) => [...prevReviews, newReview]);
   };
-
-  const handleClickSaveBtn = (review: IBookReview) => {
-    const validationResult = validateDate(review); // 유효성 검사 결과 반환
-
-    if (validationResult === DateValidationResult.VALID) {
-      try {
-        updateReviewState(review);
-        notify({ type: "default", text: "새로운 기록이 저장되었습니다." });
-        moveToViewPage(review);
-      } catch (error) {
-        console.error(error);
-        notify({ type: "error", text: "다시 시도해 주세요." });
-      }
-    } else if (validationResult === DateValidationResult.NO_START_DATE) {
-      notify({ type: "error", text: "시작일을 설정해 주세요." });
-    } else if (validationResult === DateValidationResult.INVALID_DATE_RANGE) {
-      notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
+  
+  const saveReview = (newReview: IBookReview) => {
+    try {
+      updateReviewState(newReview);
+      notify({ type: "default", text: "기록이 수정되었습니다." });
+      moveToViewPage(newReview);
+    } catch (error) {
+      console.error(error);
+      notify({ type: "error", text: "다시 시도해 주세요." });
     }
+  };
+
+  const handleClickSaveBtn = (newReview: IBookReview) => {
+    const validationResult = validateDate(newReview);
+    handleValidationResult({ saveReview, validationResult, newReview });
   };
 
   return (
