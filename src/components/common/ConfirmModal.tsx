@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import useBodyScrollLock from '../../hooks/useBodyScrollLock';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -8,19 +8,7 @@ interface ConfirmModalProps {
 }
 
 function ConfirmModal({ isOpen, text, handleConfirm, handleCancel }: ConfirmModalProps) {
-
-  useEffect(() => {
-    const body = document.body;
-    if (isOpen) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = 'auto';
-    }
-
-    return () => {
-      body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
+  useBodyScrollLock(isOpen);
 
   return (
     <>
