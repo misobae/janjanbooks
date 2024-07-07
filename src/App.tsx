@@ -8,7 +8,6 @@ import Nav from "./components/layout/Nav";
 import Toast from "./components/common/Toast";
 import HeaderRenderer from "./components/layout/HeaderRenderer";
 
-
 function App() {
   const { pathname } = useLocation();
   const { title, keywords, description } = getMetaData(pathname);
