@@ -30,7 +30,7 @@ function RecordWrite() {
   const saveReview = (newReview: IBookReview) => {
     try {
       updateReviewState(newReview);
-      notify({ type: "default", text: "기록이 수정되었습니다." });
+      notify({ type: "default", text: "기록이 저장되었습니다." });
       moveToViewPage(newReview);
     } catch (error) {
       console.error(error);
