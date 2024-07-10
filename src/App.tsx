@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
-import AppRoutes from "./routes";
-import getMetaData from "./utils/metaData";
+import AppRoutes from "./routes/routes";
+import getMetaData from "./constants/metaData";
 
 import Nav from "./components/layout/Nav";
 import Toast from "./components/common/Toast";

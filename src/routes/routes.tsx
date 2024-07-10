@@ -1,24 +1,24 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { bookReviewState } from "./state/atoms";
+import { bookReviewState } from "../state/atoms";
 
-import Home from "./pages/Home";
+import Home from "../pages/Home";
 
-import ListSkeleton from "./components/record/ListSkeleton";
-import RecordSkeleton from "./components/record/RecordSkeleton";
-import StatSkeleton from "./components/statistics/StatSkeleton";
+import ListSkeleton from "../components/record/ListSkeleton";
+import RecordSkeleton from "../components/record/RecordSkeleton";
+import StatSkeleton from "../components/statistics/StatSkeleton";
 
-const NotFound = lazy(() => import('./pages/NotFound'));
-const RecordView = lazy(() => import('./pages/RecordView'));
-const RecordList = lazy(() => import('./pages/RecordList'));
-const RecordRedirect = lazy(() => import('./utils/recordRedirect'));
-const RecordListCat = lazy(() => import('./pages/RecordListCat'));
-const RecordWrite = lazy(() => import('./pages/RecordWrite'));
-const RecordUpdate = lazy(() => import('./pages/RecordUpdate'));
-const Statistics = lazy(() => import('./pages/Statistics'));
-const Search = lazy(() => import('./pages/Search'));
-const RecordSearch = lazy(() => import('./pages/RecordSearch'));
+const NotFound = lazy(() => import('../pages/NotFound'));
+const RecordView = lazy(() => import('../pages/RecordView'));
+const RecordList = lazy(() => import('../pages/RecordList'));
+const RecordRedirect = lazy(() => import('./RecordRedirect'));
+const RecordListCat = lazy(() => import('../pages/RecordListCat'));
+const RecordWrite = lazy(() => import('../pages/RecordWrite'));
+const RecordUpdate = lazy(() => import('../pages/RecordUpdate'));
+const Statistics = lazy(() => import('../pages/Statistics'));
+const Search = lazy(() => import('../pages/Search'));
+const RecordSearch = lazy(() => import('../pages/RecordSearch'));
 
 
 function AppRoutes() {
