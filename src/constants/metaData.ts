@@ -1,4 +1,4 @@
-const metaDataRules = [
+const META_DATA_RULES = [
   {
     pattern: /^\/$/,
     title: '홈',
@@ -45,7 +45,7 @@ const metaDataRules = [
 
 
 const getMetaData = (path: string) => {
-  const metaData = metaDataRules.find(rule => rule.pattern.test(path));
+  const metaData = META_DATA_RULES.find(rule => rule.pattern.test(path));
   return metaData || { title: '잔잔북스', keywords: '잔잔북스',description: '잔잔북스' };
 };
 

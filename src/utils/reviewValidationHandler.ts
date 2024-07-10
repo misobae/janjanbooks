@@ -1,5 +1,5 @@
 import { IBookReview } from "./types";
-import { DateValidationResult } from "./constants";
+import { DATE_VALIDATION_RESULT } from "../constants/dateValidationResult";
 import { notify } from "../components/common/Toast";
 
 interface ValidationResultProp {
@@ -9,13 +9,13 @@ interface ValidationResultProp {
 }
 const handleValidationResult = ({ saveReview, validationResult, newReview }: ValidationResultProp) => {
   switch (validationResult) {
-    case DateValidationResult.VALID:
+    case DATE_VALIDATION_RESULT.VALID:
       saveReview(newReview);
       break;
-    case DateValidationResult.NO_START_DATE:
+    case DATE_VALIDATION_RESULT.NO_START_DATE:
       notify({ type: "error", text: "시작일을 설정해 주세요." });
       break;
-    case DateValidationResult.INVALID_DATE_RANGE:
+    case DATE_VALIDATION_RESULT.INVALID_DATE_RANGE:
       notify({ type: "error", text: "종료일은 시작일보다 빠를 수 없습니다." });
       break;
     default:
