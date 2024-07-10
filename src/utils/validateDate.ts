@@ -1,7 +1,7 @@
-import { IBookReview } from "./types";
+import { Review } from "../types/review";
 import { DATE_VALIDATION_RESULT } from "../constants/dateValidationResult";
 
-const validateDate = ({ cat, startDate, endDate }: IBookReview) => {
+const validateDate = ({ cat, startDate, endDate }: Review) => {
   
   if ((cat === "read" || cat === "reading") && !startDate) {
     return DATE_VALIDATION_RESULT.NO_START_DATE;

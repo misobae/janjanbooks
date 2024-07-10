@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { IBookReview } from "../utils/types";
+import { Review } from "../types/review";
 import { getCurrentDateInfo } from "../utils/dateFormat";
 import { bookDataState, bookReviewState } from "../state/atoms";
 
@@ -43,7 +43,7 @@ function Statistics() {
 
   // 선택한 년도의 1월~12월 리뷰 배열
   const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
-  const getReviewsCountByMonth = (year: string, reviews: IBookReview[]) => {
+  const getReviewsCountByMonth = (year: string, reviews: Review[]) => {
     return monthsArray.map((month) => {
       const filterCondition = `${year}-${month}`;
       const matchingReviews = reviews.filter(review => review.startDate.startsWith(filterCondition));
@@ -73,7 +73,7 @@ function Statistics() {
 
   const navigate = useNavigate();
   const setBookData = useSetRecoilState(bookDataState);
-  const handleClickItem = ({ img, title, authors, publisher, id }: IBookReview) => {
+  const handleClickItem = ({ img, title, authors, publisher, id }: Review) => {
     setBookData({ thumbnail: img, title, authors, publisher, id });
     navigate(`/record/${id}`);
   };
@@ -101,7 +101,7 @@ function Statistics() {
         <BookCountByDate num={matchingYearMonthReviews.length} />
       </div>
       {matchingYearMonthReviews.length > 0 ? (
-        matchingYearMonthReviews.map((item: IBookReview) => (
+        matchingYearMonthReviews.map((item: Review) => (
           <div key={item.id}>
             <BookList
               onBoxClicked={() => handleClickItem(item)}

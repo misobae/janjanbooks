@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { bookDataState, bookReviewState } from "../state/atoms";
-import { IBookReview } from "../utils/types";
+import { Review } from "../types/review";
 import validateDate from "../utils/validateDate";
 import handleValidationResult from "../utils/reviewValidationHandler";
 
@@ -19,15 +19,15 @@ function RecordWrite() {
   const [review, setReview] = useState<string>("");
 
   const navigate = useNavigate();
-  const moveToViewPage = (review: IBookReview) => {
+  const moveToViewPage = (review: Review) => {
     navigate(`/record/${review.id}`);
   };
 
-  const updateReviewState = (newReview: IBookReview) => {
+  const updateReviewState = (newReview: Review) => {
     setBookReviews((prevReviews) => [...prevReviews, newReview]);
   };
   
-  const saveReview = (newReview: IBookReview) => {
+  const saveReview = (newReview: Review) => {
     try {
       updateReviewState(newReview);
       notify({ type: "default", text: "기록이 수정되었습니다." });
@@ -38,7 +38,7 @@ function RecordWrite() {
     }
   };
 
-  const handleClickSaveBtn = (newReview: IBookReview) => {
+  const handleClickSaveBtn = (newReview: Review) => {
     const validationResult = validateDate(newReview);
     handleValidationResult({ saveReview, validationResult, newReview });
   };

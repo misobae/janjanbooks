@@ -1,7 +1,7 @@
 import NoBookCover from "../common/NoBookCover";
-import { IBooksData } from "../../utils/types";
+import { Book } from "../../types/book";
 
-function BookInfoBox({thumbnail, title, authors, publisher}: IBooksData) {
+function BookInfoBox({thumbnail, title, authors, publisher}: Book) {
   return (
     <div className="flex items-center w-[95%] md:w-[90%] max-w-[1200px] mb-10 ml-auto md:mx-auto">
       <div className="overflow-hidden relative w-[120px] h-[170px] mr-[-50px] border shrink-0">
