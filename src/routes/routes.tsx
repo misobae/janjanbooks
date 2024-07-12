@@ -5,15 +5,15 @@ import { bookReviewState } from "../recoil/review";
 
 import Home from "../pages/Home/Home";
 
-import ListSkeleton from "../components/record/ListSkeleton";
+import RecordListSkeleton from "../pages/RecordList/components/RecordListSkeleton";
 import RecordSkeleton from "../components/record/RecordSkeleton";
 import StatSkeleton from "../components/statistics/StatSkeleton";
 
 const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 const RecordView = lazy(() => import('../pages/RecordView'));
-const RecordList = lazy(() => import('../pages/RecordList'));
+const RecordList = lazy(() => import('../pages/RecordList/RecordList'));
 const RecordRedirect = lazy(() => import('./RecordRedirect'));
-const RecordListCat = lazy(() => import('../pages/RecordListCat'));
+const RecordListCat = lazy(() => import('../pages/RecordList/RecordListCat'));
 const RecordWrite = lazy(() => import('../pages/RecordWrite'));
 const RecordUpdate = lazy(() => import('../pages/RecordUpdate'));
 const Statistics = lazy(() => import('../pages/Statistics'));
@@ -33,12 +33,12 @@ function AppRoutes() {
         </Suspense>
       } />
       <Route path="/list" element={
-        <Suspense fallback={ bookReviews.length > 0 ? <ListSkeleton /> : null }>
+        <Suspense fallback={ bookReviews.length > 0 ? <RecordListSkeleton /> : null }>
           <RecordList />
         </Suspense>
       }>
         <Route path=":category" element={
-          <Suspense fallback={ bookReviews.length > 0 ? <ListSkeleton /> : null }>
+          <Suspense fallback={ bookReviews.length > 0 ? <RecordListSkeleton /> : null }>
             <RecordListCat />
           </Suspense>
         } />

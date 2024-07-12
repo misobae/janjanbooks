@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-import TabBtn from "../components/record/TabBtn";
-import SortBtn from "../components/record/SortBtn";
+import TabBtn from "./components/TabBtn";
+import SortBtn from "./components/SortBtn";
 
 function RecordList() {
-
   return (
     <div className="layout">
       <div className="flex justify-between items-center mb-8">

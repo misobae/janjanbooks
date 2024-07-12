@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { selectedReviewState } from "../../recoil/review";
+import { selectedReviewState } from "../../../recoil/review";
 
-import ImgSortUp from "../../assets/images/icon_sort_up.svg";
-import ImgSortDown from "../../assets/images/icon_sort_down.svg";
+import ImgSortUp from "../../../assets/images/icon_sort_up.svg";
+import ImgSortDown from "../../../assets/images/icon_sort_down.svg";
 
 function SortBtn() {
   const [filteredReviews, setFilteredReviews] = useRecoilState(selectedReviewState);
