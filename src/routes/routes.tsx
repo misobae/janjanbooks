@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { bookReviewState } from "../recoil/review";
 
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 
 import RecordListSkeleton from "../pages/RecordList/components/RecordListSkeleton";
 import RecordSkeleton from "../components/record/RecordSkeleton";
@@ -19,7 +19,6 @@ const RecordUpdate = lazy(() => import('../pages/RecordUpdate'));
 const Statistics = lazy(() => import('../pages/Statistics'));
 const Search = lazy(() => import('../pages/Search'));
 const RecordSearch = lazy(() => import('../pages/RecordSearch'));
-
 
 function AppRoutes() {
   const bookReviews = useRecoilValue(bookReviewState);

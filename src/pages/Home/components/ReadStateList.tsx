@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilCallback } from "recoil";
-import { bookState } from "../../recoil/book";
-import { Review } from "../../types/review";
 
-import NoBookCover from "../common/NoBookCover";
+import { bookState } from "../../../recoil/book";
+import { Review } from "../../../types/review";
+
+import NoBookCover from "../../../components/common/NoBookCover";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
