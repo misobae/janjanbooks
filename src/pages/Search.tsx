@@ -3,9 +3,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import { bookDataState, bookReviewState, searchedWordState } from "../state/atoms";
-import { IBooksData } from "../utils/types";
+
+import { Book } from "../types/book";
 import { fetchData } from "../api/fetchBooksData";
+import { bookState } from "../recoil/book";
+import { bookReviewState } from "../recoil/review";
+import { searchedWordState } from "../recoil/searchedWord";
 
 import BookList from "../components/common/BookList";
 import ConfirmModal from "../components/common/ConfirmModal";
@@ -15,7 +18,7 @@ function Result() {
   const navigate = useNavigate();
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const bookReviews = useRecoilValue(bookReviewState);
-  const [bookData, setBookData] = useRecoilState(bookDataState);
+  const [bookData, setBookData] = useRecoilState(bookState);
   const searchedWord = useRecoilValue(searchedWordState);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading,} = useInfiniteQuery({
@@ -39,7 +42,7 @@ function Result() {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const handleBookItemClick = (clickedItem: IBooksData) => {
+  const handleBookItemClick = (clickedItem: Book) => {
     setBookData(clickedItem);
 
     const sameReview = bookReviews.filter(review => review.id === clickedItem.isbn);
@@ -74,7 +77,7 @@ function Result() {
             {data && data.pages[0].documents.length > 0 ? (
               data.pages.map((page, index) => (
                 <div key={'page'+index}>
-                  {page.documents.map((book: IBooksData, index: number) => (
+                  {page.documents.map((book: Book, index: number) => (
                     <div
                       key={book.isbn}
                       ref={index === page.documents.length - 1 ? ref : null}

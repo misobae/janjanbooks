@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { bookDataState, bookReviewState, selectedReviewState } from "../state/atoms";
-import { IBookReview } from "../utils/types";
+import { bookState } from "../recoil/book";
+import { bookReviewState, selectedReviewState } from "../recoil/review";
+import { Review } from "../types/review";
 
 import NoBook from "../components/common/NoBook";
 import NoBookCover from "../components/common/NoBookCover";
@@ -13,23 +14,23 @@ function RecordListCat() {
   const bookReviews = useRecoilValue(bookReviewState);
   const [filteredReviews, setFilteredReviews] = useRecoilState(selectedReviewState);
   const selectedReviews = bookReviews.filter(review => review.cat === category);
-  const setBookDataState = useSetRecoilState(bookDataState);
+  const setBookState = useSetRecoilState(bookState);
   
   // view 페이지로 이동
-  const moveToViewPage = (review: IBookReview) => {
+  const moveToViewPage = (review: Review) => {
     const { id } = review;
     navigate(`/record/${id}`);
   };
 
   // 책 정보 상태 업데이트
-  const updateBookDataState = (review: IBookReview) => {
+  const updateBookState = (review: Review) => {
     const { img, title, authors, publisher, id } = review;
-    setBookDataState({ thumbnail: img, title, authors, publisher, id });
+    setBookState({ thumbnail: img, title, authors, publisher, id });
   };
 
   // 썸네일 클릭 함수
-  const handleClickThumb = (review: IBookReview) => {
-    updateBookDataState(review);
+  const handleClickThumb = (review: Review) => {
+    updateBookState(review);
     moveToViewPage(review);
   };
 
@@ -63,7 +64,7 @@ function RecordListCat() {
               </div>
               <h4 className="text-sm font-semibold line-clamp-2">{review.title}</h4>
               <span className="text-xs">
-                {review.authors.map((author, index) => (
+                {review.authors.map((author: string, index: number) => (
                   <span key={index}>
                     {author}
                     {index !== review.authors.length - 1 ? ", " : ""}

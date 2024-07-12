@@ -1,6 +1,6 @@
 
 import { useRecoilValue } from 'recoil';
-import { bookReviewState } from '../../state/atoms';
+import { bookReviewState } from '../../recoil/review';
 import { getCurrentDateInfo } from '../../utils/dateFormat';
 import Header from './Header';
 import BookSearchBox from '../common/BookSearchBox';

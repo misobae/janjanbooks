@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { bookReviewState, searchedReviewState, searchedReviewWordState } from "../../state/atoms";
+import { bookReviewState } from "../../recoil/review";
+import { searchedReviewState } from "../../recoil/review";
+import { searchedReviewWordState } from "../../recoil/searchedWord";
 
 import SearchForm from "../common/SearchForm";
 

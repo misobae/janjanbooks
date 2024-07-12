@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { bookReviewState } from "../state/atoms";
+import { bookReviewState } from "../recoil/review";
 
 import Home from "../pages/Home";
 

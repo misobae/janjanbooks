@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { bookReviewState } from "../state/atoms";
+import { bookReviewState } from "../recoil/review";
 
 import BtnEdit from "../components/common/BtnEdit";
 import BookInfoBox from "../components/record/BookInfoBox";

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilCallback } from "recoil";
-import { bookDataState } from "../../state/atoms";
-import { IBookReview } from "../../utils/types";
+import { bookState } from "../../recoil/book";
+import { Review } from "../../types/review";
 
 import NoBookCover from "../common/NoBookCover";
 
@@ -11,15 +11,15 @@ import Slider from "react-slick";
 
 interface ReadStateListProps {
   title: string;
-  category: IBookReview[];
+  category: Review[];
   path: string;
 }
 
 function ReadStateList({ title, category, path }: ReadStateListProps) {
   const navigate = useNavigate();
-  const onBoxClicked = useRecoilCallback(({ set }) => async (data: IBookReview) => {
+  const onBoxClicked = useRecoilCallback(({ set }) => async (data: Review) => {
     const { img, title, authors, publisher, id } = data;
-    await set(bookDataState, { thumbnail: img, title, authors, publisher, id });
+    await set(bookState, { thumbnail: img, title, authors, publisher, id });
 
     navigate(`/record/${id}`);
   }, [navigate]);

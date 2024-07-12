@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookDataState, bookReviewState } from "../state/atoms";
-import { IBookReview } from "../utils/types";
+import { bookState } from "../recoil/book";
+import { bookReviewState } from "../recoil/review";
+import { Review } from "../types/review";
 import validateDate from "../utils/validateDate";
 import handleValidationResult from "../utils/reviewValidationHandler";
 
@@ -11,7 +12,7 @@ import BtnBack from "../components/common/BtnBack";
 import ProgressTracker from "../components/record/ProgressTracker";
 
 function RecordWrite() {
-  const bookData = useRecoilValue(bookDataState);
+  const bookData = useRecoilValue(bookState);
   const setBookReviews = useSetRecoilState(bookReviewState);
   const [cat, setCat] = useState<string>("read");
   const [startDate, setStartDate] = useState<string>("");
@@ -19,15 +20,15 @@ function RecordWrite() {
   const [review, setReview] = useState<string>("");
 
   const navigate = useNavigate();
-  const moveToViewPage = (review: IBookReview) => {
+  const moveToViewPage = (review: Review) => {
     navigate(`/record/${review.id}`);
   };
 
-  const updateReviewState = (newReview: IBookReview) => {
+  const updateReviewState = (newReview: Review) => {
     setBookReviews((prevReviews) => [...prevReviews, newReview]);
   };
   
-  const saveReview = (newReview: IBookReview) => {
+  const saveReview = (newReview: Review) => {
     try {
       updateReviewState(newReview);
       notify({ type: "default", text: "기록이 저장되었습니다." });
@@ -38,7 +39,7 @@ function RecordWrite() {
     }
   };
 
-  const handleClickSaveBtn = (newReview: IBookReview) => {
+  const handleClickSaveBtn = (newReview: Review) => {
     const validationResult = validateDate(newReview);
     handleValidationResult({ saveReview, validationResult, newReview });
   };

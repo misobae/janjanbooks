@@ -1,11 +1,11 @@
-import { IBookReview } from "./types";
+import { Review } from "../types/review";
 import { DATE_VALIDATION_RESULT } from "../constants/dateValidationResult";
 import { notify } from "../components/common/Toast";
 
 interface ValidationResultProp {
-  saveReview: (newReview: IBookReview) => void;
+  saveReview: (newReview: Review) => void;
   validationResult: string;
-  newReview: IBookReview
+  newReview: Review
 }
 const handleValidationResult = ({ saveReview, validationResult, newReview }: ValidationResultProp) => {
   switch (validationResult) {

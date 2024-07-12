@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { IBookReview } from "../utils/types";
+import { Review } from "../types/review";
 import validateDate from "../utils/validateDate";
 import handleValidationResult from "../utils/reviewValidationHandler";
-import { bookReviewState } from "../state/atoms";
+import { bookReviewState } from "../recoil/review";
 
 import { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
@@ -23,12 +23,12 @@ function RecordUpdate() {
   const navigate = useNavigate();
   
   // view 페이지로 이동
-  const moveToViewPage = (matchedReview: IBookReview) => {
+  const moveToViewPage = (matchedReview: Review) => {
     navigate(`/record/${matchedReview.id}`);
   };
 
   // 리뷰 상태 업데이트
-  const updateReviewState = (newReview: IBookReview) => {
+  const updateReviewState = (newReview: Review) => {
     setBookReviews((prevReviews) =>
       prevReviews.map((review) =>
         review.id === newReview.id
@@ -38,7 +38,7 @@ function RecordUpdate() {
     )
   };
   
-  const saveReview = (newReview: IBookReview) => {
+  const saveReview = (newReview: Review) => {
     try {
       updateReviewState(newReview);
       notify({ type: "default", text: "기록이 수정되었습니다." });
@@ -49,7 +49,7 @@ function RecordUpdate() {
     }
   };
 
-  const handleClickSaveBtn = (newReview: IBookReview) => {
+  const handleClickSaveBtn = (newReview: Review) => {
     const validationResult = validateDate(newReview);
     handleValidationResult({ saveReview, validationResult, newReview });
   };

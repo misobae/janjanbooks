@@ -1,26 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookDataState, searchedReviewState, searchedReviewWordState } from "../state/atoms";
-import { IBookReview } from "../utils/types";
+import { bookState } from "../recoil/book";
+import { searchedReviewState } from "../recoil/review";
+import { searchedReviewWordState } from "../recoil/searchedWord";
+import { Review } from "../types/review";
 
 import BookList from "../components/common/BookList";
 
 function RecordSearch() {
   const searchedWord = useRecoilValue(searchedReviewWordState);
   const searchedReviews = useRecoilValue(searchedReviewState);
-  const setBookData = useSetRecoilState(bookDataState);
+  const setBookData = useSetRecoilState(bookState);
   const navigate = useNavigate();
   
-  const moveToViewPage = (review: IBookReview) => {
+  const moveToViewPage = (review: Review) => {
     navigate(`/record/${review.id}`);
   };
-  const updateBookDataState = (review: IBookReview) => {
+  const updateBookState = (review: Review) => {
     const { img, title, authors, publisher, id } = review;
     setBookData({ thumbnail: img, title, authors, publisher, id });
   };
 
-  const handleClickList = (review: IBookReview) => {
-    updateBookDataState(review);
+  const handleClickList = (review: Review) => {
+    updateBookState(review);
     moveToViewPage(review);
   };
   
@@ -33,7 +35,7 @@ function RecordSearch() {
               <strong className="font-bold">"{searchedWord}"</strong>의 검색 결과입니다. 
             </p>
           )}
-          {searchedReviews.map((item: IBookReview) => (
+          {searchedReviews.map((item: Review) => (
             <div key={item.id}>
               <BookList
                 onBoxClicked={() => handleClickList(item)}
