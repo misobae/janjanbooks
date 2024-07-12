@@ -1,37 +1,24 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { Book } from "../types/book";
 import { Review } from "../types/review";
 
 const { persistAtom } = recoilPersist();
 
-export const searchedWordState = atom({
-  key: 'searchedWordState',
-  default: '',
-});
-
-export const bookDataState = atom<Book | null>({
-  key: 'bookDataState',
-  default: null,
-});
-
+// 리뷰
 export const bookReviewState = atom<Review[]>({
   key: 'bookReviewState',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
 
+// 선택된 리뷰
 export const selectedReviewState = atom<Review[]>({
   key: 'selectedReviewState',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
 
-export const searchedReviewWordState = atom({
-  key: 'searchedReviewWordState',
-  default: '',
-});
-
+// 검색된 리뷰
 export const searchedReviewState = atom<Review[]>({
   key: 'searchedReviewState',
   default: [],

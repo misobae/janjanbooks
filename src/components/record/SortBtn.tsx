@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { selectedReviewState } from "../../state/atoms";
+import { selectedReviewState } from "../../recoil/review";
 
 import ImgSortUp from "../../assets/images/icon_sort_up.svg";
 import ImgSortDown from "../../assets/images/icon_sort_down.svg";

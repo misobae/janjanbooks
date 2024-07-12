@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { searchedWordState } from "../../state/atoms";
+import { searchedWordState } from "../../recoil/searchedWord";
 
 import SearchForm from "./SearchForm";
 

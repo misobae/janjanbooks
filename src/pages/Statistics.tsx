@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Review } from "../types/review";
 import { getCurrentDateInfo } from "../utils/dateFormat";
-import { bookDataState, bookReviewState } from "../state/atoms";
+import { bookState } from "../recoil/book";
+import { bookReviewState } from "../recoil/review";
 
 import BookList from "../components/common/BookList";
 import DateSelector from "../components/statistics/DateSelector";
@@ -72,7 +73,7 @@ function Statistics() {
   };
 
   const navigate = useNavigate();
-  const setBookData = useSetRecoilState(bookDataState);
+  const setBookData = useSetRecoilState(bookState);
   const handleClickItem = ({ img, title, authors, publisher, id }: Review) => {
     setBookData({ thumbnail: img, title, authors, publisher, id });
     navigate(`/record/${id}`);

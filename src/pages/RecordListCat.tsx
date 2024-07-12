@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { bookDataState, bookReviewState, selectedReviewState } from "../state/atoms";
+import { bookState } from "../recoil/book";
+import { bookReviewState, selectedReviewState } from "../recoil/review";
 import { Review } from "../types/review";
 
 import NoBook from "../components/common/NoBook";
@@ -13,7 +14,7 @@ function RecordListCat() {
   const bookReviews = useRecoilValue(bookReviewState);
   const [filteredReviews, setFilteredReviews] = useRecoilState(selectedReviewState);
   const selectedReviews = bookReviews.filter(review => review.cat === category);
-  const setBookDataState = useSetRecoilState(bookDataState);
+  const setBookState = useSetRecoilState(bookState);
   
   // view 페이지로 이동
   const moveToViewPage = (review: Review) => {
@@ -22,14 +23,14 @@ function RecordListCat() {
   };
 
   // 책 정보 상태 업데이트
-  const updateBookDataState = (review: Review) => {
+  const updateBookState = (review: Review) => {
     const { img, title, authors, publisher, id } = review;
-    setBookDataState({ thumbnail: img, title, authors, publisher, id });
+    setBookState({ thumbnail: img, title, authors, publisher, id });
   };
 
   // 썸네일 클릭 함수
   const handleClickThumb = (review: Review) => {
-    updateBookDataState(review);
+    updateBookState(review);
     moveToViewPage(review);
   };
 

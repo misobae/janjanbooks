@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookDataState, bookReviewState } from "../state/atoms";
+import { bookState } from "../recoil/book";
+import { bookReviewState } from "../recoil/review";
 import { Review } from "../types/review";
 import validateDate from "../utils/validateDate";
 import handleValidationResult from "../utils/reviewValidationHandler";
@@ -11,7 +12,7 @@ import BtnBack from "../components/common/BtnBack";
 import ProgressTracker from "../components/record/ProgressTracker";
 
 function RecordWrite() {
-  const bookData = useRecoilValue(bookDataState);
+  const bookData = useRecoilValue(bookState);
   const setBookReviews = useSetRecoilState(bookReviewState);
   const [cat, setCat] = useState<string>("read");
   const [startDate, setStartDate] = useState<string>("");

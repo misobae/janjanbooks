@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookDataState, searchedReviewState, searchedReviewWordState } from "../state/atoms";
+import { bookState } from "../recoil/book";
+import { searchedReviewState } from "../recoil/review";
+import { searchedReviewWordState } from "../recoil/searchedWord";
 import { Review } from "../types/review";
 
 import BookList from "../components/common/BookList";
@@ -8,19 +10,19 @@ import BookList from "../components/common/BookList";
 function RecordSearch() {
   const searchedWord = useRecoilValue(searchedReviewWordState);
   const searchedReviews = useRecoilValue(searchedReviewState);
-  const setBookData = useSetRecoilState(bookDataState);
+  const setBookData = useSetRecoilState(bookState);
   const navigate = useNavigate();
   
   const moveToViewPage = (review: Review) => {
     navigate(`/record/${review.id}`);
   };
-  const updateBookDataState = (review: Review) => {
+  const updateBookState = (review: Review) => {
     const { img, title, authors, publisher, id } = review;
     setBookData({ thumbnail: img, title, authors, publisher, id });
   };
 
   const handleClickList = (review: Review) => {
-    updateBookDataState(review);
+    updateBookState(review);
     moveToViewPage(review);
   };
   

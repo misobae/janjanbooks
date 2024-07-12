@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { bookReviewState } from "../../state/atoms";
+import { bookReviewState } from "../../recoil/review";
 
 import Modal from "../common/Modal";
 import { notify } from "../common/Toast";

@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { Review } from "../types/review";
 import validateDate from "../utils/validateDate";
 import handleValidationResult from "../utils/reviewValidationHandler";
-import { bookReviewState } from "../state/atoms";
+import { bookReviewState } from "../recoil/review";
 
 import { notify } from "../components/common/Toast";
 import BtnBack from "../components/common/BtnBack";
