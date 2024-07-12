@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { bookState } from "../recoil/book";
-import { bookReviewState, selectedReviewState } from "../recoil/review";
-import { Review } from "../types/review";
+import { bookState } from "../../recoil/book";
+import { bookReviewState, selectedReviewState } from "../../recoil/review";
+import { Review } from "../../types/review";
 
-import NoBook from "../components/common/NoBook";
-import NoBookCover from "../components/common/NoBookCover";
+import NoBook from "../../components/common/NoBook";
+import NoBookCover from "../../components/common/NoBookCover";
 
 function RecordListCat() {
   const navigate = useNavigate();
