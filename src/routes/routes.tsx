@@ -9,7 +9,7 @@ import ListSkeleton from "../components/record/ListSkeleton";
 import RecordSkeleton from "../components/record/RecordSkeleton";
 import StatSkeleton from "../components/statistics/StatSkeleton";
 
-const NotFound = lazy(() => import('../pages/NotFound'));
+const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 const RecordView = lazy(() => import('../pages/RecordView'));
 const RecordList = lazy(() => import('../pages/RecordList'));
 const RecordRedirect = lazy(() => import('./RecordRedirect'));

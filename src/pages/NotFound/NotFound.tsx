@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Btn from "../components/common/Btn";
+import Btn from "../../components/common/Btn";
 
 function NotFound() {
   return (
