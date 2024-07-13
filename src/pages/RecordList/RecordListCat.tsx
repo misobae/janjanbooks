@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+
 import { bookState } from "../../recoil/book";
 import { bookReviewState, selectedReviewState } from "../../recoil/review";
 import { Review } from "../../types/review";
 
+import TabBtn from "./components/TabBtn";
+import SortBtn from "./components/SortBtn";
 import NoBook from "../../components/common/NoBook";
 import NoBookCover from "../../components/common/NoBookCover";
 
@@ -44,6 +47,16 @@ function RecordListCat() {
 
   return (
     <>
+      <div className="flex justify-between items-center mb-8">
+        <div className="flex items-center text-sm">
+          <TabBtn cat="all" title="전체" />
+          <TabBtn cat="reading" title="읽고 있는 책" />
+          <TabBtn cat="wantToRead" title="읽고 싶은 책" />
+          <TabBtn cat="read" title="읽은 책" />
+        </div>
+        <SortBtn />
+      </div>
+      
       {filteredReviews.length > 0 ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-4 gap-y-8 mb-24">
           {filteredReviews.map(review => (

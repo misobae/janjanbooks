@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookState } from "../recoil/book";
-import { searchedReviewState } from "../recoil/review";
-import { searchedReviewWordState } from "../recoil/searchedWord";
-import { Review } from "../types/review";
 
-import BookList from "../components/common/BookList";
+import { bookState } from "../../recoil/book";
+import { searchedReviewState } from "../../recoil/review";
+import { searchedReviewWordState } from "../../recoil/searchedWord";
+import { Review } from "../../types/review";
+
+import BookList from "../../components/common/BookList";
 
 function RecordSearch() {
   const searchedWord = useRecoilValue(searchedReviewWordState);
@@ -27,7 +28,7 @@ function RecordSearch() {
   };
   
   return (
-    <div className="layout">
+    <>
       {searchedReviews && searchedReviews.length > 0 ? (
         <>
           {searchedWord === "" ? null : (
@@ -48,7 +49,7 @@ function RecordSearch() {
           ))}
         </>
       ) : <p className="text-sm">검색 결과가 없습니다.</p>}
-    </div>
+    </>
   )
 }
 

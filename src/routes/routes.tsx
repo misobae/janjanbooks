@@ -14,11 +14,11 @@ const RecordView = lazy(() => import('../pages/RecordView'));
 const RecordList = lazy(() => import('../pages/RecordList/RecordList'));
 const RecordRedirect = lazy(() => import('./RecordRedirect'));
 const RecordListCat = lazy(() => import('../pages/RecordList/RecordListCat'));
+const RecordListSearch = lazy(() => import('../pages/RecordList/RecordListSearch'));
 const RecordWrite = lazy(() => import('../pages/RecordWrite'));
 const RecordUpdate = lazy(() => import('../pages/RecordUpdate'));
 const Statistics = lazy(() => import('../pages/Statistics'));
 const Search = lazy(() => import('../pages/Search'));
-const RecordSearch = lazy(() => import('../pages/RecordSearch'));
 
 function AppRoutes() {
   const bookReviews = useRecoilValue(bookReviewState);
@@ -27,11 +27,13 @@ function AppRoutes() {
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={ <Home /> } />
+
       <Route path="/list" element={
         <Suspense>
           <RecordRedirect />
         </Suspense>
       } />
+      
       <Route path="/list" element={
         <Suspense fallback={ bookReviews.length > 0 ? <RecordListSkeleton /> : null }>
           <RecordList />
@@ -42,37 +44,43 @@ function AppRoutes() {
             <RecordListCat />
           </Suspense>
         } />
+        <Route path="search" element={
+          <Suspense>
+            <RecordListSearch />
+          </Suspense>
+        } />
       </Route>
-      <Route path="/list/search" element={
-        <Suspense>
-          <RecordSearch />
-        </Suspense>
-      } />
+      
       <Route path="/record/:id" element={ 
         <Suspense fallback={ <RecordSkeleton /> }>
           <RecordView />
         </Suspense>
       } />
+
       <Route path="/record/write/:id" element={ 
         <Suspense fallback={ <RecordSkeleton /> }>
           <RecordWrite />
         </Suspense>
       } />
+
       <Route path="/record/update/:id" element={
         <Suspense fallback={ <RecordSkeleton /> }>
           <RecordUpdate />
         </Suspense>
       } />
+
       <Route path="/statistics" element={
         <Suspense fallback={ readReviews.length > 0 ? <StatSkeleton /> : null }>
           <Statistics />
         </Suspense>
       } />
+
       <Route path="/search" element={ 
         <Suspense>
           <Search />
         </Suspense>
       } />
+
       <Route path="/*" element={
         <Suspense>
           <NotFound />
