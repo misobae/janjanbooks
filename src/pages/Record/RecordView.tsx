@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { bookReviewState } from "../recoil/review";
+import { bookReviewState } from "../../recoil/review";
 
-import BtnEdit from "../components/common/BtnEdit";
-import BookInfoBox from "../components/record/BookInfoBox";
-import ProgressLabel from "../components/record/ProgressLabel";
-import ReadingPeriod from "../components/record/ReadingPeriod";
-import BtnBack from "../components/common/BtnBack";
-import UpdateDeleteModal from "../components/record/UpdateDeleteModal";
+import BtnEdit from "../../components/common/BtnEdit";
+import BtnBack from "../../components/common/BtnBack";
+import BookInfoBox from "./components/BookInfoBox";
+import ProgressLabel from "./components/ProgressLabel";
+import ReadingPeriod from "./components/ReadingPeriod";
+import UpdateDeleteModal from "./components/UpdateDeleteModal";
 
 
 function RecordView() {

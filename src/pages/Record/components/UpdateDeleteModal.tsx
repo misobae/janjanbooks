@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { bookReviewState } from "../../recoil/review";
+import { bookReviewState } from "../../../recoil/review";
 
-import Modal from "../common/Modal";
-import { notify } from "../common/Toast";
+import Modal from "../../../components/common/Modal";
+import { notify } from "../../../components/common/Toast";
 
-import IconEdit from "../..//assets/images/icon_edit_gr.svg"
-import IconDel from "../../assets/images/icon_delete.svg"
+import IconEdit from "../../../assets/images/icon_edit_gr.svg"
+import IconDel from "../../../assets/images/icon_delete.svg"
 
 interface ModalProps {
   isModalOpen: boolean; 

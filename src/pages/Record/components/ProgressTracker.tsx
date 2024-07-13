@@ -1,4 +1,4 @@
-import { formatDate } from "../../utils/dateFormat";
+import { formatDate } from "../../../utils/dateFormat";
 
 import ProgressLabel from "./ProgressLabel";
 import ProgressInput from "./ProgressInput";
