@@ -1,6 +1,6 @@
-import imgBook from "../../assets/images/icon_book_wh.svg";
-import imgReading from "../../assets/images/icon_reading_wh.svg";
-import imgHeart from "../../assets/images/icon_heart_wh.svg";
+import imgBook from "../../../assets/images/icon_book_wh.svg";
+import imgReading from "../../../assets/images/icon_reading_wh.svg";
+import imgHeart from "../../../assets/images/icon_heart_wh.svg";
 
 interface ProgressLabelProps {
   htmlFor: string;

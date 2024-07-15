@@ -6,19 +6,19 @@ import { bookReviewState } from "../recoil/review";
 import Home from "../pages/Home/Home";
 
 import RecordListSkeleton from "../pages/RecordList/components/RecordListSkeleton";
-import RecordSkeleton from "../components/record/RecordSkeleton";
-import StatSkeleton from "../components/statistics/StatSkeleton";
+import RecordSkeleton from "../pages/Record/components/RecordSkeleton";
+import StatSkeleton from "../pages/Statistic/components/StatSkeleton";
 
 const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
-const RecordView = lazy(() => import('../pages/RecordView'));
+const RecordView = lazy(() => import('../pages/Record/RecordView'));
+const RecordWrite = lazy(() => import('../pages/Record/RecordWrite'));
+const RecordUpdate = lazy(() => import('../pages/Record/RecordUpdate'));
 const RecordList = lazy(() => import('../pages/RecordList/RecordList'));
 const RecordRedirect = lazy(() => import('./RecordRedirect'));
 const RecordListCat = lazy(() => import('../pages/RecordList/RecordListCat'));
-const RecordWrite = lazy(() => import('../pages/RecordWrite'));
-const RecordUpdate = lazy(() => import('../pages/RecordUpdate'));
-const Statistics = lazy(() => import('../pages/Statistics'));
-const Search = lazy(() => import('../pages/Search'));
-const RecordSearch = lazy(() => import('../pages/RecordSearch'));
+const RecordListSearch = lazy(() => import('../pages/RecordList/RecordListSearch'));
+const Statistic = lazy(() => import('../pages/Statistic/Statistic'));
+const Search = lazy(() => import('../pages/Search/Search'));
 
 function AppRoutes() {
   const bookReviews = useRecoilValue(bookReviewState);
@@ -27,11 +27,13 @@ function AppRoutes() {
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={ <Home /> } />
+
       <Route path="/list" element={
         <Suspense>
           <RecordRedirect />
         </Suspense>
       } />
+      
       <Route path="/list" element={
         <Suspense fallback={ bookReviews.length > 0 ? <RecordListSkeleton /> : null }>
           <RecordList />
@@ -42,37 +44,43 @@ function AppRoutes() {
             <RecordListCat />
           </Suspense>
         } />
+        <Route path="search" element={
+          <Suspense>
+            <RecordListSearch />
+          </Suspense>
+        } />
       </Route>
-      <Route path="/list/search" element={
-        <Suspense>
-          <RecordSearch />
-        </Suspense>
-      } />
-      <Route path="/record/:id" element={ 
-        <Suspense fallback={ <RecordSkeleton /> }>
-          <RecordView />
-        </Suspense>
-      } />
-      <Route path="/record/write/:id" element={ 
-        <Suspense fallback={ <RecordSkeleton /> }>
-          <RecordWrite />
-        </Suspense>
-      } />
-      <Route path="/record/update/:id" element={
-        <Suspense fallback={ <RecordSkeleton /> }>
-          <RecordUpdate />
-        </Suspense>
-      } />
-      <Route path="/statistics" element={
+      
+      <Route path="/record">
+        <Route path=":id" element={
+          <Suspense fallback={<RecordSkeleton />}>
+            <RecordView />
+          </Suspense>
+        } />
+        <Route path="write/:id" element={
+          <Suspense fallback={<RecordSkeleton />}>
+            <RecordWrite />
+          </Suspense>
+        } />
+        <Route path="update/:id" element={
+          <Suspense fallback={<RecordSkeleton />}>
+            <RecordUpdate />
+          </Suspense>
+        } />
+      </Route>
+
+      <Route path="/statistic" element={
         <Suspense fallback={ readReviews.length > 0 ? <StatSkeleton /> : null }>
-          <Statistics />
+          <Statistic />
         </Suspense>
       } />
+
       <Route path="/search" element={ 
         <Suspense>
           <Search />
         </Suspense>
       } />
+
       <Route path="/*" element={
         <Suspense>
           <NotFound />

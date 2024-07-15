@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookState } from "../recoil/book";
-import { bookReviewState } from "../recoil/review";
-import { Review } from "../types/review";
-import validateDate from "../utils/validateDate";
-import handleValidationResult from "../utils/reviewValidationHandler";
+import { bookState } from "../../recoil/book";
+import { bookReviewState } from "../../recoil/review";
+import { Review } from "../../types/review";
+import validateDate from "../../utils/validateDate";
+import handleValidationResult from "../../utils/reviewValidationHandler";
 
-import { notify } from "../components/common/Toast";
-import BtnBack from "../components/common/BtnBack";
-import ProgressTracker from "../components/record/ProgressTracker";
+import { notify } from "../../components/common/Toast";
+import BtnBack from "../../components/common/BtnBack";
+import ProgressTracker from "./components/ProgressTracker";
 
 function RecordWrite() {
   const bookData = useRecoilValue(bookState);

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Review } from "../types/review";
-import { getCurrentDateInfo } from "../utils/dateFormat";
-import { bookState } from "../recoil/book";
-import { bookReviewState } from "../recoil/review";
+import { Review } from "../../types/review";
+import { getCurrentDateInfo } from "../../utils/dateFormat";
+import { bookState } from "../../recoil/book";
+import { bookReviewState } from "../../recoil/review";
 
-import BookList from "../components/common/BookList";
-import DateSelector from "../components/statistics/DateSelector";
-import ReadingStatsChart from "../components/statistics/ReadingStatsChart";
-import BookCountByDate from "../components/statistics/BookCountByDate";
-import NoBook from '../components/common/NoBook';
+import BookList from "../../components/common/BookList";
+import NoBook from '../../components/common/NoBook';
+import DateSelector from "./components/DateSelector";
+import ReadingStatsChart from "./components/ReadingStatsChart";
+import BookCountByDate from "./components/BookCountByDate";
 
 
-function Statistics() {
+function Statistic() {
   const bookReviews = useRecoilValue(bookReviewState);
   const readReviews = bookReviews.filter(review => review.cat === "read");
   if (readReviews.length === 0) {
@@ -120,4 +120,4 @@ function Statistics() {
   )
 };
 
-export default Statistics;
+export default Statistic;

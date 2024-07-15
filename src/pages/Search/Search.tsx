@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 
-import { Book } from "../types/book";
-import { fetchData } from "../api/fetchBooksData";
-import { bookState } from "../recoil/book";
-import { bookReviewState } from "../recoil/review";
-import { searchedWordState } from "../recoil/searchedWord";
+import { Book } from "../../types/book";
+import { fetchData } from "../../api/fetchBooksData";
+import { bookState } from "../../recoil/book";
+import { bookReviewState } from "../../recoil/review";
+import { searchedWordState } from "../../recoil/searchedWord";
 
-import BookList from "../components/common/BookList";
-import ConfirmModal from "../components/common/ConfirmModal";
-import Spinner from "../components/common/Spinner";
+import BookList from "../../components/common/BookList";
+import ConfirmModal from "../../components/common/ConfirmModal";
+import Spinner from "../../components/common/Spinner";
 
 function Result() {
   const navigate = useNavigate();
