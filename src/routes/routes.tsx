@@ -18,7 +18,7 @@ const RecordRedirect = lazy(() => import('./RecordRedirect'));
 const RecordListCat = lazy(() => import('../pages/RecordList/RecordListCat'));
 const RecordListSearch = lazy(() => import('../pages/RecordList/RecordListSearch'));
 const Statistics = lazy(() => import('../pages/Statistics'));
-const Search = lazy(() => import('../pages/Search'));
+const Search = lazy(() => import('../pages/Search/Search'));
 
 function AppRoutes() {
   const bookReviews = useRecoilValue(bookReviewState);
