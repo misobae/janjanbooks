@@ -7,7 +7,7 @@ import Home from "../pages/Home/Home";
 
 import RecordListSkeleton from "../pages/RecordList/components/RecordListSkeleton";
 import RecordSkeleton from "../pages/Record/components/RecordSkeleton";
-import StatSkeleton from "../components/statistics/StatSkeleton";
+import StatSkeleton from "../pages/Statistic/components/StatSkeleton";
 
 const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 const RecordView = lazy(() => import('../pages/Record/RecordView'));
@@ -17,7 +17,7 @@ const RecordList = lazy(() => import('../pages/RecordList/RecordList'));
 const RecordRedirect = lazy(() => import('./RecordRedirect'));
 const RecordListCat = lazy(() => import('../pages/RecordList/RecordListCat'));
 const RecordListSearch = lazy(() => import('../pages/RecordList/RecordListSearch'));
-const Statistics = lazy(() => import('../pages/Statistics'));
+const Statistic = lazy(() => import('../pages/Statistic/Statistic'));
 const Search = lazy(() => import('../pages/Search/Search'));
 
 function AppRoutes() {
@@ -69,9 +69,9 @@ function AppRoutes() {
         } />
       </Route>
 
-      <Route path="/statistics" element={
+      <Route path="/statistic" element={
         <Suspense fallback={ readReviews.length > 0 ? <StatSkeleton /> : null }>
-          <Statistics />
+          <Statistic />
         </Suspense>
       } />
 

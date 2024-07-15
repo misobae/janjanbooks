@@ -36,10 +36,10 @@ function Nav() {
           img={imgRecord}
         />
       </Link>
-      <Link to="/statistics">
+      <Link to="/statistic">
         <NavItem
           menuTitle="통계"
-          path="/statistics"
+          path="/statistic"
           img={imgStat}
         />
       </Link>

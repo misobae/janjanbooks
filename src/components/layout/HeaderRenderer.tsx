@@ -21,7 +21,7 @@ const HeaderRenderer = ({ pathname }: HeaderRendererProp) => {
   const listPath = pathname.includes('/list');
   const listSearchPath = pathname === "/list/search";
   const searchPath = pathname === "/search";
-  const statPath = pathname === "/statistics";
+  const statPath = pathname === "/statistic";
 
   if (homePath) {
     return (

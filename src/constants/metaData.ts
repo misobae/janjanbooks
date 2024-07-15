@@ -12,7 +12,7 @@ const META_DATA_RULES = [
     description: '서재 페이지는 사용자가 읽은 책의 목록을 보여주는 곳입니다. 책들을 관리하고, 독서 기록을 확인하세요.'
   },
   { 
-    pattern: /^\/statistics\/*/,
+    pattern: /^\/statistic\/*/,
     title: '통계',
     keywords: '독서 통계, 독서 통계 앱, 독서 통계 사이트',
     description: '통계 페이지에서는 독서 활동에 관련된 다양한 통계와 그래프를 확인할 수 있습니다. 독서 습관을 분석하고 개선할 수 있는 도구를 제공합니다.'
