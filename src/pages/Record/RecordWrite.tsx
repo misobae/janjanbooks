@@ -7,8 +7,8 @@ import { Review } from "../../types/review";
 import validateDate from "../../utils/validateDate";
 import handleValidationResult from "../../utils/reviewValidationHandler";
 
-import { notify } from "../../components/common/Toast";
-import BtnBack from "../../components/common/BtnBack";
+import { notify } from "../../components/ui/Toast";
+import BtnBack from "../../components/ui/button/BtnBack";
 import ProgressTracker from "./components/ProgressTracker";
 
 function RecordWrite() {

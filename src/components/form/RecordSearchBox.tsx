@@ -5,7 +5,7 @@ import { bookReviewState } from "../../recoil/review";
 import { searchedReviewState } from "../../recoil/review";
 import { searchedReviewWordState } from "../../recoil/searchedWord";
 
-import SearchForm from "../common/SearchForm";
+import SearchForm from "./SearchForm";
 
 function RecordSearchBox() {
   const location = useLocation();

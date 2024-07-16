@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { bookReviewState } from "../../recoil/review";
 
-import BtnEdit from "../../components/common/BtnEdit";
-import BtnBack from "../../components/common/BtnBack";
+import BtnEdit from "../../components/ui/button/BtnEdit";
+import BtnBack from "../../components/ui/button/BtnBack";
 import BookInfoBox from "./components/BookInfoBox";
 import ProgressLabel from "./components/ProgressLabel";
 import ReadingPeriod from "./components/ReadingPeriod";

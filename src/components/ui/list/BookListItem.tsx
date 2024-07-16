@@ -1,6 +1,6 @@
-import NoBookCover from "./NoBookCover";
+import NoBookCover from "../NoBookCover";
 
-interface BookListProps {
+interface BookListItemProps {
   thumbnail: string;
   title: string;
   authors: string[];
@@ -9,7 +9,7 @@ interface BookListProps {
   onBoxClicked: () => void;
 }
 
-function BookList({thumbnail, title, authors, publisher, onBoxClicked}: BookListProps) {
+function BookListItem({thumbnail, title, authors, publisher, onBoxClicked}: BookListItemProps) {
 
   return (
     <div
@@ -45,4 +45,4 @@ function BookList({thumbnail, title, authors, publisher, onBoxClicked}: BookList
   )
 }
 
-export default BookList;
+export default BookListItem;

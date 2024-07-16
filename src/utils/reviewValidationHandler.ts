@@ -1,6 +1,6 @@
 import { Review } from "../types/review";
 import { DATE_VALIDATION_RESULT } from "../constants/dateValidationResult";
-import { notify } from "../components/common/Toast";
+import { notify } from "../components/ui/Toast";
 
 interface ValidationResultProp {
   saveReview: (newReview: Review) => void;

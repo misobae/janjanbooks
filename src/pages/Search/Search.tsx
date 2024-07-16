@@ -10,9 +10,9 @@ import { bookState } from "../../recoil/book";
 import { bookReviewState } from "../../recoil/review";
 import { searchedWordState } from "../../recoil/searchedWord";
 
-import BookList from "../../components/common/BookList";
-import ConfirmModal from "../../components/common/ConfirmModal";
-import Spinner from "../../components/common/Spinner";
+import BookListItem from "../../components/ui/list/BookListItem";
+import ConfirmModal from "../../components/ui/modal/ConfirmModal";
+import Spinner from "../../components/ui/Spinner";
 
 function Result() {
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ function Result() {
                       key={book.isbn}
                       ref={index === page.documents.length - 1 ? ref : null}
                     >
-                      <BookList
+                      <BookListItem
                         onBoxClicked={() => handleBookItemClick(book)}
                         thumbnail={book.thumbnail}
                         title={book.title}

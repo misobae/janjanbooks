@@ -1,5 +1,5 @@
 import { useNavigate, To } from "react-router-dom";
-import IconBack from "../../assets/images/icon_arrow.svg"
+import IconBack from "../../../assets/images/icon_arrow.svg"
 
 interface BtnBackProps {
   path: string | number;

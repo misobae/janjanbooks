@@ -5,7 +5,7 @@ import AppRoutes from "./routes/routes";
 import getMetaData from "./constants/metaData";
 
 import Nav from "./components/layout/Nav";
-import Toast from "./components/common/Toast";
+import Toast from "./components/ui/Toast";
 import HeaderRenderer from "./components/layout/HeaderRenderer";
 
 function App() {

@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { bookReviewState } from "../../../recoil/review";
 
-import Modal from "../../../components/common/Modal";
-import { notify } from "../../../components/common/Toast";
+import Modal from "../../../components/ui/modal/Modal";
+import { notify } from "../../../components/ui/Toast";
 
 import IconEdit from "../../../assets/images/icon_edit_gr.svg"
 import IconDel from "../../../assets/images/icon_delete.svg"

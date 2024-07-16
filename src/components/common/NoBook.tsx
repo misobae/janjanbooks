@@ -1,6 +1,6 @@
 import IconBook from "../../assets/images/icon_reading_wh.svg"
 import { Link } from "react-router-dom";
-import Btn from "./Btn";
+import Btn from "../ui/button/Btn";
 
 interface NoBookProps {
   text?: string;

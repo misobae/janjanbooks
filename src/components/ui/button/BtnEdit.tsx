@@ -1,4 +1,4 @@
-import IconEdit from "../../assets/images/icon_menu.svg"
+import IconEdit from "../../../assets/images/icon_menu.svg"
 
 interface BtnEditProps {
   openModal: () => void;

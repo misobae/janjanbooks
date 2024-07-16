@@ -6,7 +6,7 @@ import { getCurrentDateInfo } from "../../utils/dateFormat";
 import { bookState } from "../../recoil/book";
 import { bookReviewState } from "../../recoil/review";
 
-import BookList from "../../components/common/BookList";
+import BookListItem from "../../components/ui/list/BookListItem";
 import NoBook from '../../components/common/NoBook';
 import DateSelector from "./components/DateSelector";
 import ReadingStatsChart from "./components/ReadingStatsChart";
@@ -104,7 +104,7 @@ function Statistic() {
       {matchingYearMonthReviews.length > 0 ? (
         matchingYearMonthReviews.map((item: Review) => (
           <div key={item.id}>
-            <BookList
+            <BookListItem
               onBoxClicked={() => handleClickItem(item)}
               thumbnail={item.img}
               title={item.title}

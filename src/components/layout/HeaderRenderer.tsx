@@ -3,9 +3,9 @@ import { useRecoilValue } from 'recoil';
 import { bookReviewState } from '../../recoil/review';
 import { getCurrentDateInfo } from '../../utils/dateFormat';
 import Header from './Header';
-import BookSearchBox from '../common/BookSearchBox';
-import RecordSearchBox from '../record/RecordSearchBox';
-import BtnBack from '../common/BtnBack';
+import BookSearchBox from '../form/BookSearchBox';
+import RecordSearchBox from '../form/RecordSearchBox';
+import BtnBack from '../ui/button/BtnBack';
 
 interface HeaderRendererProp {
   pathname: string;

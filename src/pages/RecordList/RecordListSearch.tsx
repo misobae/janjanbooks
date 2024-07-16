@@ -6,7 +6,7 @@ import { searchedReviewState } from "../../recoil/review";
 import { searchedReviewWordState } from "../../recoil/searchedWord";
 import { Review } from "../../types/review";
 
-import BookList from "../../components/common/BookList";
+import BookListItem from "../../components/ui/list/BookListItem";
 
 function RecordSearch() {
   const searchedWord = useRecoilValue(searchedReviewWordState);
@@ -38,7 +38,7 @@ function RecordSearch() {
           )}
           {searchedReviews.map((item: Review) => (
             <div key={item.id}>
-              <BookList
+              <BookListItem
                 onBoxClicked={() => handleClickList(item)}
                 thumbnail={item.img}
                 title={item.title}

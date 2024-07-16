@@ -1,4 +1,4 @@
-import useBodyScrollLock from '../../hooks/useBodyScrollLock';
+import useBodyScrollLock from '../../../hooks/useBodyScrollLock';
 
 interface ModalProps {
   isOpen: boolean;
