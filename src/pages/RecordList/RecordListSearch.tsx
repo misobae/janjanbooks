@@ -22,7 +22,7 @@ function RecordSearch() {
     setBookData({ thumbnail: img, title, authors, publisher, id });
   };
 
-  const handleClickList = (review: Review) => {
+  const handleBookClick = (review: Review) => {
     updateBookState(review);
     moveToViewPage(review);
   };
@@ -39,7 +39,7 @@ function RecordSearch() {
           {searchedReviews.map((item: Review) => (
             <div key={item.id}>
               <BookListItem
-                onBoxClicked={() => handleClickList(item)}
+                handleBookClick={() => handleBookClick(item)}
                 thumbnail={item.img}
                 title={item.title}
                 authors={item.authors}

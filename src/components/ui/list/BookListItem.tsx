@@ -6,14 +6,14 @@ interface BookListItemProps {
   authors: string[];
   publisher: string;
   isbn?: string;
-  onBoxClicked: () => void;
+  handleBookClick: () => void;
 }
 
-function BookListItem({thumbnail, title, authors, publisher, onBoxClicked}: BookListItemProps) {
+function BookListItem({thumbnail, title, authors, publisher, handleBookClick}: BookListItemProps) {
 
   return (
     <div
-      onClick={onBoxClicked}
+      onClick={handleBookClick}
       className="p-5 my-16 bg-slate-200 rounded-xl cursor-pointer"
     >
       <div className="flex gap-5">

@@ -74,7 +74,7 @@ function Statistic() {
 
   const navigate = useNavigate();
   const setBookData = useSetRecoilState(bookState);
-  const handleClickItem = ({ img, title, authors, publisher, id }: Review) => {
+  const handleBookClick = ({ img, title, authors, publisher, id }: Review) => {
     setBookData({ thumbnail: img, title, authors, publisher, id });
     navigate(`/record/${id}`);
   };
@@ -105,7 +105,7 @@ function Statistic() {
         matchingYearMonthReviews.map((item: Review) => (
           <div key={item.id}>
             <BookListItem
-              onBoxClicked={() => handleClickItem(item)}
+              handleBookClick={() => handleBookClick(item)}
               thumbnail={item.img}
               title={item.title}
               authors={item.authors}

@@ -42,7 +42,7 @@ function Result() {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const handleBookItemClick = (clickedItem: Book) => {
+  const handleBookClick = (clickedItem: Book) => {
     setBookData(clickedItem);
 
     const sameReview = bookReviews.filter(review => review.id === clickedItem.isbn);
@@ -83,7 +83,7 @@ function Result() {
                       ref={index === page.documents.length - 1 ? ref : null}
                     >
                       <BookListItem
-                        onBoxClicked={() => handleBookItemClick(book)}
+                        handleBookClick={() => handleBookClick(book)}
                         thumbnail={book.thumbnail}
                         title={book.title}
                         authors={book.authors}
