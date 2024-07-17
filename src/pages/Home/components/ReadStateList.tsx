@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilCallback } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import { bookState } from "../../../recoil/book";
 import { Review } from "../../../types/review";
@@ -18,12 +18,13 @@ interface ReadStateListProps {
 
 function ReadStateList({ title, category, path }: ReadStateListProps) {
   const navigate = useNavigate();
-  const onBoxClicked = useRecoilCallback(({ set }) => async (data: Review) => {
+  const setBookState = useSetRecoilState(bookState);
+  const handleBookClick = (data: Review) => {
     const { img, title, authors, publisher, id } = data;
-    await set(bookState, { thumbnail: img, title, authors, publisher, id });
-
+    setBookState({ thumbnail: img, title, authors, publisher, id });
+    
     navigate(`/record/${id}`);
-  }, [navigate]);
+  };
 
   const settings = {
     infinite: false,
@@ -57,7 +58,7 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
           {category.map((data) => (
             <div
               key={data.id}
-              onClick={() => onBoxClicked(data)}
+              onClick={() => handleBookClick(data)}
               className="h-full px-1 lg:px-2 cursor-pointer"
             >
               { data.img === "" ? (
