@@ -11,7 +11,7 @@ function NoBook({ text }: NoBookProps) {
     <div className="flex flex-col justify-center items-center w-full h-[60vh]">
       <div className="
         flex items-center justify-center
-        w-[200px] h-[200px] mb-10
+        w-[200px] h-[200px] mb-6
       bg-slate-200
         rounded-full
       ">
@@ -20,7 +20,7 @@ function NoBook({ text }: NoBookProps) {
       <p className="text-center text-sm mb-8 whitespace-pre-line">{text}</p>
       <Link to="/search">
         <div className="text-center">
-          <Btn text="검색하기" />
+          <Btn text="책 검색하기" />
         </div>
       </Link>
     </div>
