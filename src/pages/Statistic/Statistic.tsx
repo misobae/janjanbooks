@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Review } from "../../types/review";
@@ -37,10 +37,16 @@ function Statistic() {
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
   // 선택한 년도와 맞는 리뷰
-  const matchingYearReviews = readReviews.filter(review => review.startDate.slice(0, 4) === selectedYear);
+  const matchingYearReviews = useMemo(() => 
+    readReviews.filter(review => review.startDate.slice(0, 4) === selectedYear),
+    [readReviews, selectedYear]
+  )
 
   // 선택한 년+월과 맞는 리뷰
-  const matchingYearMonthReviews = readReviews.filter(review => review.startDate.slice(0, 7) === `${selectedYear}-${selectedMonth}`);
+  const matchingYearMonthReviews = useMemo(() => 
+    readReviews.filter(review => review.startDate.slice(0, 7) === `${selectedYear}-${selectedMonth}`),
+    [readReviews, selectedYear, selectedMonth]
+  );
 
   // 선택한 년도의 1월~12월 리뷰 배열
   const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
@@ -57,7 +63,10 @@ function Statistic() {
     });
   };
   
-  const reviewsCountByMonth = getReviewsCountByMonth(selectedYear, readReviews);
+  const reviewsCountByMonth = useMemo(() => 
+    getReviewsCountByMonth(selectedYear, readReviews),
+    [selectedYear, readReviews]
+  );
 
   const dataForChart = [{
     "id": "reviewsCountByMonth",
