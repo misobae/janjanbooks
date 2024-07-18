@@ -1,3 +1,6 @@
+import { useRef, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
+
 import imgSearch from "../../assets/images/icon_search.svg";
 
 interface SearchFormProps {
@@ -8,12 +11,22 @@ interface SearchFormProps {
 }
 
 function SearchForm({ handleFormSubmit, handleInputChange, searchWord, placeholder }: SearchFormProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/search' && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [location]);
+
   return (
     <form
       onSubmit={handleFormSubmit}
       className="relative mt-3"
     >
       <input
+        ref={inputRef} 
         type="text"
         placeholder={placeholder}
         value={searchWord}
