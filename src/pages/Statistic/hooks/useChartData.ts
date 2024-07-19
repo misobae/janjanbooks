@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
-import { Review } from "../types/review";
-import { MONTH } from "../constants/month"
+import { Review } from "../../../types/review";
+import { MONTH } from "../../../constants/month"
 
 export const useChartData = (selectedYear: string, readReviews: Review[]) => {
   

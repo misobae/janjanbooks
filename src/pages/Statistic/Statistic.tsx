@@ -4,9 +4,9 @@ import { useSetRecoilState } from "recoil";
 import { Review } from "../../types/review";
 import { bookState } from "../../recoil/book";
 import { MONTH } from "../../constants/month"
-import { useReadReviews } from "../../hooks/useReadReviews";
-import { useDateFilteredReviews } from "../../hooks/useDateFilteredReviews";
-import { useChartData } from "../../hooks/useChartData";
+import { useReadReviews } from "./hooks/useReadReviews";
+import { useDateFilteredReviews } from "./hooks/useDateFilteredReviews";
+import { useChartData } from "./hooks/useChartData";
 
 import BookListItem from "../../components/ui/list/BookListItem";
 import NoBook from '../../components/common/NoBook';

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
-import { bookReviewState } from '../recoil/review';
+import { bookReviewState } from '../../../recoil/review';
 
 export const useReadReviews = () => {
   const bookReviews = useRecoilValue(bookReviewState);

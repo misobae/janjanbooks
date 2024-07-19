@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import { Review } from "../types/review";
-import { getCurrentDateInfo } from "../utils/dateFormat";
+import { Review } from "../../../types/review";
+import { getCurrentDateInfo } from "../../../utils/dateFormat";
 
 export const useDateFilteredReviews = (readReviews: Review[]) => {
   // 읽은 책 중에서 연도만 담은 배열
