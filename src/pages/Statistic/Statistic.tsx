@@ -1,11 +1,12 @@
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 import { Review } from "../../types/review";
 import { bookState } from "../../recoil/book";
+import { MONTH } from "../../constants/month"
 import { useReadReviews } from "../../hooks/useReadReviews";
 import { useDateFilteredReviews } from "../../hooks/useDateFilteredReviews";
+import { useChartData } from "../../hooks/useChartData";
 
 import BookListItem from "../../components/ui/list/BookListItem";
 import NoBook from '../../components/common/NoBook';
@@ -29,32 +30,7 @@ function Statistic() {
   if (readReviews.length === 0) {
     return <NoBook />;
   }
-
-
-  const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
-  const getReviewsCountByMonth = (year: string, reviews: Review[]) => {
-    return monthsArray.map((month) => {
-      const filterCondition = `${year}-${month}`;
-      const matchingReviews = reviews.filter(review => review.startDate.startsWith(filterCondition));
-      const monthName = month.startsWith('0') ? month.substring(1) : month;
-
-      return {
-        x: `${monthName}월`,
-        y: matchingReviews.length
-      };
-    });
-  };
-  
-  const reviewsCountByMonth = useMemo(() => 
-    getReviewsCountByMonth(selectedYear, readReviews),
-    [selectedYear, readReviews]
-  );
-
-  const dataForChart = [{
-    "id": "reviewsCountByMonth",
-    "color": "hsl(228, 79%, 47%)",
-    "data": reviewsCountByMonth
-  }];
+  const dataForChart = useChartData(selectedYear, readReviews);
 
   const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(e.target.value);
@@ -87,7 +63,7 @@ function Statistic() {
         <DateSelector
           handleChange={handleChangeMonth}
           value={selectedMonth}
-          arr={monthsArray}
+          arr={MONTH}
           dateUnit="월"
         />
         <BookCountByDate num={matchingYearMonthReviews.length} />
