@@ -1,10 +1,11 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
+
 import { Review } from "../../types/review";
-import { getCurrentDateInfo } from "../../utils/dateFormat";
 import { bookState } from "../../recoil/book";
 import { useReadReviews } from "../../hooks/useReadReviews";
+import { useDateFilteredReviews } from "../../hooks/useDateFilteredReviews";
 
 import BookListItem from "../../components/ui/list/BookListItem";
 import NoBook from '../../components/common/NoBook';
@@ -15,39 +16,21 @@ import BookCountByDate from "./components/BookCountByDate";
 
 function Statistic() {
   const { readReviews } = useReadReviews();
+  const {
+    selectedYear,
+    setSelectedYear,
+    selectedMonth,
+    setSelectedMonth,
+    uniqueStartYears,
+    matchingYearReviews,
+    matchingYearMonthReviews
+   } = useDateFilteredReviews(readReviews);
+
   if (readReviews.length === 0) {
     return <NoBook />;
   }
 
-  // 읽은 책 중에서 년도만 담은 배열
-  const startYears = readReviews.map(review => review.startDate.slice(0, 4));
 
-  // 중복 제거
-  const uniqueStartYears = [...new Set(startYears)];
-
-  // 읽은 책 중에서 가장 최근 년도
-  const recentYear = uniqueStartYears.reduce((max, current) => {
-    return current > max ? current : max;
-  });
-
-  const { currentMonth } = getCurrentDateInfo();
-
-  const [selectedYear, setSelectedYear] = useState(recentYear);
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
-
-  // 선택한 년도와 맞는 리뷰
-  const matchingYearReviews = useMemo(() => 
-    readReviews.filter(review => review.startDate.slice(0, 4) === selectedYear),
-    [readReviews, selectedYear]
-  )
-
-  // 선택한 년+월과 맞는 리뷰
-  const matchingYearMonthReviews = useMemo(() => 
-    readReviews.filter(review => review.startDate.slice(0, 7) === `${selectedYear}-${selectedMonth}`),
-    [readReviews, selectedYear, selectedMonth]
-  );
-
-  // 선택한 년도의 1월~12월 리뷰 배열
   const monthsArray = Array.from({ length: 12 }, (_, i) => `${i + 1}`.padStart(2, '0'));
   const getReviewsCountByMonth = (year: string, reviews: Review[]) => {
     return monthsArray.map((month) => {
