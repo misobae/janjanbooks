@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { Review } from "../../types/review";
 import { getCurrentDateInfo } from "../../utils/dateFormat";
 import { bookState } from "../../recoil/book";
-import { bookReviewState } from "../../recoil/review";
+import { useReadReviews } from "../../hooks/useReadReviews";
 
 import BookListItem from "../../components/ui/list/BookListItem";
 import NoBook from '../../components/common/NoBook';
@@ -14,8 +14,7 @@ import BookCountByDate from "./components/BookCountByDate";
 
 
 function Statistic() {
-  const bookReviews = useRecoilValue(bookReviewState);
-  const readReviews = bookReviews.filter(review => review.cat === "read");
+  const { readReviews } = useReadReviews();
   if (readReviews.length === 0) {
     return <NoBook />;
   }
