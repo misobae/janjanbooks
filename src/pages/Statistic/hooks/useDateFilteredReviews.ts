@@ -10,10 +10,12 @@ export const useDateFilteredReviews = (readReviews: Review[]) => {
   const uniqueStartYears = useMemo(() => [...new Set(startYears)], [startYears]);
 
   // 읽은 책 중에서 가장 최근 연도
-  const recentYear = useMemo(() => 
-    uniqueStartYears.reduce((max, current) => current > max ? current : max),
-    [uniqueStartYears]
-  );
+  const recentYear = useMemo(() => {
+    if (uniqueStartYears.length === 0) {
+      return getCurrentDateInfo().currentYear;
+    }
+    return uniqueStartYears.reduce((max, current) => current > max ? current : max);
+  }, [uniqueStartYears]);
 
   const { currentMonth } = getCurrentDateInfo();
 

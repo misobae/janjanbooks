@@ -19,5 +19,5 @@ export function getCurrentDateInfo() {
   const currentMonth = `${today.getMonth() + 1 < 10 ? '0' : ''}${today.getMonth() + 1}`;
   const currentYearAndMonth = `${currentYear}-${currentMonth}`;
 
-  return { currentMonth, currentYearAndMonth };
+  return { currentYear, currentMonth, currentYearAndMonth };
 };

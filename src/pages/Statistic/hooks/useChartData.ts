@@ -19,7 +19,7 @@ export const useChartData = (selectedYear: string, readReviews: Review[]) => {
   };
   
   const reviewsCountByMonth = useMemo(() => 
-    getReviewsCountByMonth(selectedYear, readReviews),
+    readReviews.length > 0 ? getReviewsCountByMonth(selectedYear, readReviews) : [],
     [selectedYear, readReviews]
   );
 
