@@ -2,25 +2,25 @@ import { useState, useMemo } from "react";
 import { Review } from "../../../types/review";
 import { getCurrentDateInfo } from "../../../utils/dateFormat";
 
+// 읽은 책 리뷰의 날짜에서 중복 값을 제거한 나머지를 추출하는 함수
+const extractUniqueValues = (reviews: Review[], sliceFn: (date: string) => string) => 
+  [...new Set(reviews.map(review => sliceFn(review.startDate)))];
+
+// 읽은 책 리뷰의 날짜에서 가장 최근 날짜를 찾는 함수
+const findMostRecent = (values: string[], defaultValue: string) => 
+  values.length ? values.reduce((max, current) => current > max ? current : max) : defaultValue;
+
 export const useDateFilteredReviews = (readReviews: Review[]) => {
-  // 읽은 책 중에서 연도만 담은 배열
-  const startYears = useMemo(() => readReviews.map(review => review.startDate.slice(0, 4)), [readReviews]);
+  const { currentYear, currentMonth } = getCurrentDateInfo();
 
-  // 중복 연도 제거
-  const uniqueStartYears = useMemo(() => [...new Set(startYears)], [startYears]);
+  const uniqueStartYears = useMemo(() => extractUniqueValues(readReviews, date => date.slice(0, 4)), [readReviews]);
+  const uniqueStartMonths = useMemo(() => extractUniqueValues(readReviews, date => date.slice(5, 7)), [readReviews]);
 
-  // 읽은 책 중에서 가장 최근 연도
-  const recentYear = useMemo(() => {
-    if (uniqueStartYears.length === 0) {
-      return getCurrentDateInfo().currentYear;
-    }
-    return uniqueStartYears.reduce((max, current) => current > max ? current : max);
-  }, [uniqueStartYears]);
-
-  const { currentMonth } = getCurrentDateInfo();
+  const recentYear = useMemo(() => findMostRecent(uniqueStartYears, currentYear), [uniqueStartYears, currentYear]);
+  const recentMonth = useMemo(() => findMostRecent(uniqueStartMonths, currentMonth), [uniqueStartMonths, currentMonth]);
 
   const [selectedYear, setSelectedYear] = useState(recentYear);
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [selectedMonth, setSelectedMonth] = useState(recentMonth);
 
   // 선택한 연도와 맞는 리뷰
   const matchingYearReviews = useMemo(() => 
