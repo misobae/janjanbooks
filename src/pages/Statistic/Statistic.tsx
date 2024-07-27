@@ -41,8 +41,8 @@ function Statistic() {
 
   const navigate = useNavigate();
   const setBookData = useSetRecoilState(bookState);
-  const handleBookClick = ({ img, title, authors, publisher, id }: Review) => {
-    setBookData({ thumbnail: img, title, authors, publisher, id });
+  const handleBookClick = ({ thumbnail, title, authors, publisher, id }: Review) => {
+    setBookData({ thumbnail, title, authors, publisher, id });
     navigate(`/record/${id}`);
   };
 
@@ -73,10 +73,7 @@ function Statistic() {
           <div key={item.id}>
             <BookListItem
               handleBookClick={() => handleBookClick(item)}
-              thumbnail={item.img}
-              title={item.title}
-              authors={item.authors}
-              publisher={item.publisher}
+              {...item}
             />
           </div>
         ))

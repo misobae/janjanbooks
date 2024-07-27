@@ -20,8 +20,8 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
   const navigate = useNavigate();
   const setBookState = useSetRecoilState(bookState);
   const handleBookClick = (data: Review) => {
-    const { img, title, authors, publisher, id } = data;
-    setBookState({ thumbnail: img, title, authors, publisher, id });
+    const { id } = data;
+    setBookState(data);
     
     navigate(`/record/${id}`);
   };
@@ -61,13 +61,13 @@ function ReadStateList({ title, category, path }: ReadStateListProps) {
               onClick={() => handleBookClick(data)}
               className="h-full px-1 lg:px-2 cursor-pointer"
             >
-              { data.img === "" ? (
+              { data.thumbnail === "" ? (
                 <NoBookCover />
                 ) : (
                 <img
                   width="120" height="174"
                   className="block w-full aspect-[120/174]"
-                  src={data.img} alt={data.title+'북 커버'}
+                  src={data.thumbnail} alt={data.title+'북 커버'}
                 />
               )}
             </div>

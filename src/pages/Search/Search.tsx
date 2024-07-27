@@ -84,10 +84,7 @@ function Result() {
                     >
                       <BookListItem
                         handleBookClick={() => handleBookClick(book)}
-                        thumbnail={book.thumbnail}
-                        title={book.title}
-                        authors={book.authors}
-                        publisher={book.publisher}
+                        {...book}
                       />
                     </div>
                   ))}

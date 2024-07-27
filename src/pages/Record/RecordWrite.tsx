@@ -61,7 +61,7 @@ function RecordWrite() {
               handleClickSaveBtn({
                 id: bookData.isbn,
                 cat: cat,
-                img: bookData.thumbnail,
+                thumbnail: bookData.thumbnail,
                 title: bookData.title,
                 authors: bookData.authors,
                 publisher: bookData.publisher,

@@ -45,7 +45,7 @@ function RecordView() {
 
         <div className="rounded-br-[48px] py-10 bg-black">
           <BookInfoBox
-            thumbnail={matchedReview.img}
+            thumbnail={matchedReview.thumbnail}
             title={matchedReview.title}
             authors={matchedReview.authors}
             publisher={matchedReview.publisher}

@@ -1,7 +1,7 @@
 export interface Review {
   id: string | undefined;
   cat: string;
-  img: string;
+  thumbnail: string;
   title: string;
   authors: string[];
   publisher: string;
