@@ -1,5 +1,5 @@
 export interface Review {
-  id: string | undefined;
+  id?: string;
   cat: string;
   thumbnail: string;
   title: string;

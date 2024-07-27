@@ -1,19 +1,12 @@
 import { formatDate } from "../../../utils/dateFormat";
+import { Review } from "../../../types/review";
 
 import ProgressLabel from "./ProgressLabel";
 import ProgressInput from "./ProgressInput";
 import BookInfoBox from "./BookInfoBox";
 import ReadingPeriod from "./ReadingPeriod";
 
-interface ProgressTrackerProps {
-  thumbnail: string;
-  title: string;
-  authors: string[];
-  publisher: string;
-  cat: string;
-  startDate: string;
-  endDate: string;
-  review: string;
+interface ProgressTrackerProps extends Review {
   setCat: React.Dispatch<React.SetStateAction<string>>;
   setStartDate: React.Dispatch<React.SetStateAction<string>>;
   setEndDate: React.Dispatch<React.SetStateAction<string>>;
