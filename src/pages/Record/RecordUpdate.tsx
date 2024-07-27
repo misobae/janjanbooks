@@ -80,7 +80,7 @@ function RecordUpdate() {
               handleClickSaveBtn({
                 id: matchedReview.id,
                 cat: cat,
-                img: matchedReview.img,
+                thumbnail: matchedReview.thumbnail,
                 title: matchedReview.title,
                 authors: matchedReview.authors,
                 publisher: matchedReview.publisher,
@@ -96,7 +96,7 @@ function RecordUpdate() {
       
       {matchedReview && (
         <ProgressTracker
-          thumbnail={matchedReview.img}
+          thumbnail={matchedReview.thumbnail}
           title={matchedReview.title}
           authors={matchedReview.authors}
           publisher={matchedReview.publisher}

@@ -18,8 +18,7 @@ function RecordSearch() {
     navigate(`/record/${review.id}`);
   };
   const updateBookState = (review: Review) => {
-    const { img, title, authors, publisher, id } = review;
-    setBookData({ thumbnail: img, title, authors, publisher, id });
+    setBookData(review);
   };
 
   const handleBookClick = (review: Review) => {
@@ -40,10 +39,7 @@ function RecordSearch() {
             <div key={item.id}>
               <BookListItem
                 handleBookClick={() => handleBookClick(item)}
-                thumbnail={item.img}
-                title={item.title}
-                authors={item.authors}
-                publisher={item.publisher}
+                {...item}
               />
             </div>
           ))}

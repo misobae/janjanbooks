@@ -26,8 +26,7 @@ function RecordListCat() {
 
   // 책 정보 상태 업데이트
   const updateBookState = (review: Review) => {
-    const { img, title, authors, publisher, id } = review;
-    setBookState({ thumbnail: img, title, authors, publisher, id });
+    setBookState(review);
   };
 
   // 썸네일 클릭 함수
@@ -65,12 +64,12 @@ function RecordListCat() {
               onClick={() => handleClickThumb(review)}
             >
               <div className="mb-2 border">
-                { review.img === "" ? (
+                { review.thumbnail === "" ? (
                   <NoBookCover />
                   ) : (
                   <img
                     className="block w-full"
-                    src={review.img} alt={review.title+'북 커버'}
+                    src={review.thumbnail} alt={review.title+'북 커버'}
                   />
                 )}
               </div>
