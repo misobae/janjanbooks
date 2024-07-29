@@ -16,8 +16,8 @@ function RecordUpdate() {
   const matchedReview = bookReviews.find(review => String(review.id) === id);
 
   const [cat, setCat] = useState<string>(matchedReview?.cat || "");
-  const [startDate, setStartDate] = useState<string>(matchedReview?.startDate || "");
-  const [endDate, setEndDate] = useState<string>(matchedReview?.endDate || "");
+  const [startDate, setStartDate] = useState<Date>(matchedReview?.startDate || new Date());
+  const [endDate, setEndDate] = useState<Date>(matchedReview?.endDate || new Date());
   const [review, setReview] = useState<string>(matchedReview?.review || "");
 
   const navigate = useNavigate();

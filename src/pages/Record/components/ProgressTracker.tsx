@@ -1,4 +1,3 @@
-import { formatDate } from "../../../utils/dateFormat";
 import { Review } from "../../../types/review";
 
 import ProgressLabel from "./ProgressLabel";
@@ -8,8 +7,8 @@ import ReadingPeriod from "./ReadingPeriod";
 
 interface ProgressTrackerProps extends Review {
   setCat: React.Dispatch<React.SetStateAction<string>>;
-  setStartDate: React.Dispatch<React.SetStateAction<string>>;
-  setEndDate: React.Dispatch<React.SetStateAction<string>>;
+  setStartDate: React.Dispatch<React.SetStateAction<Date>>;
+  setEndDate: React.Dispatch<React.SetStateAction<Date>>;
   setReview: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -18,16 +17,13 @@ function ProgressTracker({
   setCat, setStartDate, setEndDate, setReview
 }: ProgressTrackerProps) {
 
-  const today = new Date();
-  const formattedToday = formatDate(today);
   const handleDateChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    setDate: React.Dispatch<React.SetStateAction<string>>
+    setDate: React.Dispatch<React.SetStateAction<Date>>
   ) => {
     const inputValue = event.target.value;
     const parsedDate = new Date(inputValue);
-    const formattedDate = formatDate(parsedDate);
-    setDate(formattedDate);
+    setDate(parsedDate);
   };
 
   const handleRadioChange = (option: string) => {
@@ -63,7 +59,6 @@ function ProgressTracker({
         </div>
         <div className="md:flex-initial md:w-1/2">
           <ReadingPeriod
-            formattedToday={formattedToday}
             startDate={startDate}
             endDate={endDate}
             readonly={false}

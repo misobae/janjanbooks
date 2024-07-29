@@ -1,20 +1,22 @@
 type HandleDateChangeType = (
   event: React.ChangeEvent<HTMLInputElement>,
-  setDate: React.Dispatch<React.SetStateAction<string>>
+  setDate: React.Dispatch<React.SetStateAction<Date>>
 ) => void;
 
 interface ReadingPeriodProps {
-  formattedToday?: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   readonly: boolean;
   handleDateChange?: HandleDateChangeType | undefined;
-  setStartDate?: React.Dispatch<React.SetStateAction<string>>;
-  setEndDate?: React.Dispatch<React.SetStateAction<string>>;
+  setStartDate?: React.Dispatch<React.SetStateAction<Date>>;
+  setEndDate?: React.Dispatch<React.SetStateAction<Date>>;
 };
 
-function ReadingPeriod({ formattedToday, startDate, endDate, readonly, handleDateChange, setStartDate, setEndDate}: ReadingPeriodProps) {
-  
+const today = new Date();
+const dateToString = (date: Date) => date.toISOString().split('T')[0];
+
+function ReadingPeriod({ startDate, endDate, readonly, handleDateChange, setStartDate, setEndDate}: ReadingPeriodProps) {
+
   return (
     <>
       <h3 className="mb-2 text-white">독서 기간</h3>
@@ -27,9 +29,9 @@ function ReadingPeriod({ formattedToday, startDate, endDate, readonly, handleDat
         <input
           type="date"
           id="startDate"
-          max={formattedToday}
+          max={dateToString(today)}
           min="1960-01-01"
-          value={startDate}
+          value={dateToString(startDate)}
           readOnly={readonly}
           onChange={readonly ? undefined : (e) => handleDateChange?.(e, setStartDate!)} 
         />
@@ -43,9 +45,9 @@ function ReadingPeriod({ formattedToday, startDate, endDate, readonly, handleDat
         <input
           type="date"
           id="endDate"
-          max={formattedToday}
-          min={startDate}
-          value={endDate}
+          max={dateToString(today)}
+          min={dateToString(startDate)}
+          value={dateToString(endDate)}
           readOnly={readonly}
           onChange={readonly ? undefined : (e) => handleDateChange?.(e, setEndDate!)} 
         />

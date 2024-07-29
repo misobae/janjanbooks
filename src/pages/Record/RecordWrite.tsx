@@ -15,8 +15,8 @@ function RecordWrite() {
   const bookData = useRecoilValue(bookState);
   const setBookReviews = useSetRecoilState(bookReviewState);
   const [cat, setCat] = useState<string>("read");
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
   const [review, setReview] = useState<string>("");
 
   const navigate = useNavigate();
