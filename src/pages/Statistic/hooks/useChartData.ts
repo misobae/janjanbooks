@@ -3,20 +3,25 @@ import { useMemo } from "react";
 import { Review } from "../../../types/review";
 import { MONTH } from "../../../constants/month"
 
-const getReviewsCountByMonth = (year: string, reviews: Review[]) => {
-  return MONTH.map((month) => {
-    const filterCondition = `${year}-${month}`;
-    const matchingReviews = reviews.filter(review => review.startDate.startsWith(filterCondition));
-    const monthName = month.startsWith('0') ? month.substring(1) : month;
+// 연도+월이 일치하는 리뷰 필터링 함수
+const filterReviewsByMonthAndYear = (reviews: Review[], year: number, month: number) => {
+  return reviews.filter(review => {
+    const reviewDate = new Date(review.startDate);
+    return reviewDate.getFullYear() === year && reviewDate.getMonth() === month - 1;
+  });
+};
 
+const getReviewsCountByMonth = (year: number, reviews: Review[]) => {
+  return MONTH.map((month) => {
+    const matchingReviews = filterReviewsByMonthAndYear(reviews, year, month);
     return {
-      x: `${monthName}월`,
+      x: `${month}월`,
       y: matchingReviews.length
     };
   });
 };
 
-export const useChartData = (selectedYear: string, readReviews: Review[]) => {
+export const useChartData = (selectedYear: number, readReviews: Review[]) => {
   const reviewsCountByMonth = useMemo(() => 
     readReviews.length > 0 ? getReviewsCountByMonth(selectedYear, readReviews) : [],
     [selectedYear, readReviews]
@@ -29,4 +34,4 @@ export const useChartData = (selectedYear: string, readReviews: Review[]) => {
   }];
 
   return dataForChart;
-}
+};
