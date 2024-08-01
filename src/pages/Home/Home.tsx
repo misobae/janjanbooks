@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { bookReviewState } from "../../recoil/review";
 
-import NoBook from "../../components/common/NoBook";
+import NoBook from "../../components/ui/NoBook";
 import ReadStateList from "./components/ReadStateList";
 
 function Home() {
