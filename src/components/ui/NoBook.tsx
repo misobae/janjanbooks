@@ -1,6 +1,9 @@
-import IconBook from "../../assets/images/icon_reading_wh.svg"
+// <NoBook />
+// : 저장된 독서 기록이 없을 경우 페이지 레이아웃 대신에 보여주는 컴포넌트
+
 import { Link } from "react-router-dom";
-import Btn from "../ui/button/Btn";
+import IconBook from "../../assets/images/icon_reading_wh.svg"
+import Btn from "./button/Btn";
 
 interface NoBookProps {
   text?: string;

@@ -9,7 +9,7 @@ import { useDateFilteredReviews } from "./hooks/useDateFilteredReviews";
 import { useChartData } from "./hooks/useChartData";
 
 import BookListItem from "../../components/ui/list/BookListItem";
-import NoBook from '../../components/common/NoBook';
+import NoBook from '../../components/ui/NoBook';
 import DateSelector from "./components/DateSelector";
 import ReadingStatsChart from "./components/ReadingStatsChart";
 import BookCountByDate from "./components/BookCountByDate";
@@ -26,12 +26,11 @@ function Statistic() {
     matchingYearReviews,
     matchingYearMonthReviews
    } = useDateFilteredReviews(readReviews);
-
+   
   if (readReviews.length === 0) {
     return <NoBook />;
   }
   const dataForChart = useChartData(selectedYear, readReviews);
-
   const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(e.target.value);
   };

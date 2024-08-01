@@ -1,4 +1,4 @@
-import NoBookCover from "../NoBookCover";
+import NoBookCover from "../../common/NoBookCover";
 
 interface BookListItemProps {
   thumbnail: string;

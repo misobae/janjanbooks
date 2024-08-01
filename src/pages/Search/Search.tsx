@@ -12,7 +12,7 @@ import { searchedWordState } from "../../recoil/searchedWord";
 
 import BookListItem from "../../components/ui/list/BookListItem";
 import ConfirmModal from "../../components/ui/modal/ConfirmModal";
-import Spinner from "../../components/ui/Spinner";
+import Spinner from "../../components/common/Spinner";
 
 function Result() {
   const navigate = useNavigate();
