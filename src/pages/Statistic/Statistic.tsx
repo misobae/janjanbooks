@@ -26,17 +26,16 @@ function Statistic() {
     matchingYearReviews,
     matchingYearMonthReviews
    } = useDateFilteredReviews(readReviews);
-
+   
   if (readReviews.length === 0) {
     return <NoBook />;
   }
   const dataForChart = useChartData(selectedYear, readReviews);
-
   const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(Number(e.target.value));
+    setSelectedYear(e.target.value);
   };
   const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMonth(Number(e.target.value));
+    setSelectedMonth(e.target.value);
   };
 
   const navigate = useNavigate();
