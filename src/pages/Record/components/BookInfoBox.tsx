@@ -1,4 +1,4 @@
-import NoBookCover from "../../../components/ui/NoBookCover";
+import NoBookCover from "../../../components/common/NoBookCover";
 import { Book } from "../../../types/book";
 
 function BookInfoBox({thumbnail, title, authors, publisher}: Book) {

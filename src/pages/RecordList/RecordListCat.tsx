@@ -6,7 +6,7 @@ import { bookReviewState, selectedReviewState } from "../../recoil/review";
 import { Review } from "../../types/review";
 
 import NoBook from "../../components/common/NoBook";
-import NoBookCover from "../../components/ui/NoBookCover";
+import NoBookCover from "../../components/common/NoBookCover";
 import TabBtn from "./components/TabBtn";
 import SortBtn from "./components/SortBtn";
 
