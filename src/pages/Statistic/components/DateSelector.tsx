@@ -1,14 +1,14 @@
 interface DateSelectorProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  value: string;
-  arr: string[];
+  value: number;
+  arr: number[];
   dateUnit: string;
 }
 
 function DateSelector({ handleChange, value, arr, dateUnit }: DateSelectorProps) {
   return (
     <div className="grid">
-      <select
+      <select 
         onChange={handleChange}
         value={value}
         className="appearance-none row-start-1 col-start-1 border border-gray-600 pl-4 pr-7 py-1 rounded-xl font-semibold"
@@ -18,7 +18,7 @@ function DateSelector({ handleChange, value, arr, dateUnit }: DateSelectorProps)
             key={`item-${index}`}
             value={item}
           >
-            {item.startsWith('0') ? item.substring(1) : item}{dateUnit}
+            {item}{dateUnit}
           </option>
         ))}
       </select>

@@ -32,10 +32,10 @@ function Statistic() {
   }
   const dataForChart = useChartData(selectedYear, readReviews);
   const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(e.target.value);
+    setSelectedYear(Number(e.target.value));
   };
   const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMonth(e.target.value);
+    setSelectedMonth(Number(e.target.value));
   };
 
   const navigate = useNavigate();

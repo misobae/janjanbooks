@@ -1,7 +1,8 @@
-
+import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { bookReviewState } from '../../recoil/review';
 import { getCurrentDateInfo } from '../../utils/dateFormat';
+
 import Header from './Header';
 import BookSearchBox from '../form/BookSearchBox';
 import RecordSearchBox from '../form/RecordSearchBox';
@@ -14,8 +15,14 @@ interface HeaderRendererProp {
 const HeaderRenderer = ({ pathname }: HeaderRendererProp) => {
   const bookReviews = useRecoilValue(bookReviewState);
   const readReviews = bookReviews.filter(review => review.cat === "read");
-  const { currentYearAndMonth } = getCurrentDateInfo();
-  const matchingCurrentDateReviews = readReviews.filter(review => review.startDate.slice(0, 7) === currentYearAndMonth);
+  const { currentYear, currentMonth } = getCurrentDateInfo();
+  const matchingYearMonthReviews = useMemo(() => 
+    readReviews.filter(review => 
+      review.startDate.getFullYear() === currentYear &&
+      review.startDate.getMonth() + 1 === currentMonth
+    ),
+    [readReviews, currentYear, currentMonth]
+  );
 
   const homePath = pathname === "/";
   const listPath = pathname.includes('/list');
@@ -58,7 +65,7 @@ const HeaderRenderer = ({ pathname }: HeaderRendererProp) => {
 
   if (statPath) {
     return readReviews.length > 0 ? (
-      <Header text={`이번 달에는\n${matchingCurrentDateReviews.length}권의 책을 읽었어요.`} />
+      <Header text={`이번 달에는\n${matchingYearMonthReviews.length}권의 책을 읽었어요.`} />
     ) : (
       <Header text={`[읽은 책]에 작성된 기록이 없어요.\n다 읽은 책을 기록해 보세요.`} />
     );

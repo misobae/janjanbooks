@@ -15,9 +15,8 @@ export function formatDate(date: Date) {
 
 export function getCurrentDateInfo() {
   const today = new Date();
-  const currentYear = String(today.getFullYear());
-  const currentMonth = `${today.getMonth() + 1 < 10 ? '0' : ''}${today.getMonth() + 1}`;
-  const currentYearAndMonth = `${currentYear}-${currentMonth}`;
-
-  return { currentYear, currentMonth, currentYearAndMonth };
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth() + 1;
+  
+  return { currentYear, currentMonth };
 };
